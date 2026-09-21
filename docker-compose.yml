@@ -1,0 +1,65 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: smart_rms_backend
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=development
+      - DEBUG=True
+      - AI_PROVIDER=mock
+      - VECTOR_STORE_TYPE=mock
+      - INTEGRATION_MODE=mock
+      - CORS_ORIGINS=http://localhost:5173,http://localhost:3000
+    volumes:
+      - ./backend:/app
+      - ./data:/data
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: smart_rms_frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8000
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  # Local vector store (available when switching VECTOR_STORE_TYPE to chroma)
+  chromadb:
+    image: chromadb/chroma:0.5.5
+    container_name: smart_rms_chroma
+    ports:
+      - "8001:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+    profiles:
+      - storage
+
+  # Relational DB (planned for production persistence)
+  postgres:
+    image: postgres:16-alpine
+    container_name: smart_rms_postgres
+    environment:
+      POSTGRES_USER: smart_rms_user
+      POSTGRES_PASSWORD: smart_rms_pass
+      POSTGRES_DB: smart_rms_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    profiles:
+      - storage
+
+volumes:
+  chroma_data:
+  postgres_data:

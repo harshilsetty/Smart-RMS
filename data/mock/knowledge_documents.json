@@ -1,0 +1,74 @@
+[
+  {
+    "document_id": "DOC-2024-HOSTEL-01",
+    "title": "Hostel Code of Conduct & Maintenance Regulations 2024",
+    "department": "Hostel Affairs",
+    "effective_date": "2024-01-01",
+    "clause": "Section 4, Clause 4.2 (Appliance & Electrical Maintenance)",
+    "content": "Maintenance requests for electrical and air cooling issues must be inspected by the maintenance supervisor within 24 hours of ticket submission. If replacement of parts is required, the resolution window is 48 hours. Emergency issues involving water leakage near electrical fixtures must be treated as priority hazard cases and attended within 4 hours.",
+    "keywords": ["hostel", "leakage", "ac unit", "electrical", "maintenance", "warden", "repair"]
+  },
+  {
+    "document_id": "DOC-2024-FIN-02",
+    "title": "University Fee Payment & Refund Policy 2024-25",
+    "department": "Accounts & Finance",
+    "effective_date": "2024-04-01",
+    "clause": "Clause 8.3 (Duplicate Online Payment Settlement)",
+    "content": "In cases where a student's bank account is debited multiple times for a single semester fee installment due to payment gateway timeout, the excess amount is reconciled within 3 working days with the payment aggregator. Refunds for confirmed duplicate debits are credited back to the source bank account within 7 to 10 working days upon submission of the bank debit advice.",
+    "keywords": ["fee", "duplicate", "deducted twice", "refund", "accounts", "bank", "payment gateway", "tuition"]
+  },
+  {
+    "document_id": "DOC-2024-ACAD-03",
+    "title": "Continuous Assessment & Grade Evaluation By-Laws",
+    "department": "Academic Affairs",
+    "effective_date": "2023-08-01",
+    "clause": "Clause 5.4 (Discrepancy in Continuous Assessment Records)",
+    "content": "A student identifying an inconsistency between evaluated continuous assessment (CA) marks and the marks uploaded on the Grade Management System may register a grievance within 7 days of grade publication. The course instructor and Head of Department must verify the physical or digital evaluation rubric and rectify any clerical data-entry error within 5 working days.",
+    "keywords": ["ca marks", "continuous assessment", "marks discrepancy", "grade", "rubric", "course coordinator"]
+  },
+  {
+    "document_id": "DOC-2024-EXAM-04",
+    "title": "Examination Conduct & Hall Ticket Release Rules",
+    "department": "Examination Branch",
+    "effective_date": "2024-02-15",
+    "clause": "Regulation 12.1 (Hall Ticket / Admit Card Clearance Hold)",
+    "content": "Admit cards are generated 7 days prior to the commencement of End Term Examinations. In the event of an erroneous administrative hold (e.g. library or laboratory clearance), the student may present an official return counter receipt. The Examination Branch is authorized to execute an emergency temporary clearance override within 4 hours to guarantee the student's right to appear in the scheduled examination.",
+    "keywords": ["admit card", "hall ticket", "examination", "blocked", "clearance", "library", "end term"]
+  },
+  {
+    "document_id": "DOC-2024-WELFARE-05",
+    "title": "Student Attendance & Medical Leave Regulations",
+    "department": "Student Welfare",
+    "effective_date": "2023-07-01",
+    "clause": "Section 7, Clause 7.2 (Medical Leave Attendance Condonation)",
+    "content": "Students with severe illness or hospitalization may apply for medical leave duty adjustment. The application must be supported by a certified discharge summary from a registered medical practitioner and endorsed by the University Health Center. If approved, attendance credit of up to a maximum of 10% (adjusting threshold to 65%) will be granted.",
+    "keywords": ["attendance", "medical leave", "hospitalization", "dengue", "condonation", "health center"]
+  },
+  {
+    "document_id": "DOC-2024-SCHOL-06",
+    "title": "Government & External Scholarship Verification Guidelines",
+    "department": "Scholarship Section",
+    "effective_date": "2024-03-01",
+    "clause": "Section 3, Clause 3.1 (Institutional Verification Timeline)",
+    "content": "Institutional verification for state and national scholarship schemes (including NSP and PMS) must be completed by the designated Nodal Officer at least 5 days before the statutory portal closing date. Students must ensure their Aadhaar linkage and enrolled status are verified in the central registry prior to final portal submission.",
+    "keywords": ["scholarship", "nsp", "national scholarship", "post-matric", "institutional verification"]
+  },
+  {
+    "document_id": "DOC-2024-IT-07",
+    "title": "Campus IT Infrastructure & Wi-Fi Access Policy",
+    "department": "IT Services",
+    "effective_date": "2024-01-10",
+    "clause": "Clause 2.4 (Device Quota and MAC Address Re-binding)",
+    "content": "Each registered student is allotted two active device MAC registrations on the campus secure wireless network. When an existing device is deleted, RADIUS synchronization takes up to 60 minutes to flush stale leases. In case of persistent allocation lockouts, IT helpdesk personnel can execute a manual RADIUS session reset.",
+    "keywords": ["wi-fi", "mac address", "fortinet", "radius", "network", "portal login", "device limit"]
+  },
+  {
+    "document_id": "DOC-2024-REG-08",
+    "title": "Official Student Certificate & Academic Document Issuance SOP",
+    "department": "Academic Affairs",
+    "effective_date": "2024-01-01",
+    "clause": "SOP-14 (Bonafide & Medium of Instruction Issuance)",
+    "content": "Bonafide Student Certificates and English Medium of Instruction (MOI) verification letters for official purposes (such as visa, passport, or exchange programs) are issued as digitally signed e-certificates within 3 working days through the student portal, provided all semester fee dues are cleared.",
+    "keywords": ["bonafide", "certificate", "medium of instruction", "visa", "exchange program"]
+  }
+]

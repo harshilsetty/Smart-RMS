@@ -1,0 +1,58 @@
+[
+  {
+    "id": "DEPT-HOSTEL",
+    "name": "Hostel Affairs",
+    "code": "HA",
+    "sla_hours": 24,
+    "hod_contact": "hod.hostels@lpu.ac.in",
+    "description": "Hostel accommodation, room maintenance, mess services, and student residential conduct."
+  },
+  {
+    "id": "DEPT-ACCOUNTS",
+    "name": "Accounts & Finance",
+    "code": "AF",
+    "sla_hours": 48,
+    "hod_contact": "finance.officer@lpu.ac.in",
+    "description": "Tuition fees, online payment reconciliations, scholarship disbursements, and fee refunds."
+  },
+  {
+    "id": "DEPT-ACADEMICS",
+    "name": "Academic Affairs",
+    "code": "AA",
+    "sla_hours": 48,
+    "hod_contact": "dean.academics@lpu.ac.in",
+    "description": "Continuous assessment (CA), syllabus disputes, teacher feedback, and credit registrations."
+  },
+  {
+    "id": "DEPT-EXAM",
+    "name": "Examination Branch",
+    "code": "EB",
+    "sla_hours": 12,
+    "hod_contact": "coe@lpu.ac.in",
+    "description": "End-term examinations, hall tickets, re-evaluation applications, and grade transcripts."
+  },
+  {
+    "id": "DEPT-WELFARE",
+    "name": "Student Welfare",
+    "code": "SW",
+    "sla_hours": 36,
+    "hod_contact": "dean.dsw@lpu.ac.in",
+    "description": "Medical leave attendance condonation, student clubs, grievance redressal, and discipline."
+  },
+  {
+    "id": "DEPT-SCHOLARSHIP",
+    "name": "Scholarship Section",
+    "code": "SS",
+    "sla_hours": 72,
+    "hod_contact": "scholarships@lpu.ac.in",
+    "description": "National and state scholarship portal verifications, merit scholarships, and freeships."
+  },
+  {
+    "id": "DEPT-IT",
+    "name": "IT Services",
+    "code": "IT",
+    "sla_hours": 24,
+    "hod_contact": "helpdesk@lpu.ac.in",
+    "description": "Student UMS credentials, Wi-Fi device registrations, email provisioning, and laboratory IT."
+  }
+]

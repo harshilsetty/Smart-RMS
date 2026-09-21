@@ -1,0 +1,218 @@
+[
+  {
+    "ticket_id": "TKT-RMS-1001",
+    "student_reference": "STU-SYN-8492",
+    "subject": "Water leakage and noisy AC unit in BH-4 Room 312",
+    "description": "Respected Warden Office, I am staying in Boys Hostel 4 (BH-4), Room 312. Since yesterday morning, the split AC unit is continuously leaking water into the room and making a loud rattling motor noise. It is dripping right near the electrical switchboard which is unsafe. My contact number is +91-9876543210. Kindly send a maintenance electrician to inspect as soon as possible. My registration is REG-2023-8492.",
+    "category": "Hostel",
+    "department": "Hostel Affairs",
+    "priority": "High",
+    "status": "STAFF_REVIEW",
+    "created_at": "2026-09-20T14:30:00Z",
+    "attachments": ["photo_ac_leakage.jpg"],
+    "ai_analysis": {
+      "intent": "HOSTEL_MAINTENANCE",
+      "suggested_department": "Hostel Affairs",
+      "priority_score": 3,
+      "urgency_level": "High",
+      "pii_detected": ["[REDACTED_PHONE]", "[REDACTED_REG_NO]"],
+      "entities": {
+        "hostel_block": "BH-4",
+        "room_number": "312",
+        "issue": "Water leakage near electrical switchboard"
+      },
+      "summary": "Urgent hostel room maintenance request for AC leakage near electrical board in BH-4 Room 312.",
+      "suggested_action": "Dispatch maintenance electrician within 24-hour SLA window."
+    },
+    "confidence": 0.95
+  },
+  {
+    "ticket_id": "TKT-RMS-1002",
+    "student_reference": "STU-SYN-3910",
+    "subject": "Semester fee deducted twice from bank account via online payment gateway",
+    "description": "Dear Accounts Team, While paying my Term 5 tuition fee of INR 65,000 on 18th Sept through the student portal payment gateway, the session timed out. However, the amount was debited twice from my HDFC bank account (Transaction IDs: TXN-892183921 and TXN-892183925). Only one transaction reflects in my fee ledger. Please initiate a refund for the duplicate transaction. Email: student.mock@lpu.in.",
+    "category": "Finance",
+    "department": "Accounts & Finance",
+    "priority": "High",
+    "status": "STAFF_REVIEW",
+    "created_at": "2026-09-19T10:15:00Z",
+    "attachments": ["bank_debit_statement.pdf"],
+    "ai_analysis": {
+      "intent": "FEE_DUPLICATE_PAYMENT_REFUND",
+      "suggested_department": "Accounts & Finance",
+      "priority_score": 3,
+      "urgency_level": "High",
+      "pii_detected": ["[REDACTED_TXN_ID]", "[REDACTED_EMAIL]"],
+      "entities": {
+        "amount": "INR 65,000",
+        "bank": "HDFC Bank",
+        "date": "18th Sept 2026"
+      },
+      "summary": "Duplicate tuition fee debit of INR 65,000 during online portal payment with proof attached.",
+      "suggested_action": "Reconcile payment gateway settlement ledger and initiate refund within 7 working days."
+    },
+    "confidence": 0.94
+  },
+  {
+    "ticket_id": "TKT-RMS-1003",
+    "student_reference": "STU-SYN-5120",
+    "subject": "Continuous Assessment (CA-2) marks discrepancy for CSE 472",
+    "description": "Respected Dean of Academics, I received 12/30 in my CA-2 assignment for CSE 472 Deep Learning for NLP. However, in the assignment submission portal, the rubric shows 27/30 given by the course instructor. It seems the marks were erroneously updated in the grade ledger as 12 instead of 27. I have attached the screenshot of the evaluator remarks. Registration ID: 12204918.",
+    "category": "Academics",
+    "department": "Academic Affairs",
+    "priority": "Medium",
+    "status": "STAFF_REVIEW",
+    "created_at": "2026-09-20T09:00:00Z",
+    "attachments": ["ca_rubric_screenshot.png"],
+    "ai_analysis": {
+      "intent": "GRADE_DISCREPANCY",
+      "suggested_department": "Academic Affairs",
+      "priority_score": 2,
+      "urgency_level": "Medium",
+      "pii_detected": ["[REDACTED_REG_NO]"],
+      "entities": {
+        "course_code": "CSE 472",
+        "course_title": "Deep Learning for Natural Language",
+        "score_claimed": "27/30",
+        "score_recorded": "12/30"
+      },
+      "summary": "Discrepancy between evaluated rubric score (27) and ledger score (12) for course CSE 472.",
+      "suggested_action": "Verify marks with course coordinator and update Grade Management System."
+    },
+    "confidence": 0.91
+  },
+  {
+    "ticket_id": "TKT-RMS-1004",
+    "student_reference": "STU-SYN-7741",
+    "subject": "Admit card blocked due to library clearance error before End Term Exam",
+    "description": "Urgent attention required: My End Term Examination starts in 48 hours (23rd Sept). When I went to download my Examination Admit Card, it says 'Hall Ticket Blocked - Pending Library Clearance'. I had already returned the book 'Operating System Concepts' on 10th September and received the physical return slip from Central Library counter 3. Please clear the hold immediately so I can download my hall ticket.",
+    "category": "Examination",
+    "department": "Examination Branch",
+    "priority": "Critical",
+    "status": "STAFF_REVIEW",
+    "created_at": "2026-09-21T07:45:00Z",
+    "attachments": ["library_return_slip.jpg"],
+    "ai_analysis": {
+      "intent": "EXAM_ADMIT_CARD_BLOCKED",
+      "suggested_department": "Examination Branch",
+      "priority_score": 4,
+      "urgency_level": "Critical",
+      "pii_detected": [],
+      "entities": {
+        "exam_window": "Starts in 48 hours",
+        "blocking_reason": "Library Clearance Hold",
+        "proof": "Return slip present"
+      },
+      "summary": "Urgent admit card hold due to clearance flag error with exam commencing in 48 hours.",
+      "suggested_action": "Expedited library clearance override and admit card unblocking within 4 hours."
+    },
+    "confidence": 0.97
+  },
+  {
+    "ticket_id": "TKT-RMS-1005",
+    "student_reference": "STU-SYN-1902",
+    "subject": "Medical leave attendance adjustment for hospitalization period (5th to 12th Sept)",
+    "description": "To the Head of Student Welfare, I was admitted to the University Health Center and Civil Hospital due to acute dengue fever from 5th September to 12th September 2026. Because of this, my attendance in CSE 320 and MTH 402 dropped to 71%. I am submitting the certified medical certificate, discharge summary, and fitness certificate. Please adjust my medical leave duty as per university attendance regulations.",
+    "category": "Attendance",
+    "department": "Student Welfare",
+    "priority": "Medium",
+    "status": "DRAFTED",
+    "created_at": "2026-09-18T16:20:00Z",
+    "attachments": ["medical_discharge_summary.pdf", "fitness_certificate.pdf"],
+    "ai_analysis": {
+      "intent": "ATTENDANCE_MEDICAL_ADJUSTMENT",
+      "suggested_department": "Student Welfare",
+      "priority_score": 2,
+      "urgency_level": "Medium",
+      "pii_detected": [],
+      "entities": {
+        "absence_dates": "5th Sept - 12th Sept 2026",
+        "medical_reason": "Dengue fever hospitalization",
+        "affected_courses": ["CSE 320", "MTH 402"]
+      },
+      "summary": "Medical leave attendance adjustment for 7 days hospitalization with medical records attached.",
+      "suggested_action": "Verify medical certificates with University Health Center and grant attendance condonation up to 10%."
+    },
+    "confidence": 0.93
+  },
+  {
+    "ticket_id": "TKT-RMS-1006",
+    "student_reference": "STU-SYN-6619",
+    "subject": "Post-Matric National Scholarship verification pending in state portal",
+    "description": "Dear Scholarship Section, My application for the National Scholarship Portal (NSP 2026) has been marked 'Pending Verification at Institute Level' for the past 3 weeks. The deadline for institutional verification is 30th September. Please verify my application so that the scholarship amount of INR 40,000 can be processed by the state welfare department. My Aadhaar reference is XXXX-XXXX-1234.",
+    "category": "Scholarships",
+    "department": "Scholarship Section",
+    "priority": "High",
+    "status": "STAFF_REVIEW",
+    "created_at": "2026-09-19T11:40:00Z",
+    "attachments": ["nsp_portal_status.pdf"],
+    "ai_analysis": {
+      "intent": "SCHOLARSHIP_VERIFICATION",
+      "suggested_department": "Scholarship Section",
+      "priority_score": 3,
+      "urgency_level": "High",
+      "pii_detected": ["[REDACTED_ID]"],
+      "entities": {
+        "portal": "National Scholarship Portal (NSP)",
+        "deadline": "30th September 2026",
+        "scholarship_value": "INR 40,000"
+      },
+      "summary": "Institute level verification pending on NSP portal nearing deadline on 30th Sept.",
+      "suggested_action": "Nodal scholarship officer to verify student enrollment and mark approved on NSP portal."
+    },
+    "confidence": 0.92
+  },
+  {
+    "ticket_id": "TKT-RMS-1007",
+    "student_reference": "STU-SYN-4421",
+    "subject": "Campus Wi-Fi device MAC registration failure and portal login error",
+    "description": "IT Helpdesk, I recently replaced my laptop. When I try to register the new MAC address (00:1A:2B:3C:4D:5E) on the university Fortinet Wi-Fi registration portal, it gives an error: 'Maximum device limit reached (2/2)'. However, I have already removed my old device from the portal yesterday. Now I am unable to connect to University-Secure Wi-Fi network in academic block 34. Student phone: 9812345678.",
+    "category": "IT Support",
+    "department": "IT Services",
+    "priority": "Low",
+    "status": "STAFF_REVIEW",
+    "created_at": "2026-09-20T18:10:00Z",
+    "attachments": ["wifi_error_screenshot.png"],
+    "ai_analysis": {
+      "intent": "WIFI_MAC_REGISTRATION",
+      "suggested_department": "IT Services",
+      "priority_score": 1,
+      "urgency_level": "Low",
+      "pii_detected": ["[REDACTED_PHONE]"],
+      "entities": {
+        "device_mac": "00:1A:2B:3C:4D:5E",
+        "portal": "Fortinet Wi-Fi Registration",
+        "location": "Academic Block 34"
+      },
+      "summary": "MAC address registration sync issue on Fortinet authentication portal after old device unbinding.",
+      "suggested_action": "Clear stale RADIUS device cache and rebind student MAC profile."
+    },
+    "confidence": 0.89
+  },
+  {
+    "ticket_id": "TKT-RMS-1008",
+    "student_reference": "STU-SYN-8833",
+    "subject": "Request for official Bonafide Certificate and English Medium of Instruction letter for visa",
+    "description": "Respected Registrar, I have applied for a Japanese Student Exchange program for Spring 2027. The embassy requires an official Bonafide Student Certificate with stamp and an official English as Medium of Instruction (MOI) certificate. I have cleared all dues up to semester 5. Please let me know the collection timeline or if it can be sent via signed e-document to student.japan@mock.org.",
+    "category": "Student Services",
+    "department": "Academic Affairs",
+    "priority": "Low",
+    "status": "DRAFTED",
+    "created_at": "2026-09-17T12:00:00Z",
+    "attachments": ["exchange_nomination_letter.pdf"],
+    "ai_analysis": {
+      "intent": "CERTIFICATE_ISSUANCE",
+      "suggested_department": "Academic Affairs",
+      "priority_score": 1,
+      "urgency_level": "Low",
+      "pii_detected": ["[REDACTED_EMAIL]"],
+      "entities": {
+        "certificate_type": ["Bonafide Certificate", "Medium of Instruction Letter"],
+        "purpose": "Visa / Student Exchange"
+      },
+      "summary": "Student request for Bonafide and Medium of Instruction certificates for embassy visa process.",
+      "suggested_action": "Issue digitally signed e-certificates via student document portal within 3 working days."
+    },
+    "confidence": 0.96
+  }
+]
