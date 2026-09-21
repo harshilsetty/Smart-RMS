@@ -95,7 +95,74 @@ flowchart LR
     Workflow --> Staff
 ```
 
-Detailed architectural blueprints are available in [`docs/architecture/`](docs/architecture/).
+---
+
+## 🎬 Visual Tour & Demonstration Gallery
+
+> Experience the interactive Smart RMS Staff Copilot Workstation, automated triage pipeline, RAG policy citations, and analytics dashboard.
+
+### 📽️ Interactive Copilot Workflow Demo
+![Smart RMS Interactive Session](docs/images/smart_rms_copilot_demo.webp)
+
+---
+
+### 1. Staff Workstation Overview
+The frontline administrative dashboard featuring real-time queue metrics, priority filters, multi-department queue, and PII protection status.
+![Staff Workstation Overview](docs/images/01_staff_workstation_overview.png)
+
+---
+
+### 2. Automated AI Triage (Hostel Maintenance & Water Leakage)
+Incoming ticket with automatic intent detection (`HOSTEL_MAINTENANCE`), recommended department routing, urgency calculation (Level 3 - High), and sanitized student identifiers.
+![Hostel Maintenance Triage](docs/images/02_triage_hostel_maintenance.png)
+
+---
+
+### 3. Financial Grievance Triage (Duplicate Semester Fee Refund)
+Student reported dual tuition debit. The AI pipeline extracts transaction amounts, bank gateway entities, and initiates the reconciliation workflow.
+![Duplicate Fee Refund](docs/images/03_finance_duplicate_fee_refund.png)
+
+---
+
+### 4. Grounded Policy Citations (RAG Evidence Verification)
+Smart RMS retrieves the exact clause from official university regulations (*Fee Payment & Refund Policy Clause 8.3*), citing the 7-10 day settlement window.
+![RAG Policy Citations](docs/images/04_finance_rag_citations.png)
+
+---
+
+### 5. Critical Priority Escalation (Admit Card Clearance Hold)
+Examination hall ticket blocked with exams commencing in 48 hours. Tagged as **Level 4 - Critical** with expedited 4-hour emergency clearance directive.
+![Examination Admit Card Critical](docs/images/05_examination_hall_ticket_critical.png)
+
+---
+
+### 6. Academic Affairs Triage (Continuous Assessment CA Marks Discrepancy)
+Inconsistency between evaluator rubric (27/30) and grade ledger record (12/30). AI matches course code `CSE 472` and routes to Academic Affairs.
+![CA Marks Discrepancy](docs/images/06_academics_ca_marks_discrepancy.png)
+
+---
+
+### 7. Student Welfare Triage (Medical Leave Attendance Condonation)
+Hospitalization claim due to dengue fever. RAG matches Attendance Regulation Section 7 (Clause 7.2) for up to 10% attendance condonation upon Health Center verification.
+![Medical Leave Attendance](docs/images/07_attendance_medical_condonation.png)
+
+---
+
+### 8. Operations & Workload Analytics
+Institutional dashboard displaying total RMS volume, mean resolution time (4.2h vs. 72h baseline), and AI draft acceptance rate (88.5%).
+![Operations Analytics](docs/images/08_operations_analytics_workload.png)
+
+---
+
+### 9. Departmental Workload & Severity Breakdown
+Distribution of student grievances across operating branches (Hostel, Accounts, Examination, Academics) and severity levels.
+![Department Severity Distribution](docs/images/09_department_severity_distribution.png)
+
+---
+
+### 10. Interactive FastAPI Swagger Documentation
+Production-grade OpenAPI documentation for all health, ticket lifecycle, analytics, and RAG knowledge search endpoints.
+![FastAPI Swagger UI](docs/images/10_fastapi_swagger_docs.png)
 
 ---
 
