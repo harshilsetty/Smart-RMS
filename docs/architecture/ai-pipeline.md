@@ -1,109 +1,106 @@
-# AI & NLP Pipeline: Smart RMS
+# AI & NLP Pipeline Architecture — Smart RMS Phase 2
 
-## 1. Pipeline Overview
+## 1. Pipeline Overview & Principles
 
-The Smart RMS AI pipeline is engineered to be **deterministic, grounded, privacy-preserving, and verifiable**. It avoids brittle monolithic prompts by separating the analysis into modular stages, each with explicit input/output contracts, confidence thresholds, and safety checkpoints.
+Smart RMS is an AI-assisted University Resolution & Operations System designed under the governing principle:
+> **"AI assists. Humans decide."**
+
+In Phase 2, the system implements a modular, measurable, and human-in-the-loop NLP pipeline that transforms raw student grievance submissions into structured triage records, authoritative policy retrievals, and safely grounded response drafts.
 
 ```mermaid
 flowchart TD
-    In[1. RMS Raw Input] --> Pre[2. Preprocessing & Normalization]
-    Pre --> PII[3. PII Detection & Redaction]
-    PII --> Intent[4. Intent Classification]
-    Intent --> Entity[5. Named Entity Extraction]
-    Entity --> Dept[6. Department Classification]
-    Dept --> Prio[7. Priority & Urgency Scoring]
-    Prio --> RAG[8. RAG Policy Retrieval]
-    RAG --> Gen[9. Grounded Response Draft Generation]
-    Gen --> Val[10. Grounding & Citation Validation]
-    Val --> Staff[11. Staff Copilot Human-in-the-Loop Review]
+    In[1. RMS Raw Input] --> PII[2. PII Detection & Redaction]
+    PII --> Pre[3. NLP Preprocessing & Normalization]
+    Pre --> Ext[4. University Domain Entity Extraction]
+    Ext --> Intent[5. Modular Intent Classification]
+    Intent --> Dept[6. Explainable Department Routing]
+    Dept --> Prio[7. Explainable Urgency & Priority Triage]
+    Prio --> Sim[8. Semantic Similarity Engine]
+    Sim --> Conf[9. Confidence & Review Evaluator]
+    Conf --> RAG[10. Local RAG Retrieval & Chunk Scoring]
+    RAG --> Fallback{Authoritative Policy Available?}
+    Fallback -- Yes (Score >= 0.65) --> Draft[11. Grounded Response Draft]
+    Fallback -- No (Score < 0.65) --> NoSource[12. Strict No-Source-No-Answer Fallback]
+    Draft --> Val[13. Policy Safety Validation]
+    NoSource --> Human[14. Staff Copilot Review & Action]
+    Val --> Human
 ```
 
 ---
 
-## 2. Detailed Stage Specifications
+## 2. Current Implementation vs Future Research / Production Work
 
-### Stage 1: RMS Raw Input
-- **Inputs:** Ticket subject, student description text, attached metadata (timestamp, student year, program), attachment references.
-- **Validation:** Enforces maximum character limits (4,000 characters) and UTF-8 encoding validation.
+| Architectural Dimension | Current Implementation (Phase 2 Baseline) | Future Research & Production Work |
+| :--- | :--- | :--- |
+| **Model Nature** | Deterministic rule & weighted keyword baseline with token margin scoring. | Fine-tuned domain classifiers (e.g. RoBERTa / DeBERTa) and TF-IDF + Logistic Regression / SVM baselines. |
+| **Execution Mode** | 100% local, zero external paid API dependencies, sub-millisecond execution. | Hybrid on-premise neural inference server with GPU acceleration. |
+| **Entity Extraction** | Rule-based regex & lexicon patterns targeting university identifiers (courses, hostels, fees). | SpaCy/Transformers token-classification NER model trained on university corpus. |
+| **Semantic Similarity** | Character 3-gram cosine + token Jaccard with domain synonym canonicalization. | Dense vector embeddings via Sentence Transformers (`all-MiniLM-L6-v2`) or Gemini embeddings. |
+| **Vector Retrieval** | In-memory `LocalVectorStore` with chunking and TF-IDF/n-gram relevance scoring. | Persistent Chroma / Qdrant vector database with hybrid BM25 + dense neural re-ranking. |
+| **Grounding Verification** | Heuristic lexical token overlap and citation verification; strict no-source-no-answer guardrail. | Neural NLI entailment cross-encoder model for claim-level hallucination verification. |
 
-### Stage 2: Preprocessing & Normalization
-- **Text Cleansing:** Normalizes whitespace, strips extraneous control characters, expands common academic acronyms (e.g., "CA" -> "Continuous Assessment", "ETE" -> "End Term Examination").
-- **Language Detection:** Identifies the primary language (English standard, supports university-specific phrasing).
+---
 
-### Stage 3: PII Detection & Redaction
-- **Objective:** Prevent leakage of personally identifiable information into downstream LLMs and vector embeddings.
-- **Entity Types Targeted:**
-  - Phone Numbers (e.g., `+91-9876543210`) -> `[REDACTED_PHONE]`
-  - Student Registration Numbers (e.g., `12204892` or `REG-2023-XXXX`) -> `[REDACTED_REG_NO]`
-  - Email Addresses (`student@lpu.in`) -> `[REDACTED_EMAIL]`
-  - Financial Data (bank account numbers, transaction IDs, UPI IDs) -> `[REDACTED_TXN_ID]`
-  - Personal Identification (Aadhaar, Passport references) -> `[REDACTED_ID]`
-- **Preservation:** A token hash map is preserved within the backend transaction memory so authorized staff can view the original text if needed for administrative validation.
+## 3. Classification Taxonomy & Routing
 
-### Stage 4: Intent Classification
-- **Classes:**
-  - `GRADE_GRIEVANCE`
-  - `FEE_REFUND_INQUIRY`
-  - `FEE_PAYMENT_FAILURE`
-  - `HOSTEL_MAINTENANCE`
-  - `HOSTEL_ROOM_CHANGE`
-  - `EXAM_REVALUATION`
-  - `ATTENDANCE_MEDICAL_LEAVE`
-  - `SCHOLARSHIP_DISBURSEMENT`
-  - `IT_PORTAL_ACCESS`
-  - `DOCUMENT_REQUEST`
-  - `GENERAL_INQUIRY`
-- **Scoring:** Outputs primary intent and probability score ($P \in [0.0, 1.0]$). If $P < 0.65$, marked as `UNCERTAIN_INTENT`.
+### Intent Taxonomy
+Derived directly from the official university grievance categories:
+1. `HOSTEL_MAINTENANCE`: Room appliances, electrical fixtures, water leakage, mess hygiene, carpentry.
+2. `FEE_PAYMENT`: Online gateway timeout, double deductions, fee ledger reconciliation, refund processing.
+3. `EXAMINATION`: Hall ticket/admit card clearance holds, datesheet timetable clashes, re-evaluation marksheet updates.
+4. `ACADEMIC`: Continuous Assessment (CA) rubric discrepancies, grade ledger corrections, elective registration, mentor approvals.
+5. `ATTENDANCE`: Medical leave condonation (hospitalization, dengue, surgery), sports duty leave, biometric machine sync errors.
+6. `SCHOLARSHIP`: National Scholarship Portal (NSP) verification, Post-Matric (PMS) renewal, merit concession adjustments.
+7. `IT_SUPPORT`: Fortinet Wi-Fi MAC registration quotas, UMS credential lockout, student mailbox storage quotas.
+8. `STUDENT_SERVICES`: Official Bonafide certificates, Medium of Instruction (MOI) letters for visa, migration certificates, duplicate IDs.
+9. `GENERAL_INQUIRY`: Out-of-domain routine inquiries lacking authoritative policy constraints.
 
-### Stage 5: Named Entity Extraction (NER)
-- **Entities Extracted:**
-  - `COURSE_CODE` (e.g., `CSE472`, `MTH101`)
-  - `TERM_OR_SEMESTER` (e.g., `Fall 2024`, `Term 5`)
-  - `HOSTEL_BLOCK` (e.g., `BH-4`, `GH-2`)
-  - `DATE_OR_DEADLINE` (e.g., `15th October`)
-  - `AMOUNT` (e.g., `INR 15,000`)
-- **Utility:** These entities provide the exact filter parameters passed into vector knowledge retrieval.
+### Department Routing Engine
+Routing combines classified intent, extracted domain entities, and departmental lexicons to target the 7 university operating desks:
+- **Hostel Affairs** (SLA: 24h)
+- **Accounts & Finance** (SLA: 48h)
+- **Academic Affairs** (SLA: 48h)
+- **Examination Branch** (SLA: 12h)
+- **Student Welfare** (SLA: 36h)
+- **Scholarship Section** (SLA: 72h)
+- **IT Services** (SLA: 24h)
 
-### Stage 6: Department Classification
-- **Routing Engine:** Maps the inquiry to one of the university operating units:
-  - `ACADEMIC_AFFAIRS`
-  - `EXAMINATION_BRANCH`
-  - `ACCOUNTS_AND_FINANCE`
-  - `HOSTEL_AND_RESIDENTIAL`
-  - `STUDENT_WELFARE`
-  - `IT_SERVICES`
-- **Conflict Handling:** If the student's selected category differs from the AI-detected department, both are flagged for the staff reviewer with a visual discrepancy alert.
+---
 
-### Stage 7: Priority & Urgency Scoring
-- **Urgency Formula:**
-  $$\text{Urgency Score} = \min\left(5, w_1 \cdot C_{\text{intent}} + w_2 \cdot D_{\text{deadline}} + w_3 \cdot M_{\text{sentiment}}\right)$$
-- **Score Levels:**
-  - **Level 1 (Low):** General information requests, standard documentation with >14 days SLA.
-  - **Level 2 (Medium):** Normal maintenance, routine fee queries with 7-14 days SLA.
-  - **Level 3 (High):** Exam admit card issues within 48 hours, medical leave adjustment deadlines.
-  - **Level 4 (Critical):** Immediate health/safety concerns, unauthorized fee debit, impending de-registration.
+## 4. Confidence Handling & Human-in-the-Loop Thresholds
 
-### Stage 8: RAG Policy Retrieval
-- **Query Formulation:** Combines the redacted ticket subject, intent, and extracted entities into an optimized semantic query.
-- **Metadata Filtering:** Restricts search to approved documents matching the identified department and current academic year.
-- **Output:** Top $K=3$ document chunks with relevance cosine scores $\ge 0.70$.
+The system calculates individual component confidence scores ($C_{\text{intent}}, C_{\text{dept}}, C_{\text{prio}} \in [0.0, 1.0]$) and enforces calibrated review triggers:
 
-### Stage 9: Grounded Response Draft Generation
-- **Prompt Guardrails:**
-  - System prompt instructs the model to answer *solely* using the provided policy excerpts.
-  - Required tone: Professional, empathetic, clear, actionable, university-compliant.
-  - Prohibits hallucinating dates, amounts, or guarantees not explicitly present in the context.
-- **Template Schema:**
-  1. Formal Greeting & Acknowledgment.
-  2. Policy-grounded explanation or required student action.
-  3. Clear next steps and turnaround time.
-  4. Closing with department signature block.
+- **HIGH CONFIDENCE ($\ge 0.85$ with authoritative policy match)**: System generates safe grounded draft; staff reviews and approves with a single click.
+- **MEDIUM CONFIDENCE ($0.70 \le C < 0.85$)**: Prominently flags the ticket for operator confirmation with explicit review reasons.
+- **LOW CONFIDENCE ($< 0.70$)**: Mandates operator triage and forbids automated resolution dispatch.
+- **NO AUTHORITATIVE SOURCE**: Enforces the strict rule:
+  > *"Insufficient authoritative information. Human review required."*
+  The system **never** fabricates policy clauses or generates confident answers from unrelated documents.
 
-### Stage 10: Grounding & Citation Validation
-- **Source Verification:** Every substantive factual statement in the draft is mapped back to an exact source document, chapter, and clause.
-- **No-Source-No-Answer Rule:** If no policy chunk scores above the threshold, the generation engine refuses to hallucinate and produces:
-  > *"No matching university policy could be confirmed for this query. Flagged for manual staff investigation."*
+---
 
-### Stage 11: Human-in-the-Loop Review
-- The resulting draft, triage tags, and source citations are rendered on the Staff Copilot Dashboard.
-- Staff members have full autonomy to edit the draft, replace citations, reroute the ticket, or approve the final message.
+## 5. Domain Entity Extraction
+
+The entity extraction module (`app/nlp/entity_extractor.py`) identifies key operational parameters while safeguarding privacy:
+- `course_code`: Formal subject codes (e.g., `CSE 472`, `MTH 402`).
+- `hostel_block` & `room_number`: Residential locations (e.g., `BH-4`, `Room 312`).
+- `currency_amount`: Monetary values (e.g., `INR 65,000`).
+- `bank_name`: Financial institutions (e.g., `HDFC Bank`, `SBI`).
+- `date_reference`: Operational timelines (e.g., `18th Sept`, `30th September`).
+- `portal_type`: Technical systems (`NSP Portal`, `Fortinet Wi-Fi`).
+- `certificate_type`: Issued credentials (`Bonafide Certificate`, `MOI Letter`).
+- `issue_type`: Semantic issue classification (`Water Leakage`, `Duplicate Payment`).
+
+---
+
+## 6. Empirical Evaluation Results
+
+Evaluated over the 60-ticket synthetic benchmark dataset (`evaluation/datasets/evaluation_rms.json`):
+- **Intent Accuracy**: **95.0%** (Macro F1: **0.9158**)
+- **Department Routing Accuracy**: **100.0%** (Macro F1: **1.0000**)
+- **Priority Assessment Accuracy**: **88.33%**
+- **Retrieval Precision@1**: **94.64%** (Recall@3: **100.0%**, MRR: **0.9732**)
+- **Grounding Rate (Heuristic)**: **81.67%**
+- **No-Source Adherence**: **100.0%**
+- **Human Review Flagged**: **30.0%**

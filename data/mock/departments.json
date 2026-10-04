@@ -1,58 +1,272 @@
 [
   {
+    "department_id": "DEPT-HOSTEL",
     "id": "DEPT-HOSTEL",
-    "name": "Hostel Affairs",
+    "department_code": "HA",
     "code": "HA",
+    "name": "Hostel Affairs",
+    "description": "Hostel accommodation, room maintenance, mess services, sanitation, and student residential conduct.",
+    "categories": [
+      "Hostel",
+      "Maintenance",
+      "Room Allocation",
+      "Mess & Catering",
+      "Electrical & Plumbing",
+      "Warden Pass"
+    ],
     "sla_hours": 24,
+    "sla_policy": {
+      "LOW": 48,
+      "MEDIUM": 24,
+      "HIGH": 12,
+      "CRITICAL": 4
+    },
+    "escalation_policy": {
+      "target_role": "DEPARTMENT_HOD",
+      "escalation_window_hours": 12,
+      "notification_channel": "email"
+    },
+    "staff_ids": [
+      "USR-STAFF-01",
+      "USR-HOD-01"
+    ],
+    "hod_reference": {
+      "name": "Dr. Sandeep Kapoor",
+      "email": "hod.hostels@lpu.ac.in",
+      "role": "DEPARTMENT_HOD"
+    },
     "hod_contact": "hod.hostels@lpu.ac.in",
-    "description": "Hostel accommodation, room maintenance, mess services, and student residential conduct."
+    "active_status": true
   },
   {
+    "department_id": "DEPT-ACCOUNTS",
     "id": "DEPT-ACCOUNTS",
-    "name": "Accounts & Finance",
+    "department_code": "AF",
     "code": "AF",
+    "name": "Accounts & Finance",
+    "description": "Tuition fees, online payment reconciliations, scholarship disbursements, and fee refunds.",
+    "categories": [
+      "Finance",
+      "Fee Payment",
+      "Refund Request",
+      "Payment Gateway Issue",
+      "Ledger Discrepancy",
+      "Challan Clearance"
+    ],
     "sla_hours": 48,
+    "sla_policy": {
+      "LOW": 72,
+      "MEDIUM": 48,
+      "HIGH": 24,
+      "CRITICAL": 12
+    },
+    "escalation_policy": {
+      "target_role": "DEPARTMENT_HOD",
+      "escalation_window_hours": 24,
+      "notification_channel": "email"
+    },
+    "staff_ids": [
+      "USR-STAFF-03",
+      "USR-HOD-02"
+    ],
+    "hod_reference": {
+      "name": "Mr. Rajiv Mehra",
+      "email": "finance.officer@lpu.ac.in",
+      "role": "DEPARTMENT_HOD"
+    },
     "hod_contact": "finance.officer@lpu.ac.in",
-    "description": "Tuition fees, online payment reconciliations, scholarship disbursements, and fee refunds."
+    "active_status": true
   },
   {
+    "department_id": "DEPT-ACADEMICS",
     "id": "DEPT-ACADEMICS",
-    "name": "Academic Affairs",
+    "department_code": "AA",
     "code": "AA",
+    "name": "Academic Affairs",
+    "description": "Continuous assessment (CA), syllabus disputes, teacher feedback, and credit registrations.",
+    "categories": [
+      "Academics",
+      "Continuous Assessment",
+      "Grade Ledger",
+      "Course Registration",
+      "Elective Allocation",
+      "Faculty Consultation"
+    ],
     "sla_hours": 48,
+    "sla_policy": {
+      "LOW": 72,
+      "MEDIUM": 48,
+      "HIGH": 24,
+      "CRITICAL": 8
+    },
+    "escalation_policy": {
+      "target_role": "DEPARTMENT_HOD",
+      "escalation_window_hours": 24,
+      "notification_channel": "email"
+    },
+    "staff_ids": [
+      "USR-STAFF-02",
+      "USR-HOD-03"
+    ],
+    "hod_reference": {
+      "name": "Prof. Harpreet Kaur",
+      "email": "dean.academics@lpu.ac.in",
+      "role": "DEPARTMENT_HOD"
+    },
     "hod_contact": "dean.academics@lpu.ac.in",
-    "description": "Continuous assessment (CA), syllabus disputes, teacher feedback, and credit registrations."
+    "active_status": true
   },
   {
+    "department_id": "DEPT-EXAM",
     "id": "DEPT-EXAM",
-    "name": "Examination Branch",
+    "department_code": "EB",
     "code": "EB",
+    "name": "Examination Branch",
+    "description": "End-term examinations, hall tickets, re-evaluation applications, and grade transcripts.",
+    "categories": [
+      "Examination",
+      "Admit Card / Hall Ticket",
+      "Re-evaluation",
+      "Grade Transcript",
+      "Date Sheet Conflict",
+      "Emergency Clearance"
+    ],
     "sla_hours": 12,
+    "sla_policy": {
+      "LOW": 48,
+      "MEDIUM": 24,
+      "HIGH": 12,
+      "CRITICAL": 4
+    },
+    "escalation_policy": {
+      "target_role": "DEPARTMENT_HOD",
+      "escalation_window_hours": 6,
+      "notification_channel": "sms_and_email"
+    },
+    "staff_ids": [
+      "USR-STAFF-04",
+      "USR-HOD-04"
+    ],
+    "hod_reference": {
+      "name": "Dr. Manjit Singh",
+      "email": "coe@lpu.ac.in",
+      "role": "DEPARTMENT_HOD"
+    },
     "hod_contact": "coe@lpu.ac.in",
-    "description": "End-term examinations, hall tickets, re-evaluation applications, and grade transcripts."
+    "active_status": true
   },
   {
+    "department_id": "DEPT-WELFARE",
     "id": "DEPT-WELFARE",
-    "name": "Student Welfare",
+    "department_code": "SW",
     "code": "SW",
+    "name": "Student Welfare",
+    "description": "Medical leave attendance condonation, student clubs, grievance redressal, and discipline.",
+    "categories": [
+      "Student Welfare",
+      "Medical Attendance Condonation",
+      "Disciplinary Review",
+      "Club Affairs",
+      "Counseling Services"
+    ],
     "sla_hours": 36,
+    "sla_policy": {
+      "LOW": 72,
+      "MEDIUM": 36,
+      "HIGH": 18,
+      "CRITICAL": 6
+    },
+    "escalation_policy": {
+      "target_role": "DEPARTMENT_HOD",
+      "escalation_window_hours": 18,
+      "notification_channel": "email"
+    },
+    "staff_ids": [
+      "USR-STAFF-05",
+      "USR-HOD-05"
+    ],
+    "hod_reference": {
+      "name": "Dr. Priya Sengupta",
+      "email": "dean.dsw@lpu.ac.in",
+      "role": "DEPARTMENT_HOD"
+    },
     "hod_contact": "dean.dsw@lpu.ac.in",
-    "description": "Medical leave attendance condonation, student clubs, grievance redressal, and discipline."
+    "active_status": true
   },
   {
+    "department_id": "DEPT-SCHOLARSHIP",
     "id": "DEPT-SCHOLARSHIP",
-    "name": "Scholarship Section",
+    "department_code": "SS",
     "code": "SS",
+    "name": "Scholarship Section",
+    "description": "National and state scholarship portal verifications, merit scholarships, and freeships.",
+    "categories": [
+      "Scholarship",
+      "National Scholarship Portal (NSP)",
+      "Merit Scholarship",
+      "State Welfare Verification",
+      "Aadhaar Seeding"
+    ],
     "sla_hours": 72,
+    "sla_policy": {
+      "LOW": 96,
+      "MEDIUM": 72,
+      "HIGH": 36,
+      "CRITICAL": 12
+    },
+    "escalation_policy": {
+      "target_role": "DEPARTMENT_HOD",
+      "escalation_window_hours": 36,
+      "notification_channel": "email"
+    },
+    "staff_ids": [
+      "USR-STAFF-06",
+      "USR-HOD-06"
+    ],
+    "hod_reference": {
+      "name": "Mr. Vikramaditya Rathore",
+      "email": "scholarships@lpu.ac.in",
+      "role": "DEPARTMENT_HOD"
+    },
     "hod_contact": "scholarships@lpu.ac.in",
-    "description": "National and state scholarship portal verifications, merit scholarships, and freeships."
+    "active_status": true
   },
   {
+    "department_id": "DEPT-IT",
     "id": "DEPT-IT",
-    "name": "IT Services",
+    "department_code": "IT",
     "code": "IT",
+    "name": "IT Services",
+    "description": "Student UMS credentials, Wi-Fi device registrations, email provisioning, and laboratory IT.",
+    "categories": [
+      "IT Services",
+      "UMS Password Reset",
+      "Campus Wi-Fi / MAC Registration",
+      "Student Email Support",
+      "Portal Access Error"
+    ],
     "sla_hours": 24,
+    "sla_policy": {
+      "LOW": 48,
+      "MEDIUM": 24,
+      "HIGH": 8,
+      "CRITICAL": 2
+    },
+    "escalation_policy": {
+      "target_role": "DEPARTMENT_HOD",
+      "escalation_window_hours": 8,
+      "notification_channel": "email"
+    },
+    "staff_ids": [
+      "USR-STAFF-07",
+      "USR-ADMIN-01"
+    ],
+    "hod_reference": {
+      "name": "Dr. Ashok Chander",
+      "email": "helpdesk@lpu.ac.in",
+      "role": "DEPARTMENT_HOD"
+    },
     "hod_contact": "helpdesk@lpu.ac.in",
-    "description": "Student UMS credentials, Wi-Fi device registrations, email provisioning, and laboratory IT."
+    "active_status": true
   }
 ]

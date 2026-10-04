@@ -1,10 +1,10 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
 from app.config import settings
-from app.api.v1.endpoints import rms, analytics, knowledge
+from app.api.v1.endpoints import rms, analytics, knowledge, evaluation, departments, users
 from app.schemas.rms import HealthResponse
 
 import sys
@@ -57,13 +57,16 @@ def health_check():
         ai_provider=settings.AI_PROVIDER,
         vector_store=settings.VECTOR_STORE_TYPE,
         mock_mode=(settings.AI_PROVIDER == "mock"),
-        timestamp=datetime.utcnow().isoformat() + "Z"
+        timestamp=datetime.now(timezone.utc).isoformat()
     )
 
 # Mount API Routers
 app.include_router(rms.router, prefix="/api/v1/rms", tags=["RMS Tickets"])
+app.include_router(departments.router, prefix="/api/v1/departments", tags=["Departments"])
+app.include_router(users.router, prefix="/api/v1/users", tags=["Staff Users"])
 app.include_router(analytics.router, prefix="/api/v1/analytics", tags=["Operations Analytics"])
 app.include_router(knowledge.router, prefix="/api/v1/knowledge", tags=["Knowledge Base"])
+app.include_router(evaluation.router, prefix="/api/v1/evaluation", tags=["Evaluation"])
 
 if __name__ == "__main__":
     import uvicorn

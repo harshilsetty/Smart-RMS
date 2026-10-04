@@ -1,91 +1,44 @@
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 from app.ai.provider import AIProvider
 from app.schemas.rms import AIAnalysis, DraftResponse, RAGSource
 from app.privacy.pii_detector import PIIDetector
+from app.nlp.pipeline import NLPPipeline
 
 class MockAIProvider(AIProvider):
-    """Deterministic Mock AI Provider for local development without external API keys."""
+    """Deterministic Mock AI Provider backed by the modular NLP pipeline."""
 
-    def __init__(self):
+    def __init__(self, nlp_pipeline: Optional[NLPPipeline] = None):
         self.pii_detector = PIIDetector()
+        self.nlp_pipeline = nlp_pipeline or NLPPipeline()
 
     async def analyze_ticket(self, ticket_subject: str, ticket_description: str) -> AIAnalysis:
-        combined = (ticket_subject + " " + ticket_description).lower()
         pii_tokens = self.pii_detector.get_detected_tokens(ticket_description)
+        nlp_res = self.nlp_pipeline.process(ticket_subject, ticket_description)
 
-        # Keyword-based deterministic classification
-        if "leak" in combined or "ac unit" in combined or "hostel" in combined or "room" in combined:
-            return AIAnalysis(
-                intent="HOSTEL_MAINTENANCE",
-                suggested_department="Hostel Affairs",
-                priority_score=3,
-                urgency_level="High",
-                confidence=0.95,
-                pii_detected=pii_tokens,
-                entities={"hostel_block": "BH/GH", "issue_type": "Facility Maintenance"},
-                summary="Hostel room maintenance query concerning appliance malfunction or water leakage.",
-                suggested_action="Dispatch maintenance supervisor within 24-hour standard SLA."
-            )
-        elif "fee" in combined or "refund" in combined or "deducted twice" in combined or "bank" in combined:
-            return AIAnalysis(
-                intent="FEE_PAYMENT_RECONCILIATION",
-                suggested_department="Accounts & Finance",
-                priority_score=3,
-                urgency_level="High",
-                confidence=0.94,
-                pii_detected=pii_tokens,
-                entities={"financial_issue": "Duplicate transaction or ledger reconciliation"},
-                summary="Tuition fee deduction issue requiring ledger reconciliation and potential refund.",
-                suggested_action="Verify transaction reference in settlement ledger and process refund within 7-10 days."
-            )
-        elif "admit card" in combined or "hall ticket" in combined or "exam" in combined:
-            return AIAnalysis(
-                intent="EXAM_HALL_TICKET_HOLD",
-                suggested_department="Examination Branch",
-                priority_score=4,
-                urgency_level="Critical",
-                confidence=0.96,
-                pii_detected=pii_tokens,
-                entities={"urgency": "Immediate / Exam in <48 hrs", "barrier": "Clearance Hold"},
-                summary="Admit card clearance hold restricting student from downloading exam hall ticket.",
-                suggested_action="Expedited clearance verification and emergency admit card release within 4 hours."
-            )
-        elif "ca" in combined or "marks" in combined or "grade" in combined:
-            return AIAnalysis(
-                intent="ACADEMIC_MARKS_DISCREPANCY",
-                suggested_department="Academic Affairs",
-                priority_score=2,
-                urgency_level="Medium",
-                confidence=0.91,
-                pii_detected=pii_tokens,
-                entities={"evaluation_type": "Continuous Assessment Rubric Verification"},
-                summary="Discrepancy reported between instructor rubric marks and portal grade record.",
-                suggested_action="Forward to course coordinator and department HOD for grade ledger rectification."
-            )
-        elif "attendance" in combined or "medical" in combined or "dengue" in combined or "leave" in combined:
-            return AIAnalysis(
-                intent="ATTENDANCE_MEDICAL_CONDONATION",
-                suggested_department="Student Welfare",
-                priority_score=2,
-                urgency_level="Medium",
-                confidence=0.93,
-                pii_detected=pii_tokens,
-                entities={"cause": "Hospitalization / Severe Illness"},
-                summary="Medical leave duty adjustment application for hospitalization period.",
-                suggested_action="Validate hospital discharge summary with Health Center and grant attendance duty."
-            )
-        else:
-            return AIAnalysis(
-                intent="GENERAL_UNIVERSITY_INQUIRY",
-                suggested_department="Academic Affairs",
-                priority_score=1,
-                urgency_level="Low",
-                confidence=0.85,
-                pii_detected=pii_tokens,
-                entities={"type": "General Service Request"},
-                summary="Standard student administrative query regarding university procedures.",
-                suggested_action="Provide policy guidance or issue relevant digitally signed e-document."
-            )
+        entities = dict(nlp_res.entities)
+
+        avg_confidence = round(
+            (nlp_res.intent_confidence + nlp_res.department_confidence + nlp_res.priority_confidence) / 3.0,
+            2
+        )
+
+        return AIAnalysis(
+            intent=nlp_res.intent,
+            suggested_department=nlp_res.department,
+            priority_score=nlp_res.priority_score,
+            urgency_level=nlp_res.priority,
+            confidence=avg_confidence,
+            intent_confidence=nlp_res.intent_confidence,
+            department_confidence=nlp_res.department_confidence,
+            priority_confidence=nlp_res.priority_confidence,
+            requires_human_review=nlp_res.requires_human_review,
+            review_reasons=nlp_res.review_reasons,
+            semantic_matches=[m.model_dump() for m in nlp_res.semantic_matches],
+            pii_detected=pii_tokens,
+            entities=entities,
+            summary=nlp_res.summary,
+            suggested_action=nlp_res.suggested_action
+        )
 
     async def generate_draft(
         self,
@@ -94,10 +47,11 @@ class MockAIProvider(AIProvider):
         sources: List[RAGSource],
         department: str
     ) -> DraftResponse:
-        combined = (ticket_subject + " " + ticket_description).lower()
+        # Check for authoritative RAG sources (Relevance threshold >= 0.65)
+        valid_sources = [s for s in sources if s.relevance_score >= 0.65]
 
-        if sources:
-            primary_source = sources[0]
+        if valid_sources:
+            primary_source = valid_sources[0]
             citation = f"{primary_source.title} ({primary_source.clause})"
             body = (
                 f"Dear Student,\n\n"
@@ -114,26 +68,28 @@ class MockAIProvider(AIProvider):
             return DraftResponse(
                 ticket_id="",
                 draft_response=body,
-                sources=sources,
+                sources=valid_sources,
                 confidence=primary_source.relevance_score,
                 requires_staff_edit=False,
                 policy_compliance_passed=True
             )
 
-        # Fallback if no sources found
-        fallback_body = (
+        # Strict No-Source-No-Answer Fallback
+        no_source_body = (
             f"Dear Student,\n\n"
-            f"Thank you for contacting the {department} Redressal Desk regarding your inquiry: '{ticket_subject}'.\n\n"
-            f"Your request has been placed in our review queue. A department officer will verify the relevant academic statutes "
-            f"and update your ticket status within 24–48 hours.\n\n"
+            f"Regarding your inquiry on '{ticket_subject}', our system determined that there is insufficient "
+            f"authoritative information in current university policy records to safely generate an automated resolution draft.\n\n"
+            f"Insufficient authoritative information. Human review required.\n\n"
+            f"This request has been routed to the {department} operational desk for manual review by a staff officer.\n\n"
             f"Warm regards,\n"
-            f"{department} Operations"
+            f"{department} Operations\n"
+            f"Smart University RMS"
         )
         return DraftResponse(
             ticket_id="",
-            draft_response=fallback_body,
+            draft_response=no_source_body,
             sources=[],
-            confidence=0.70,
+            confidence=0.0,
             requires_staff_edit=True,
             policy_compliance_passed=True
         )

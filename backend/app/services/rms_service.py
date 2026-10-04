@@ -1,5 +1,5 @@
 from typing import List, Optional, Dict, Any
-from datetime import datetime
+from datetime import datetime, timezone
 
 from app.config import settings
 from app.integrations.base import UniversitySystemAdapter
@@ -22,14 +22,24 @@ from app.schemas.rms import (
     ApprovalResponse,
     EscalateResponse,
     RedirectResponse,
-    AnalyticsOverviewResponse
+    AnalyticsOverviewResponse,
+    RMSCreateRequest,
+    AssignmentRequest,
+    RMSResponseCreateRequest,
+    RMSResponse,
+    Department,
+    StaffUser,
+    AuditEvent
 )
 
 class RMSService:
-    """Core service coordinating AI, Privacy, RAG, and Workflow for University RMS."""
+    """
+    Core university service coordinating AI, Privacy, RAG, Workflow,
+    and synthetic university data sources via stable contracts.
+    """
 
     def __init__(self):
-        # Initialize adapter
+        # Initialize adapter based on configuration
         if settings.INTEGRATION_MODE == "ums_staging":
             self.adapter: UniversitySystemAdapter = FutureUMSAdapter()
         else:
@@ -41,7 +51,7 @@ class RMSService:
         else:
             self.ai_provider: AIProvider = MockAIProvider()
 
-        # Initialize Services
+        # Initialize Core Subsystems
         self.privacy_redactor = PIIRedactor()
         self.policy_retriever = PolicyRetriever()
         self.policy_validator = PolicyValidator()
@@ -62,7 +72,7 @@ class RMSService:
         )
         parsed_tickets: List[Ticket] = []
         for t in raw_tickets:
-            # Mask PII for presentation if needed
+            # Mask PII for presentation
             redacted_desc, _ = self.privacy_redactor.redact(t.get("description", ""))
             t_copy = dict(t)
             t_copy["redacted_description"] = redacted_desc
@@ -83,13 +93,88 @@ class RMSService:
         raw_copy["redacted_description"] = redacted_desc
         return Ticket(**raw_copy)
 
+    def create_ticket(self, request: RMSCreateRequest) -> Ticket:
+        """Ingests or creates a new RMS ticket in the synthetic environment."""
+        redacted_desc, _ = self.privacy_redactor.redact(request.description)
+        
+        ticket_data = {
+            "student_reference": request.student_reference,
+            "subject": request.subject,
+            "title": request.subject,
+            "description": request.description,
+            "redacted_description": redacted_desc,
+            "category": request.category,
+            "subcategory": request.subcategory,
+            "department": request.department,
+            "priority": request.priority,
+            "status": TicketState.INGESTED.value,
+            "source": request.source,
+            "attachments": request.attachments,
+            "metadata": request.metadata
+        }
+        
+        created = self.adapter.create_ticket(ticket_data)
+        return Ticket(**created)
+
+    def assign_ticket(self, ticket_id: str, request: AssignmentRequest) -> Dict[str, Any]:
+        """Assigns ticket to department or staff with audit tracking."""
+        ticket = self.adapter.get_ticket_by_id(ticket_id)
+        if not ticket:
+            raise ValueError(f"Ticket {ticket_id} not found")
+
+        success = self.adapter.assign_ticket(
+            ticket_id=ticket_id,
+            department_id=request.department_id,
+            staff_id=request.staff_id,
+            assigned_by=request.assigned_by,
+            reason=request.reason
+        )
+        if not success:
+            raise ValueError(f"Could not assign ticket {ticket_id}")
+
+        # If currently INGESTED or ROUTED, transition to STAFF_REVIEW
+        if ticket.get("status") in [TicketState.INGESTED.value, TicketState.ROUTED.value, TicketState.NEW.value]:
+            self.workflow.transition(
+                ticket,
+                TicketState.STAFF_REVIEW.value,
+                actor_id=request.assigned_by,
+                notes=f"Assigned for staff review: {request.reason or 'Assigned to staff'}"
+            )
+            self.adapter.update_ticket(ticket_id, {"status": TicketState.STAFF_REVIEW.value})
+
+        updated = self.adapter.get_ticket_by_id(ticket_id)
+        return {
+            "ticket_id": ticket_id,
+            "department_id": updated.get("assigned_department_id"),
+            "department": updated.get("department"),
+            "assigned_staff_id": updated.get("assigned_staff_id"),
+            "status": updated.get("status"),
+            "message": "Ticket successfully assigned."
+        }
+
+    def add_response(self, ticket_id: str, request: RMSResponseCreateRequest) -> RMSResponse:
+        """Appends a response message to the ticket."""
+        ticket = self.adapter.get_ticket_by_id(ticket_id)
+        if not ticket:
+            raise ValueError(f"Ticket {ticket_id} not found")
+
+        rsp_dict = self.adapter.add_response(ticket_id, request.model_dump())
+        return RMSResponse(**rsp_dict)
+
+    def get_ticket_history(self, ticket_id: str) -> List[Dict[str, Any]]:
+        """Retrieves chronological audit events for a ticket."""
+        ticket = self.adapter.get_ticket_by_id(ticket_id)
+        if not ticket:
+            raise ValueError(f"Ticket {ticket_id} not found")
+        return self.adapter.get_audit_history(ticket_id)
+
     async def analyze_ticket(self, ticket_id: str, override_text: Optional[str] = None) -> AnalyzeResponse:
         raw = self.adapter.get_ticket_by_id(ticket_id)
         if not raw:
             raise ValueError(f"Ticket {ticket_id} not found")
 
         text_to_analyze = override_text or raw.get("description", "")
-        subject = raw.get("subject", "")
+        subject = raw.get("subject", raw.get("title", ""))
 
         # 1. PII Redaction
         redacted_text, _ = self.privacy_redactor.redact(text_to_analyze)
@@ -122,7 +207,7 @@ class RMSService:
         if not raw:
             raise ValueError(f"Ticket {ticket_id} not found")
 
-        subject = raw.get("subject", "")
+        subject = raw.get("subject", raw.get("title", ""))
         description = raw.get("description", "")
         department = raw.get("department", "University")
 
@@ -145,7 +230,7 @@ class RMSService:
         draft.ticket_id = ticket_id
 
         # 4. Validate output safety
-        is_safe, violations = self.policy_validator.validate_response(draft.draft_response)
+        is_safe, _ = self.policy_validator.validate_response(draft.draft_response)
         draft.policy_compliance_passed = is_safe
         if not is_safe:
             draft.requires_staff_edit = True
@@ -161,11 +246,12 @@ class RMSService:
         self.adapter.post_resolution(ticket_id, approved_text, staff_id)
         self.workflow.transition(ticket, TicketState.APPROVED.value, actor_id=staff_id, notes=notes)
 
+        resolved_ts = datetime.now(timezone.utc).isoformat()
         return ApprovalResponse(
             ticket_id=ticket_id,
             status=TicketState.APPROVED.value,
             approved_by=staff_id,
-            resolved_at=datetime.utcnow().isoformat() + "Z",
+            resolved_at=resolved_ts,
             message="Ticket successfully approved by staff and queued for resolution dispatch."
         )
 
@@ -177,7 +263,8 @@ class RMSService:
         self.adapter.update_ticket(ticket_id, {
             "status": TicketState.ESCALATED.value,
             "escalated_to": target_role,
-            "escalation_reason": reason
+            "escalation_reason": reason,
+            "escalation_level": ticket.get("escalation_level", 0) + 1
         })
         self.workflow.transition(ticket, TicketState.ESCALATED.value, actor_id=staff_id, notes=f"Escalated: {reason}")
 
@@ -241,3 +328,19 @@ class RMSService:
             department_distribution=dept_dist,
             priority_distribution=prio_dist
         )
+
+    def list_departments(self) -> List[Department]:
+        depts = self.adapter.list_departments()
+        return [Department(**d) for d in depts]
+
+    def get_department(self, department_id: str) -> Optional[Department]:
+        d = self.adapter.get_department(department_id)
+        return Department(**d) if d else None
+
+    def list_users(self, department_id: Optional[str] = None, role: Optional[str] = None) -> List[StaffUser]:
+        users = self.adapter.list_users(department_id=department_id, role=role)
+        return [StaffUser(**u) for u in users]
+
+    def get_user(self, user_id: str) -> Optional[StaffUser]:
+        u = self.adapter.get_user(user_id)
+        return StaffUser(**u) if u else None

@@ -1,20 +1,93 @@
 [
   {
     "ticket_id": "TKT-RMS-1001",
+    "external_reference": "UMS-EXT-2026-1001",
     "student_reference": "STU-SYN-8492",
     "subject": "Water leakage and noisy AC unit in BH-4 Room 312",
+    "title": "Water leakage and noisy AC unit in BH-4 Room 312",
     "description": "Respected Warden Office, I am staying in Boys Hostel 4 (BH-4), Room 312. Since yesterday morning, the split AC unit is continuously leaking water into the room and making a loud rattling motor noise. It is dripping right near the electrical switchboard which is unsafe. My contact number is +91-9876543210. Kindly send a maintenance electrician to inspect as soon as possible. My registration is REG-2023-8492.",
     "category": "Hostel",
+    "subcategory": "Electrical & Plumbing",
     "department": "Hostel Affairs",
+    "assigned_department_id": "DEPT-HOSTEL",
+    "assigned_staff_id": "USR-STAFF-01",
+    "assigned_staff": "USR-STAFF-01",
     "priority": "High",
     "status": "STAFF_REVIEW",
+    "escalation_level": 0,
+    "source": "STUDENT_PORTAL",
     "created_at": "2026-09-20T14:30:00Z",
-    "attachments": ["photo_ac_leakage.jpg"],
+    "updated_at": "2026-09-20T15:00:00Z",
+    "due_at": "2026-09-21T02:30:00Z",
+    "tags": ["hostel", "maintenance", "electrical-hazard", "ac-unit"],
+    "attachments": [
+      {
+        "attachment_id": "ATT-1001-01",
+        "filename": "photo_ac_leakage.jpg",
+        "file_size_bytes": 245120,
+        "content_type": "image/jpeg",
+        "url": "/mock-attachments/photo_ac_leakage.jpg",
+        "uploaded_at": "2026-09-20T14:30:00Z"
+      }
+    ],
+    "sla_record": {
+      "priority": "High",
+      "sla_hours": 12,
+      "due_at": "2026-09-21T02:30:00Z",
+      "is_breached": false,
+      "remaining_hours": 8.5,
+      "status": "ON_TRACK"
+    },
+    "responses": [
+      {
+        "response_id": "RSP-1001-01",
+        "ticket_id": "TKT-RMS-1001",
+        "author_id": "USR-STAFF-01",
+        "author_name": "Prof. Rajesh Sharma",
+        "author_role": "STAFF_OPERATOR",
+        "content": "Work order dispatched to hostel maintenance team for room inspection.",
+        "is_internal": true,
+        "created_at": "2026-09-20T15:00:00Z"
+      }
+    ],
+    "history": [
+      {
+        "event_id": "AUD-1001-01",
+        "ticket_id": "TKT-RMS-1001",
+        "event_type": "CREATED",
+        "actor_id": "STU-SYN-8492",
+        "actor_role": "STUDENT",
+        "timestamp": "2026-09-20T14:30:00Z",
+        "from_state": "NEW",
+        "to_state": "INGESTED",
+        "notes": "Ticket submitted via Student RMS Portal",
+        "details": {"source": "STUDENT_PORTAL"}
+      },
+      {
+        "event_id": "AUD-1001-02",
+        "ticket_id": "TKT-RMS-1001",
+        "event_type": "ASSIGNED",
+        "actor_id": "SYSTEM",
+        "actor_role": "SYSTEM",
+        "timestamp": "2026-09-20T14:31:00Z",
+        "from_state": "INGESTED",
+        "to_state": "STAFF_REVIEW",
+        "notes": "Auto-routed to Hostel Affairs and assigned to Prof. Rajesh Sharma",
+        "details": {"department_id": "DEPT-HOSTEL", "staff_id": "USR-STAFF-01"}
+      }
+    ],
+    "metadata": {
+      "environment": "synthetic",
+      "dataset_version": "v1.0",
+      "synthetic_data": true
+    },
+    "is_synthetic": true,
     "ai_analysis": {
       "intent": "HOSTEL_MAINTENANCE",
       "suggested_department": "Hostel Affairs",
       "priority_score": 3,
       "urgency_level": "High",
+      "confidence": 0.95,
       "pii_detected": ["[REDACTED_PHONE]", "[REDACTED_REG_NO]"],
       "entities": {
         "hostel_block": "BH-4",
@@ -28,20 +101,70 @@
   },
   {
     "ticket_id": "TKT-RMS-1002",
+    "external_reference": "UMS-EXT-2026-1002",
     "student_reference": "STU-SYN-3910",
     "subject": "Semester fee deducted twice from bank account via online payment gateway",
+    "title": "Semester fee deducted twice from bank account via online payment gateway",
     "description": "Dear Accounts Team, While paying my Term 5 tuition fee of INR 65,000 on 18th Sept through the student portal payment gateway, the session timed out. However, the amount was debited twice from my HDFC bank account (Transaction IDs: TXN-892183921 and TXN-892183925). Only one transaction reflects in my fee ledger. Please initiate a refund for the duplicate transaction. Email: student.mock@lpu.in.",
     "category": "Finance",
+    "subcategory": "Refund Request",
     "department": "Accounts & Finance",
+    "assigned_department_id": "DEPT-ACCOUNTS",
+    "assigned_staff_id": "USR-STAFF-03",
+    "assigned_staff": "USR-STAFF-03",
     "priority": "High",
     "status": "STAFF_REVIEW",
+    "escalation_level": 0,
+    "source": "STUDENT_PORTAL",
     "created_at": "2026-09-19T10:15:00Z",
-    "attachments": ["bank_debit_statement.pdf"],
+    "updated_at": "2026-09-19T10:30:00Z",
+    "due_at": "2026-09-20T10:15:00Z",
+    "tags": ["finance", "fee-refund", "gateway-timeout", "duplicate-payment"],
+    "attachments": [
+      {
+        "attachment_id": "ATT-1002-01",
+        "filename": "bank_debit_statement.pdf",
+        "file_size_bytes": 1048576,
+        "content_type": "application/pdf",
+        "url": "/mock-attachments/bank_debit_statement.pdf",
+        "uploaded_at": "2026-09-19T10:15:00Z"
+      }
+    ],
+    "sla_record": {
+      "priority": "High",
+      "sla_hours": 24,
+      "due_at": "2026-09-20T10:15:00Z",
+      "is_breached": false,
+      "remaining_hours": 14.0,
+      "status": "ON_TRACK"
+    },
+    "responses": [],
+    "history": [
+      {
+        "event_id": "AUD-1002-01",
+        "ticket_id": "TKT-RMS-1002",
+        "event_type": "CREATED",
+        "actor_id": "STU-SYN-3910",
+        "actor_role": "STUDENT",
+        "timestamp": "2026-09-19T10:15:00Z",
+        "from_state": "NEW",
+        "to_state": "INGESTED",
+        "notes": "Payment grievance submitted with bank debit statement",
+        "details": {"source": "STUDENT_PORTAL"}
+      }
+    ],
+    "metadata": {
+      "environment": "synthetic",
+      "dataset_version": "v1.0",
+      "synthetic_data": true
+    },
+    "is_synthetic": true,
     "ai_analysis": {
       "intent": "FEE_DUPLICATE_PAYMENT_REFUND",
       "suggested_department": "Accounts & Finance",
       "priority_score": 3,
       "urgency_level": "High",
+      "confidence": 0.94,
       "pii_detected": ["[REDACTED_TXN_ID]", "[REDACTED_EMAIL]"],
       "entities": {
         "amount": "INR 65,000",
@@ -55,20 +178,70 @@
   },
   {
     "ticket_id": "TKT-RMS-1003",
+    "external_reference": "UMS-EXT-2026-1003",
     "student_reference": "STU-SYN-5120",
     "subject": "Continuous Assessment (CA-2) marks discrepancy for CSE 472",
+    "title": "Continuous Assessment (CA-2) marks discrepancy for CSE 472",
     "description": "Respected Dean of Academics, I received 12/30 in my CA-2 assignment for CSE 472 Deep Learning for NLP. However, in the assignment submission portal, the rubric shows 27/30 given by the course instructor. It seems the marks were erroneously updated in the grade ledger as 12 instead of 27. I have attached the screenshot of the evaluator remarks. Registration ID: 12204918.",
     "category": "Academics",
+    "subcategory": "Grade Ledger",
     "department": "Academic Affairs",
+    "assigned_department_id": "DEPT-ACADEMICS",
+    "assigned_staff_id": "USR-STAFF-02",
+    "assigned_staff": "USR-STAFF-02",
     "priority": "Medium",
     "status": "STAFF_REVIEW",
+    "escalation_level": 0,
+    "source": "STUDENT_PORTAL",
     "created_at": "2026-09-20T09:00:00Z",
-    "attachments": ["ca_rubric_screenshot.png"],
+    "updated_at": "2026-09-20T09:15:00Z",
+    "due_at": "2026-09-22T09:00:00Z",
+    "tags": ["academics", "ca-marks", "discrepancy", "cse472"],
+    "attachments": [
+      {
+        "attachment_id": "ATT-1003-01",
+        "filename": "ca_rubric_screenshot.png",
+        "file_size_bytes": 524288,
+        "content_type": "image/png",
+        "url": "/mock-attachments/ca_rubric_screenshot.png",
+        "uploaded_at": "2026-09-20T09:00:00Z"
+      }
+    ],
+    "sla_record": {
+      "priority": "Medium",
+      "sla_hours": 48,
+      "due_at": "2026-09-22T09:00:00Z",
+      "is_breached": false,
+      "remaining_hours": 36.0,
+      "status": "ON_TRACK"
+    },
+    "responses": [],
+    "history": [
+      {
+        "event_id": "AUD-1003-01",
+        "ticket_id": "TKT-RMS-1003",
+        "event_type": "CREATED",
+        "actor_id": "STU-SYN-5120",
+        "actor_role": "STUDENT",
+        "timestamp": "2026-09-20T09:00:00Z",
+        "from_state": "NEW",
+        "to_state": "INGESTED",
+        "notes": "CA marks discrepancy ticket filed with rubric screenshot",
+        "details": {"source": "STUDENT_PORTAL"}
+      }
+    ],
+    "metadata": {
+      "environment": "synthetic",
+      "dataset_version": "v1.0",
+      "synthetic_data": true
+    },
+    "is_synthetic": true,
     "ai_analysis": {
       "intent": "GRADE_DISCREPANCY",
       "suggested_department": "Academic Affairs",
       "priority_score": 2,
       "urgency_level": "Medium",
+      "confidence": 0.91,
       "pii_detected": ["[REDACTED_REG_NO]"],
       "entities": {
         "course_code": "CSE 472",
@@ -83,20 +256,70 @@
   },
   {
     "ticket_id": "TKT-RMS-1004",
+    "external_reference": "UMS-EXT-2026-1004",
     "student_reference": "STU-SYN-7741",
     "subject": "Admit card blocked due to library clearance error before End Term Exam",
+    "title": "Admit card blocked due to library clearance error before End Term Exam",
     "description": "Urgent attention required: My End Term Examination starts in 48 hours (23rd Sept). When I went to download my Examination Admit Card, it says 'Hall Ticket Blocked - Pending Library Clearance'. I had already returned the book 'Operating System Concepts' on 10th September and received the physical return slip from Central Library counter 3. Please clear the hold immediately so I can download my hall ticket.",
     "category": "Examination",
+    "subcategory": "Admit Card / Hall Ticket",
     "department": "Examination Branch",
+    "assigned_department_id": "DEPT-EXAM",
+    "assigned_staff_id": "USR-STAFF-04",
+    "assigned_staff": "USR-STAFF-04",
     "priority": "Critical",
     "status": "STAFF_REVIEW",
+    "escalation_level": 0,
+    "source": "STUDENT_PORTAL",
     "created_at": "2026-09-21T07:45:00Z",
-    "attachments": ["library_return_slip.jpg"],
+    "updated_at": "2026-09-21T08:00:00Z",
+    "due_at": "2026-09-21T11:45:00Z",
+    "tags": ["exam", "hall-ticket", "clearance-hold", "emergency"],
+    "attachments": [
+      {
+        "attachment_id": "ATT-1004-01",
+        "filename": "library_return_slip.jpg",
+        "file_size_bytes": 314572,
+        "content_type": "image/jpeg",
+        "url": "/mock-attachments/library_return_slip.jpg",
+        "uploaded_at": "2026-09-21T07:45:00Z"
+      }
+    ],
+    "sla_record": {
+      "priority": "Critical",
+      "sla_hours": 4,
+      "due_at": "2026-09-21T11:45:00Z",
+      "is_breached": false,
+      "remaining_hours": 3.2,
+      "status": "ON_TRACK"
+    },
+    "responses": [],
+    "history": [
+      {
+        "event_id": "AUD-1004-01",
+        "ticket_id": "TKT-RMS-1004",
+        "event_type": "CREATED",
+        "actor_id": "STU-SYN-7741",
+        "actor_role": "STUDENT",
+        "timestamp": "2026-09-21T07:45:00Z",
+        "from_state": "NEW",
+        "to_state": "INGESTED",
+        "notes": "Critical exam admit card hold filed",
+        "details": {"source": "STUDENT_PORTAL"}
+      }
+    ],
+    "metadata": {
+      "environment": "synthetic",
+      "dataset_version": "v1.0",
+      "synthetic_data": true
+    },
+    "is_synthetic": true,
     "ai_analysis": {
       "intent": "EXAM_ADMIT_CARD_BLOCKED",
       "suggested_department": "Examination Branch",
       "priority_score": 4,
       "urgency_level": "Critical",
+      "confidence": 0.97,
       "pii_detected": [],
       "entities": {
         "exam_window": "Starts in 48 hours",
@@ -110,20 +333,70 @@
   },
   {
     "ticket_id": "TKT-RMS-1005",
+    "external_reference": "UMS-EXT-2026-1005",
     "student_reference": "STU-SYN-1902",
     "subject": "Medical leave attendance adjustment for hospitalization period (5th to 12th Sept)",
+    "title": "Medical leave attendance adjustment for hospitalization period (5th to 12th Sept)",
     "description": "To the Head of Student Welfare, I was admitted to the University Health Center and Civil Hospital due to acute dengue fever from 5th September to 12th September 2026. Because of this, my attendance in CSE 320 and MTH 402 dropped to 71%. I am submitting the certified medical certificate, discharge summary, and fitness certificate. Please adjust my medical leave duty as per university attendance regulations.",
     "category": "Attendance",
+    "subcategory": "Medical Attendance Condonation",
     "department": "Student Welfare",
+    "assigned_department_id": "DEPT-WELFARE",
+    "assigned_staff_id": "USR-STAFF-05",
+    "assigned_staff": "USR-STAFF-05",
     "priority": "Medium",
     "status": "DRAFTED",
+    "escalation_level": 0,
+    "source": "STUDENT_PORTAL",
     "created_at": "2026-09-18T16:20:00Z",
-    "attachments": ["medical_discharge_summary.pdf", "fitness_certificate.pdf"],
+    "updated_at": "2026-09-18T17:00:00Z",
+    "due_at": "2026-09-20T04:20:00Z",
+    "tags": ["attendance", "medical-leave", "dengue", "condonation"],
+    "attachments": [
+      {
+        "attachment_id": "ATT-1005-01",
+        "filename": "medical_discharge_summary.pdf",
+        "file_size_bytes": 838860,
+        "content_type": "application/pdf",
+        "url": "/mock-attachments/medical_discharge_summary.pdf",
+        "uploaded_at": "2026-09-18T16:20:00Z"
+      }
+    ],
+    "sla_record": {
+      "priority": "Medium",
+      "sla_hours": 36,
+      "due_at": "2026-09-20T04:20:00Z",
+      "is_breached": false,
+      "remaining_hours": 22.0,
+      "status": "ON_TRACK"
+    },
+    "responses": [],
+    "history": [
+      {
+        "event_id": "AUD-1005-01",
+        "ticket_id": "TKT-RMS-1005",
+        "event_type": "CREATED",
+        "actor_id": "STU-SYN-1902",
+        "actor_role": "STUDENT",
+        "timestamp": "2026-09-18T16:20:00Z",
+        "from_state": "NEW",
+        "to_state": "INGESTED",
+        "notes": "Medical duty attendance adjustment request registered",
+        "details": {"source": "STUDENT_PORTAL"}
+      }
+    ],
+    "metadata": {
+      "environment": "synthetic",
+      "dataset_version": "v1.0",
+      "synthetic_data": true
+    },
+    "is_synthetic": true,
     "ai_analysis": {
       "intent": "ATTENDANCE_MEDICAL_ADJUSTMENT",
       "suggested_department": "Student Welfare",
       "priority_score": 2,
       "urgency_level": "Medium",
+      "confidence": 0.93,
       "pii_detected": [],
       "entities": {
         "absence_dates": "5th Sept - 12th Sept 2026",
@@ -137,20 +410,70 @@
   },
   {
     "ticket_id": "TKT-RMS-1006",
+    "external_reference": "UMS-EXT-2026-1006",
     "student_reference": "STU-SYN-6619",
     "subject": "Post-Matric National Scholarship verification pending in state portal",
+    "title": "Post-Matric National Scholarship verification pending in state portal",
     "description": "Dear Scholarship Section, My application for the National Scholarship Portal (NSP 2026) has been marked 'Pending Verification at Institute Level' for the past 3 weeks. The deadline for institutional verification is 30th September. Please verify my application so that the scholarship amount of INR 40,000 can be processed by the state welfare department. My Aadhaar reference is XXXX-XXXX-1234.",
     "category": "Scholarships",
+    "subcategory": "National Scholarship Portal (NSP)",
     "department": "Scholarship Section",
+    "assigned_department_id": "DEPT-SCHOLARSHIP",
+    "assigned_staff_id": "USR-STAFF-06",
+    "assigned_staff": "USR-STAFF-06",
     "priority": "High",
     "status": "STAFF_REVIEW",
+    "escalation_level": 0,
+    "source": "STUDENT_PORTAL",
     "created_at": "2026-09-19T11:40:00Z",
-    "attachments": ["nsp_portal_status.pdf"],
+    "updated_at": "2026-09-19T12:00:00Z",
+    "due_at": "2026-09-20T23:40:00Z",
+    "tags": ["scholarship", "nsp", "verification-pending"],
+    "attachments": [
+      {
+        "attachment_id": "ATT-1006-01",
+        "filename": "nsp_portal_status.pdf",
+        "file_size_bytes": 629145,
+        "content_type": "application/pdf",
+        "url": "/mock-attachments/nsp_portal_status.pdf",
+        "uploaded_at": "2026-09-19T11:40:00Z"
+      }
+    ],
+    "sla_record": {
+      "priority": "High",
+      "sla_hours": 36,
+      "due_at": "2026-09-20T23:40:00Z",
+      "is_breached": false,
+      "remaining_hours": 24.0,
+      "status": "ON_TRACK"
+    },
+    "responses": [],
+    "history": [
+      {
+        "event_id": "AUD-1006-01",
+        "ticket_id": "TKT-RMS-1006",
+        "event_type": "CREATED",
+        "actor_id": "STU-SYN-6619",
+        "actor_role": "STUDENT",
+        "timestamp": "2026-09-19T11:40:00Z",
+        "from_state": "NEW",
+        "to_state": "INGESTED",
+        "notes": "NSP scholarship verification grievance lodged",
+        "details": {"source": "STUDENT_PORTAL"}
+      }
+    ],
+    "metadata": {
+      "environment": "synthetic",
+      "dataset_version": "v1.0",
+      "synthetic_data": true
+    },
+    "is_synthetic": true,
     "ai_analysis": {
       "intent": "SCHOLARSHIP_VERIFICATION",
       "suggested_department": "Scholarship Section",
       "priority_score": 3,
       "urgency_level": "High",
+      "confidence": 0.92,
       "pii_detected": ["[REDACTED_ID]"],
       "entities": {
         "portal": "National Scholarship Portal (NSP)",
@@ -164,20 +487,70 @@
   },
   {
     "ticket_id": "TKT-RMS-1007",
+    "external_reference": "UMS-EXT-2026-1007",
     "student_reference": "STU-SYN-4421",
     "subject": "Campus Wi-Fi device MAC registration failure and portal login error",
+    "title": "Campus Wi-Fi device MAC registration failure and portal login error",
     "description": "IT Helpdesk, I recently replaced my laptop. When I try to register the new MAC address (00:1A:2B:3C:4D:5E) on the university Fortinet Wi-Fi registration portal, it gives an error: 'Maximum device limit reached (2/2)'. However, I have already removed my old device from the portal yesterday. Now I am unable to connect to University-Secure Wi-Fi network in academic block 34. Student phone: 9812345678.",
     "category": "IT Support",
+    "subcategory": "Campus Wi-Fi / MAC Registration",
     "department": "IT Services",
+    "assigned_department_id": "DEPT-IT",
+    "assigned_staff_id": "USR-STAFF-07",
+    "assigned_staff": "USR-STAFF-07",
     "priority": "Low",
     "status": "STAFF_REVIEW",
+    "escalation_level": 0,
+    "source": "STUDENT_PORTAL",
     "created_at": "2026-09-20T18:10:00Z",
-    "attachments": ["wifi_error_screenshot.png"],
+    "updated_at": "2026-09-20T18:30:00Z",
+    "due_at": "2026-09-22T18:10:00Z",
+    "tags": ["it-services", "wifi-mac", "device-limit"],
+    "attachments": [
+      {
+        "attachment_id": "ATT-1007-01",
+        "filename": "wifi_error_screenshot.png",
+        "file_size_bytes": 419430,
+        "content_type": "image/png",
+        "url": "/mock-attachments/wifi_error_screenshot.png",
+        "uploaded_at": "2026-09-20T18:10:00Z"
+      }
+    ],
+    "sla_record": {
+      "priority": "Low",
+      "sla_hours": 48,
+      "due_at": "2026-09-22T18:10:00Z",
+      "is_breached": false,
+      "remaining_hours": 44.0,
+      "status": "ON_TRACK"
+    },
+    "responses": [],
+    "history": [
+      {
+        "event_id": "AUD-1007-01",
+        "ticket_id": "TKT-RMS-1007",
+        "event_type": "CREATED",
+        "actor_id": "STU-SYN-4421",
+        "actor_role": "STUDENT",
+        "timestamp": "2026-09-20T18:10:00Z",
+        "from_state": "NEW",
+        "to_state": "INGESTED",
+        "notes": "Wi-Fi device binding ticket created",
+        "details": {"source": "STUDENT_PORTAL"}
+      }
+    ],
+    "metadata": {
+      "environment": "synthetic",
+      "dataset_version": "v1.0",
+      "synthetic_data": true
+    },
+    "is_synthetic": true,
     "ai_analysis": {
       "intent": "WIFI_MAC_REGISTRATION",
       "suggested_department": "IT Services",
       "priority_score": 1,
       "urgency_level": "Low",
+      "confidence": 0.89,
       "pii_detected": ["[REDACTED_PHONE]"],
       "entities": {
         "device_mac": "00:1A:2B:3C:4D:5E",
@@ -191,20 +564,70 @@
   },
   {
     "ticket_id": "TKT-RMS-1008",
+    "external_reference": "UMS-EXT-2026-1008",
     "student_reference": "STU-SYN-8833",
     "subject": "Request for official Bonafide Certificate and English Medium of Instruction letter for visa",
+    "title": "Request for official Bonafide Certificate and English Medium of Instruction letter for visa",
     "description": "Respected Registrar, I have applied for a Japanese Student Exchange program for Spring 2027. The embassy requires an official Bonafide Student Certificate with stamp and an official English as Medium of Instruction (MOI) certificate. I have cleared all dues up to semester 5. Please let me know the collection timeline or if it can be sent via signed e-document to student.japan@mock.org.",
     "category": "Student Services",
+    "subcategory": "Bonafide & Documentation",
     "department": "Academic Affairs",
+    "assigned_department_id": "DEPT-ACADEMICS",
+    "assigned_staff_id": "USR-STAFF-02",
+    "assigned_staff": "USR-STAFF-02",
     "priority": "Low",
     "status": "DRAFTED",
+    "escalation_level": 0,
+    "source": "STUDENT_PORTAL",
     "created_at": "2026-09-17T12:00:00Z",
-    "attachments": ["exchange_nomination_letter.pdf"],
+    "updated_at": "2026-09-17T13:00:00Z",
+    "due_at": "2026-09-20T12:00:00Z",
+    "tags": ["academics", "bonafide", "visa", "exchange"],
+    "attachments": [
+      {
+        "attachment_id": "ATT-1008-01",
+        "filename": "exchange_nomination_letter.pdf",
+        "file_size_bytes": 734003,
+        "content_type": "application/pdf",
+        "url": "/mock-attachments/exchange_nomination_letter.pdf",
+        "uploaded_at": "2026-09-17T12:00:00Z"
+      }
+    ],
+    "sla_record": {
+      "priority": "Low",
+      "sla_hours": 72,
+      "due_at": "2026-09-20T12:00:00Z",
+      "is_breached": false,
+      "remaining_hours": 42.0,
+      "status": "ON_TRACK"
+    },
+    "responses": [],
+    "history": [
+      {
+        "event_id": "AUD-1008-01",
+        "ticket_id": "TKT-RMS-1008",
+        "event_type": "CREATED",
+        "actor_id": "STU-SYN-8833",
+        "actor_role": "STUDENT",
+        "timestamp": "2026-09-17T12:00:00Z",
+        "from_state": "NEW",
+        "to_state": "INGESTED",
+        "notes": "Bonafide & MOI certificate request submitted",
+        "details": {"source": "STUDENT_PORTAL"}
+      }
+    ],
+    "metadata": {
+      "environment": "synthetic",
+      "dataset_version": "v1.0",
+      "synthetic_data": true
+    },
+    "is_synthetic": true,
     "ai_analysis": {
       "intent": "CERTIFICATE_ISSUANCE",
       "suggested_department": "Academic Affairs",
       "priority_score": 1,
       "urgency_level": "Low",
+      "confidence": 0.96,
       "pii_detected": ["[REDACTED_EMAIL]"],
       "entities": {
         "certificate_type": ["Bonafide Certificate", "Medium of Instruction Letter"],

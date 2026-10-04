@@ -2,33 +2,167 @@
   {
     "user_id": "USR-STAFF-01",
     "name": "Prof. Rajesh Sharma",
+    "display_name": "Prof. Rajesh Sharma",
     "email": "rajesh.sharma@lpu.ac.in",
     "role": "STAFF_OPERATOR",
+    "department_id": "DEPT-HOSTEL",
     "department": "Hostel Affairs",
+    "permissions": [
+      "ticket:read",
+      "ticket:assign",
+      "ticket:approve",
+      "ticket:escalate",
+      "ticket:respond"
+    ],
+    "active_status": true,
+    "workload_metadata": {
+      "assigned_tickets_count": 3,
+      "open_tickets_count": 2,
+      "max_capacity": 25,
+      "specialty_categories": [
+        "Hostel Maintenance",
+        "Plumbing & Electrical"
+      ]
+    },
     "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop"
   },
   {
     "user_id": "USR-STAFF-02",
     "name": "Dr. Anita Verma",
+    "display_name": "Dr. Anita Verma",
     "email": "anita.verma@lpu.ac.in",
     "role": "STAFF_OPERATOR",
+    "department_id": "DEPT-ACADEMICS",
     "department": "Academic Affairs",
+    "permissions": [
+      "ticket:read",
+      "ticket:assign",
+      "ticket:approve",
+      "ticket:escalate",
+      "ticket:respond"
+    ],
+    "active_status": true,
+    "workload_metadata": {
+      "assigned_tickets_count": 2,
+      "open_tickets_count": 1,
+      "max_capacity": 20,
+      "specialty_categories": [
+        "Continuous Assessment",
+        "Grade Ledgers"
+      ]
+    },
     "avatar": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&h=100&fit=crop"
+  },
+  {
+    "user_id": "USR-STAFF-03",
+    "name": "Mr. Amit Pathak",
+    "display_name": "Mr. Amit Pathak",
+    "email": "amit.pathak@lpu.ac.in",
+    "role": "DEPARTMENT_STAFF",
+    "department_id": "DEPT-ACCOUNTS",
+    "department": "Accounts & Finance",
+    "permissions": [
+      "ticket:read",
+      "ticket:assign",
+      "ticket:approve",
+      "ticket:respond"
+    ],
+    "active_status": true,
+    "workload_metadata": {
+      "assigned_tickets_count": 4,
+      "open_tickets_count": 3,
+      "max_capacity": 20,
+      "specialty_categories": [
+        "Fee Refund",
+        "Payment Gateway Timeout"
+      ]
+    },
+    "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop"
+  },
+  {
+    "user_id": "USR-STAFF-04",
+    "name": "Ms. Sunita Reddy",
+    "display_name": "Ms. Sunita Reddy",
+    "email": "sunita.reddy@lpu.ac.in",
+    "role": "STAFF_OPERATOR",
+    "department_id": "DEPT-EXAM",
+    "department": "Examination Branch",
+    "permissions": [
+      "ticket:read",
+      "ticket:assign",
+      "ticket:approve",
+      "ticket:escalate",
+      "ticket:respond"
+    ],
+    "active_status": true,
+    "workload_metadata": {
+      "assigned_tickets_count": 1,
+      "open_tickets_count": 1,
+      "max_capacity": 30,
+      "specialty_categories": [
+        "Hall Ticket Release",
+        "Admit Card Clearance"
+      ]
+    },
+    "avatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop"
   },
   {
     "user_id": "USR-HOD-01",
     "name": "Dr. Sandeep Kapoor",
+    "display_name": "Dr. Sandeep Kapoor",
     "email": "sandeep.kapoor@lpu.ac.in",
     "role": "DEPARTMENT_HOD",
+    "department_id": "DEPT-HOSTEL",
     "department": "Hostel Affairs",
+    "permissions": [
+      "ticket:read",
+      "ticket:assign",
+      "ticket:approve",
+      "ticket:escalate",
+      "ticket:respond",
+      "ticket:reopen",
+      "department:admin"
+    ],
+    "active_status": true,
+    "workload_metadata": {
+      "assigned_tickets_count": 1,
+      "open_tickets_count": 1,
+      "max_capacity": 10,
+      "specialty_categories": [
+        "Hostel Governance",
+        "High-Level Escalations"
+      ]
+    },
     "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop"
   },
   {
     "user_id": "USR-ADMIN-01",
     "name": "System Administrator",
+    "display_name": "System Administrator",
     "email": "admin.rms@lpu.ac.in",
     "role": "SYSTEM_ADMIN",
+    "department_id": "DEPT-IT",
     "department": "IT Services",
+    "permissions": [
+      "ticket:read",
+      "ticket:write",
+      "ticket:delete",
+      "ticket:assign",
+      "ticket:approve",
+      "ticket:escalate",
+      "system:manage",
+      "analytics:export"
+    ],
+    "active_status": true,
+    "workload_metadata": {
+      "assigned_tickets_count": 0,
+      "open_tickets_count": 0,
+      "max_capacity": 50,
+      "specialty_categories": [
+        "Identity Management",
+        "Infrastructure Maintenance"
+      ]
+    },
     "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop"
   }
 ]

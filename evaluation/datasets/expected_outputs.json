@@ -1,0 +1,422 @@
+[
+  {
+    "ticket_id": "EVAL-RMS-001",
+    "expected_intent": "HOSTEL_MAINTENANCE",
+    "expected_department": "Hostel Affairs",
+    "expected_priority": "Critical",
+    "expected_doc_id": "DOC-2024-HOSTEL-01"
+  },
+  {
+    "ticket_id": "EVAL-RMS-002",
+    "expected_intent": "HOSTEL_MAINTENANCE",
+    "expected_department": "Hostel Affairs",
+    "expected_priority": "High",
+    "expected_doc_id": "DOC-2024-HOSTEL-01"
+  },
+  {
+    "ticket_id": "EVAL-RMS-003",
+    "expected_intent": "HOSTEL_MAINTENANCE",
+    "expected_department": "Hostel Affairs",
+    "expected_priority": "High",
+    "expected_doc_id": "DOC-2024-HOSTEL-01"
+  },
+  {
+    "ticket_id": "EVAL-RMS-004",
+    "expected_intent": "HOSTEL_MAINTENANCE",
+    "expected_department": "Hostel Affairs",
+    "expected_priority": "High",
+    "expected_doc_id": "DOC-2024-HOSTEL-01"
+  },
+  {
+    "ticket_id": "EVAL-RMS-005",
+    "expected_intent": "HOSTEL_MAINTENANCE",
+    "expected_department": "Hostel Affairs",
+    "expected_priority": "High",
+    "expected_doc_id": "DOC-2024-HOSTEL-01"
+  },
+  {
+    "ticket_id": "EVAL-RMS-006",
+    "expected_intent": "HOSTEL_MAINTENANCE",
+    "expected_department": "Hostel Affairs",
+    "expected_priority": "High",
+    "expected_doc_id": "DOC-2024-HOSTEL-01"
+  },
+  {
+    "ticket_id": "EVAL-RMS-007",
+    "expected_intent": "HOSTEL_MAINTENANCE",
+    "expected_department": "Hostel Affairs",
+    "expected_priority": "High",
+    "expected_doc_id": "DOC-2024-HOSTEL-01"
+  },
+  {
+    "ticket_id": "EVAL-RMS-008",
+    "expected_intent": "FEE_PAYMENT",
+    "expected_department": "Accounts & Finance",
+    "expected_priority": "High",
+    "expected_doc_id": "DOC-2024-FIN-02"
+  },
+  {
+    "ticket_id": "EVAL-RMS-009",
+    "expected_intent": "FEE_PAYMENT",
+    "expected_department": "Accounts & Finance",
+    "expected_priority": "High",
+    "expected_doc_id": "DOC-2024-FIN-02"
+  },
+  {
+    "ticket_id": "EVAL-RMS-010",
+    "expected_intent": "FEE_PAYMENT",
+    "expected_department": "Accounts & Finance",
+    "expected_priority": "High",
+    "expected_doc_id": "DOC-2024-FIN-02"
+  },
+  {
+    "ticket_id": "EVAL-RMS-011",
+    "expected_intent": "FEE_PAYMENT",
+    "expected_department": "Accounts & Finance",
+    "expected_priority": "High",
+    "expected_doc_id": "DOC-2024-FIN-02"
+  },
+  {
+    "ticket_id": "EVAL-RMS-012",
+    "expected_intent": "FEE_PAYMENT",
+    "expected_department": "Accounts & Finance",
+    "expected_priority": "High",
+    "expected_doc_id": "DOC-2024-FIN-02"
+  },
+  {
+    "ticket_id": "EVAL-RMS-013",
+    "expected_intent": "FEE_PAYMENT",
+    "expected_department": "Accounts & Finance",
+    "expected_priority": "High",
+    "expected_doc_id": "DOC-2024-FIN-02"
+  },
+  {
+    "ticket_id": "EVAL-RMS-014",
+    "expected_intent": "FEE_PAYMENT",
+    "expected_department": "Accounts & Finance",
+    "expected_priority": "High",
+    "expected_doc_id": "DOC-2024-FIN-02"
+  },
+  {
+    "ticket_id": "EVAL-RMS-015",
+    "expected_intent": "EXAMINATION",
+    "expected_department": "Examination Branch",
+    "expected_priority": "Critical",
+    "expected_doc_id": "DOC-2024-EXAM-04"
+  },
+  {
+    "ticket_id": "EVAL-RMS-016",
+    "expected_intent": "EXAMINATION",
+    "expected_department": "Examination Branch",
+    "expected_priority": "Critical",
+    "expected_doc_id": "DOC-2024-EXAM-04"
+  },
+  {
+    "ticket_id": "EVAL-RMS-017",
+    "expected_intent": "EXAMINATION",
+    "expected_department": "Examination Branch",
+    "expected_priority": "High",
+    "expected_doc_id": "DOC-2024-EXAM-04"
+  },
+  {
+    "ticket_id": "EVAL-RMS-018",
+    "expected_intent": "EXAMINATION",
+    "expected_department": "Examination Branch",
+    "expected_priority": "High",
+    "expected_doc_id": "DOC-2024-EXAM-04"
+  },
+  {
+    "ticket_id": "EVAL-RMS-019",
+    "expected_intent": "EXAMINATION",
+    "expected_department": "Examination Branch",
+    "expected_priority": "Critical",
+    "expected_doc_id": "DOC-2024-EXAM-04"
+  },
+  {
+    "ticket_id": "EVAL-RMS-020",
+    "expected_intent": "EXAMINATION",
+    "expected_department": "Examination Branch",
+    "expected_priority": "High",
+    "expected_doc_id": "DOC-2024-EXAM-04"
+  },
+  {
+    "ticket_id": "EVAL-RMS-021",
+    "expected_intent": "EXAMINATION",
+    "expected_department": "Examination Branch",
+    "expected_priority": "High",
+    "expected_doc_id": "DOC-2024-EXAM-04"
+  },
+  {
+    "ticket_id": "EVAL-RMS-022",
+    "expected_intent": "ACADEMIC",
+    "expected_department": "Academic Affairs",
+    "expected_priority": "Medium",
+    "expected_doc_id": "DOC-2024-ACAD-03"
+  },
+  {
+    "ticket_id": "EVAL-RMS-023",
+    "expected_intent": "ACADEMIC",
+    "expected_department": "Academic Affairs",
+    "expected_priority": "Medium",
+    "expected_doc_id": "DOC-2024-ACAD-03"
+  },
+  {
+    "ticket_id": "EVAL-RMS-024",
+    "expected_intent": "ACADEMIC",
+    "expected_department": "Academic Affairs",
+    "expected_priority": "Medium",
+    "expected_doc_id": "DOC-2024-ACAD-03"
+  },
+  {
+    "ticket_id": "EVAL-RMS-025",
+    "expected_intent": "ACADEMIC",
+    "expected_department": "Academic Affairs",
+    "expected_priority": "Medium",
+    "expected_doc_id": "DOC-2024-ACAD-03"
+  },
+  {
+    "ticket_id": "EVAL-RMS-026",
+    "expected_intent": "ACADEMIC",
+    "expected_department": "Academic Affairs",
+    "expected_priority": "Medium",
+    "expected_doc_id": "DOC-2024-ACAD-03"
+  },
+  {
+    "ticket_id": "EVAL-RMS-027",
+    "expected_intent": "ACADEMIC",
+    "expected_department": "Academic Affairs",
+    "expected_priority": "Medium",
+    "expected_doc_id": "DOC-2024-ACAD-03"
+  },
+  {
+    "ticket_id": "EVAL-RMS-028",
+    "expected_intent": "ACADEMIC",
+    "expected_department": "Academic Affairs",
+    "expected_priority": "Medium",
+    "expected_doc_id": "DOC-2024-ACAD-03"
+  },
+  {
+    "ticket_id": "EVAL-RMS-029",
+    "expected_intent": "ATTENDANCE",
+    "expected_department": "Student Welfare",
+    "expected_priority": "Medium",
+    "expected_doc_id": "DOC-2024-WELFARE-05"
+  },
+  {
+    "ticket_id": "EVAL-RMS-030",
+    "expected_intent": "ATTENDANCE",
+    "expected_department": "Student Welfare",
+    "expected_priority": "Medium",
+    "expected_doc_id": "DOC-2024-WELFARE-05"
+  },
+  {
+    "ticket_id": "EVAL-RMS-031",
+    "expected_intent": "ATTENDANCE",
+    "expected_department": "Student Welfare",
+    "expected_priority": "Medium",
+    "expected_doc_id": "DOC-2024-WELFARE-05"
+  },
+  {
+    "ticket_id": "EVAL-RMS-032",
+    "expected_intent": "ATTENDANCE",
+    "expected_department": "Student Welfare",
+    "expected_priority": "Medium",
+    "expected_doc_id": "DOC-2024-WELFARE-05"
+  },
+  {
+    "ticket_id": "EVAL-RMS-033",
+    "expected_intent": "ATTENDANCE",
+    "expected_department": "Student Welfare",
+    "expected_priority": "Medium",
+    "expected_doc_id": "DOC-2024-WELFARE-05"
+  },
+  {
+    "ticket_id": "EVAL-RMS-034",
+    "expected_intent": "ATTENDANCE",
+    "expected_department": "Student Welfare",
+    "expected_priority": "Medium",
+    "expected_doc_id": "DOC-2024-WELFARE-05"
+  },
+  {
+    "ticket_id": "EVAL-RMS-035",
+    "expected_intent": "SCHOLARSHIP",
+    "expected_department": "Scholarship Section",
+    "expected_priority": "High",
+    "expected_doc_id": "DOC-2024-SCHOL-06"
+  },
+  {
+    "ticket_id": "EVAL-RMS-036",
+    "expected_intent": "SCHOLARSHIP",
+    "expected_department": "Scholarship Section",
+    "expected_priority": "High",
+    "expected_doc_id": "DOC-2024-SCHOL-06"
+  },
+  {
+    "ticket_id": "EVAL-RMS-037",
+    "expected_intent": "SCHOLARSHIP",
+    "expected_department": "Scholarship Section",
+    "expected_priority": "High",
+    "expected_doc_id": "DOC-2024-SCHOL-06"
+  },
+  {
+    "ticket_id": "EVAL-RMS-038",
+    "expected_intent": "SCHOLARSHIP",
+    "expected_department": "Scholarship Section",
+    "expected_priority": "High",
+    "expected_doc_id": "DOC-2024-SCHOL-06"
+  },
+  {
+    "ticket_id": "EVAL-RMS-039",
+    "expected_intent": "SCHOLARSHIP",
+    "expected_department": "Scholarship Section",
+    "expected_priority": "High",
+    "expected_doc_id": "DOC-2024-SCHOL-06"
+  },
+  {
+    "ticket_id": "EVAL-RMS-040",
+    "expected_intent": "SCHOLARSHIP",
+    "expected_department": "Scholarship Section",
+    "expected_priority": "High",
+    "expected_doc_id": "DOC-2024-SCHOL-06"
+  },
+  {
+    "ticket_id": "EVAL-RMS-041",
+    "expected_intent": "IT_SUPPORT",
+    "expected_department": "IT Services",
+    "expected_priority": "Low",
+    "expected_doc_id": "DOC-2024-IT-07"
+  },
+  {
+    "ticket_id": "EVAL-RMS-042",
+    "expected_intent": "IT_SUPPORT",
+    "expected_department": "IT Services",
+    "expected_priority": "Low",
+    "expected_doc_id": "DOC-2024-IT-07"
+  },
+  {
+    "ticket_id": "EVAL-RMS-043",
+    "expected_intent": "IT_SUPPORT",
+    "expected_department": "IT Services",
+    "expected_priority": "Low",
+    "expected_doc_id": "DOC-2024-IT-07"
+  },
+  {
+    "ticket_id": "EVAL-RMS-044",
+    "expected_intent": "IT_SUPPORT",
+    "expected_department": "IT Services",
+    "expected_priority": "Low",
+    "expected_doc_id": "DOC-2024-IT-07"
+  },
+  {
+    "ticket_id": "EVAL-RMS-045",
+    "expected_intent": "IT_SUPPORT",
+    "expected_department": "IT Services",
+    "expected_priority": "Low",
+    "expected_doc_id": "DOC-2024-IT-07"
+  },
+  {
+    "ticket_id": "EVAL-RMS-046",
+    "expected_intent": "IT_SUPPORT",
+    "expected_department": "IT Services",
+    "expected_priority": "Low",
+    "expected_doc_id": "DOC-2024-IT-07"
+  },
+  {
+    "ticket_id": "EVAL-RMS-047",
+    "expected_intent": "STUDENT_SERVICES",
+    "expected_department": "Academic Affairs",
+    "expected_priority": "Low",
+    "expected_doc_id": "DOC-2024-REG-08"
+  },
+  {
+    "ticket_id": "EVAL-RMS-048",
+    "expected_intent": "STUDENT_SERVICES",
+    "expected_department": "Academic Affairs",
+    "expected_priority": "Low",
+    "expected_doc_id": "DOC-2024-REG-08"
+  },
+  {
+    "ticket_id": "EVAL-RMS-049",
+    "expected_intent": "STUDENT_SERVICES",
+    "expected_department": "Academic Affairs",
+    "expected_priority": "Low",
+    "expected_doc_id": "DOC-2024-REG-08"
+  },
+  {
+    "ticket_id": "EVAL-RMS-050",
+    "expected_intent": "STUDENT_SERVICES",
+    "expected_department": "Academic Affairs",
+    "expected_priority": "Low",
+    "expected_doc_id": "DOC-2024-REG-08"
+  },
+  {
+    "ticket_id": "EVAL-RMS-051",
+    "expected_intent": "STUDENT_SERVICES",
+    "expected_department": "Academic Affairs",
+    "expected_priority": "Low",
+    "expected_doc_id": "DOC-2024-REG-08"
+  },
+  {
+    "ticket_id": "EVAL-RMS-052",
+    "expected_intent": "STUDENT_SERVICES",
+    "expected_department": "Academic Affairs",
+    "expected_priority": "Low",
+    "expected_doc_id": "DOC-2024-REG-08"
+  },
+  {
+    "ticket_id": "EVAL-RMS-053",
+    "expected_intent": "HOSTEL_MAINTENANCE",
+    "expected_department": "Hostel Affairs",
+    "expected_priority": "Critical",
+    "expected_doc_id": "DOC-2024-HOSTEL-01"
+  },
+  {
+    "ticket_id": "EVAL-RMS-054",
+    "expected_intent": "FEE_PAYMENT",
+    "expected_department": "Accounts & Finance",
+    "expected_priority": "High",
+    "expected_doc_id": "DOC-2024-FIN-02"
+  },
+  {
+    "ticket_id": "EVAL-RMS-055",
+    "expected_intent": "EXAMINATION",
+    "expected_department": "Examination Branch",
+    "expected_priority": "Critical",
+    "expected_doc_id": "DOC-2024-EXAM-04"
+  },
+  {
+    "ticket_id": "EVAL-RMS-056",
+    "expected_intent": "ACADEMIC",
+    "expected_department": "Academic Affairs",
+    "expected_priority": "Medium",
+    "expected_doc_id": "DOC-2024-ACAD-03"
+  },
+  {
+    "ticket_id": "EVAL-RMS-057",
+    "expected_intent": "GENERAL_INQUIRY",
+    "expected_department": "Academic Affairs",
+    "expected_priority": "Low",
+    "expected_doc_id": null
+  },
+  {
+    "ticket_id": "EVAL-RMS-058",
+    "expected_intent": "GENERAL_INQUIRY",
+    "expected_department": "Academic Affairs",
+    "expected_priority": "Low",
+    "expected_doc_id": null
+  },
+  {
+    "ticket_id": "EVAL-RMS-059",
+    "expected_intent": "GENERAL_INQUIRY",
+    "expected_department": "Academic Affairs",
+    "expected_priority": "Low",
+    "expected_doc_id": null
+  },
+  {
+    "ticket_id": "EVAL-RMS-060",
+    "expected_intent": "GENERAL_INQUIRY",
+    "expected_department": "Academic Affairs",
+    "expected_priority": "Low",
+    "expected_doc_id": null
+  }
+]

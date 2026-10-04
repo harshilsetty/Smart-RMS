@@ -1,0 +1,422 @@
+[
+  {
+    "ticket_id": "EVAL-RMS-001",
+    "student_reference": "STU-EVAL-101",
+    "subject": "Severe ceiling water leakage in Room 204 Boys Hostel 3",
+    "description": "Dear Warden, water is leaking heavily from the ceiling right above my study table and near the electrical light switch in BH-3 Room 204. Need immediate electrical and plumbing repair. Contact: 9876543211.",
+    "created_at": "2026-09-21T08:00:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-002",
+    "student_reference": "STU-EVAL-102",
+    "subject": "AC unit blower motor producing loud grinding noise in GH-1",
+    "description": "In Girls Hostel 1 Room 410, the air conditioner cooling unit is making an intense rattling noise and stopped cooling yesterday night. Kindly arrange technician visit.",
+    "created_at": "2026-09-21T08:05:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-003",
+    "student_reference": "STU-EVAL-103",
+    "subject": "Bathroom tap broken and continuous water overflow in BH-7",
+    "description": "The main bathroom tap in BH-7 Room 112 has sheared off and water is continuously flooding the corridor. Urgent plumbing maintenance required immediately.",
+    "created_at": "2026-09-21T08:10:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-004",
+    "student_reference": "STU-EVAL-104",
+    "subject": "Geyser not working in winter season GH-2 Room 305",
+    "description": "Respected Warden Office, the electric geyser in our room GH-2 Room 305 is not turning on. We submitted a verbal complaint 3 days ago. Please send maintenance electrician.",
+    "created_at": "2026-09-21T08:15:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-005",
+    "student_reference": "STU-EVAL-105",
+    "subject": "Hostel room window glass broken due to windstorm BH-2",
+    "description": "During yesterday's rainstorm the outer window glass of Room 218 in BH-2 cracked and broke. Rain is entering the room. Need maintenance repair carpenter.",
+    "created_at": "2026-09-21T08:20:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-006",
+    "student_reference": "STU-EVAL-106",
+    "subject": "Hostel mess food quality and dining hygiene issue",
+    "description": "To the Hostel Warden, the dinner served in BH-4 mess on 19th Sept was undercooked and unhygienic. Multiple students fell ill. Requesting inspection by hostel mess committee.",
+    "created_at": "2026-09-21T08:25:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-007",
+    "student_reference": "STU-EVAL-107",
+    "subject": "Hostel room door lock jammed from outside in BH-5",
+    "description": "The digital/mechanical mortise door lock of BH-5 Room 502 is stuck and the key is not turning. Student is unable to enter the room. Urgent maintenance assistance requested.",
+    "created_at": "2026-09-21T08:30:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-008",
+    "student_reference": "STU-EVAL-108",
+    "subject": "Semester 5 tuition fee deducted twice from SBI bank account",
+    "description": "Dear Accounts Section, while paying INR 72,000 for Semester 5 fees via payment gateway on 18th Sept, payment timed out but amount was debited twice from my SBI account. Transaction IDs: TXN-44910283 and TXN-44910289. Please issue refund.",
+    "created_at": "2026-09-21T08:35:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-009",
+    "student_reference": "STU-EVAL-109",
+    "subject": "Excess fee deduction during hostel seat confirmation",
+    "description": "Accounts Officer, I paid INR 45,000 for hostel fee. My bank statement shows double payment deducted by university gateway. Kindly reconcile payment ledger and initiate refund.",
+    "created_at": "2026-09-21T08:40:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-010",
+    "student_reference": "STU-EVAL-110",
+    "subject": "Tuition fee payment receipt not generated after successful bank debit",
+    "description": "My HDFC account was debited INR 60,000 on 17th Sept with reference TXN-99120381 for tuition fees, but the student portal still marks status as 'Unpaid'. Please update fee receipt.",
+    "created_at": "2026-09-21T08:45:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-011",
+    "student_reference": "STU-EVAL-111",
+    "subject": "Fee refund request after seat category re-allocation",
+    "description": "Respected Finance Department, my scholarship concession of INR 25,000 was approved after I had already deposited full fee. Please process the refund to my registered bank account.",
+    "created_at": "2026-09-21T08:50:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-012",
+    "student_reference": "STU-EVAL-112",
+    "subject": "Bank challan reconciliation pending for examination fee",
+    "description": "I deposited INR 2,500 via offline bank challan at campus bank branch on 15th Sept for re-appear exam. The challan is not yet updated in my portal fee ledger. Challan slip attached.",
+    "created_at": "2026-09-21T08:55:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-013",
+    "student_reference": "STU-EVAL-113",
+    "subject": "Security deposit refund pending post graduation clearance",
+    "description": "I completed all departmental clearances in July 2026. The university caution money refund of INR 10,000 has not yet been credited to my bank account. Registration: 12004819.",
+    "created_at": "2026-09-21T09:00:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-014",
+    "student_reference": "STU-EVAL-114",
+    "subject": "Dispute on late fee penalty charged due to portal payment gateway outage",
+    "description": "On the fee deadline 15th Sept, the university payment gateway was down for 5 hours. My payment went through at 12:15 AM and a late fine of INR 2,000 was levied. Please waive the fine.",
+    "created_at": "2026-09-21T09:05:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-015",
+    "student_reference": "STU-EVAL-115",
+    "subject": "Admit card blocked due to erroneous library clearance hold",
+    "description": "URGENT: End term exam starts tomorrow morning! My examination admit card shows blocked due to library clearance hold, but I have already returned all books and have library return slip.",
+    "created_at": "2026-09-21T09:10:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-016",
+    "student_reference": "STU-EVAL-116",
+    "subject": "Hall ticket download error 48 hours before End Term Examination",
+    "description": "Controller of Examinations, our end-term exams begin in 48 hours on 23rd Sept. My hall ticket portal displays an error 'Student Detained - Laboratory Clearance Pending'. Lab technician has verified records.",
+    "created_at": "2026-09-21T09:15:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-017",
+    "student_reference": "STU-EVAL-117",
+    "subject": "Exam datesheet clash between CSE 472 and MTH 402 on same day",
+    "description": "Examination Branch: Both CSE 472 and MTH 402 are scheduled in the morning slot (9 AM - 12 PM) on 28th September in the published final exam datesheet. Kindly resolve timetable clash.",
+    "created_at": "2026-09-21T09:20:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-018",
+    "student_reference": "STU-EVAL-118",
+    "subject": "Re-evaluation grade result not updated in official marksheet transcript",
+    "description": "I applied for re-evaluation of my Term 4 Data Structures paper. The re-eval status says grade revised from B to A, but the consolidated portal marksheet still reflects B grade.",
+    "created_at": "2026-09-21T09:25:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-019",
+    "student_reference": "STU-EVAL-119",
+    "subject": "Emergency admit card release request due to fee clearance sync delay",
+    "description": "I cleared all pending dues yesterday and received accounts no-dues receipt. However, the admit card portal still shows hold. Examination is in 24 hours.",
+    "created_at": "2026-09-21T09:30:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-020",
+    "student_reference": "STU-EVAL-120",
+    "subject": "Name spelling error on End Term Examination grade transcript",
+    "description": "My official provisional grade transcript received from Examination Branch spells my surname as 'Shrma' instead of 'Sharma'. Please issue corrected grade transcript.",
+    "created_at": "2026-09-21T09:35:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-021",
+    "student_reference": "STU-EVAL-121",
+    "subject": "Examination center allotment change request on medical grounds",
+    "description": "Due to a leg fracture and plaster, I am unable to climb to the 4th floor examination hall allotted in Block 34. Requesting ground floor examination seating arrangement.",
+    "created_at": "2026-09-21T09:40:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-022",
+    "student_reference": "STU-EVAL-122",
+    "subject": "Discrepancy in Continuous Assessment CA-2 marks for CSE 472",
+    "description": "Dean of Academics, my CA-2 rubric marks given by course instructor were 28/30. However on the portal Grade Management System, it shows 14/30. Teacher remarks screenshot attached.",
+    "created_at": "2026-09-21T09:45:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-023",
+    "student_reference": "STU-EVAL-123",
+    "subject": "Marks missing for Continuous Assessment CA-3 in INT 108",
+    "description": "The grade portal displays 'Absent' for my CA-3 assignment in INT 108, although I submitted on time via university LMS and have the submission confirmation email. Please rectify clerical data entry.",
+    "created_at": "2026-09-21T09:50:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-024",
+    "student_reference": "STU-EVAL-124",
+    "subject": "Elective course credit registration error for Semester 6",
+    "description": "Academic Affairs Desk, during elective course registration on the student portal, course CSE 430 Artificial Intelligence was allotted instead of CSE 472 Deep Learning. Please adjust credit registration.",
+    "created_at": "2026-09-21T09:55:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-025",
+    "student_reference": "STU-EVAL-125",
+    "subject": "Syllabus topic discrepancy in midterm continuous evaluation",
+    "description": "The midterm test paper for ECE 213 contained questions worth 15 marks from Unit 4 which was not yet covered in lectures. Students submitted grievance to course coordinator.",
+    "created_at": "2026-09-21T10:00:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-026",
+    "student_reference": "STU-EVAL-126",
+    "subject": "Continuous assessment rubric marks not disclosed before end-term",
+    "description": "According to academic regulations, CA rubric marks must be published 7 days before end-term exams. The marks for MGT 101 have not yet been uploaded by the course faculty.",
+    "created_at": "2026-09-21T10:05:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-027",
+    "student_reference": "STU-EVAL-127",
+    "subject": "Credit transfer request for NPTEL / MOOC certification",
+    "description": "I have successfully completed the 12-week NPTEL course on Machine Learning with Elite + Gold certificate. Requesting credit equivalence transfer into Term 5 open electives.",
+    "created_at": "2026-09-21T10:10:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-028",
+    "student_reference": "STU-EVAL-128",
+    "subject": "Academic advisor assignment not reflecting in portal",
+    "description": "My student portal dashboard shows 'Academic Mentor Not Assigned'. I need mentor approval on my semester course registration form before the deadline on Friday.",
+    "created_at": "2026-09-21T10:15:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-029",
+    "student_reference": "STU-EVAL-129",
+    "subject": "Medical leave attendance condonation for typhoid hospitalization",
+    "description": "Head of Student Welfare, I was hospitalized for typhoid fever from 2nd Sept to 10th Sept at Civil Hospital. My attendance dropped below 75%. Submitting hospital discharge summary and fitness certificate for medical duty leave.",
+    "created_at": "2026-09-21T10:20:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-030",
+    "student_reference": "STU-EVAL-130",
+    "subject": "Attendance adjustment for dengue fever medical leave",
+    "description": "Submitting medical certificates and blood test report for dengue hospitalization between 5th Sept and 14th Sept. Requesting attendance duty credit condonation up to 10% under Section 7 Clause 7.2.",
+    "created_at": "2026-09-21T10:25:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-031",
+    "student_reference": "STU-EVAL-131",
+    "subject": "Duty leave attendance adjustment for university sports tournament",
+    "description": "Dean Student Welfare, I represented the university badminton team at the All India Inter-University tournament in Delhi from 11th to 16th Sept. Attached coach endorsement letter for attendance credit.",
+    "created_at": "2026-09-21T10:30:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-032",
+    "student_reference": "STU-EVAL-132",
+    "subject": "Health Center endorsement pending for external medical certificate",
+    "description": "I submitted my medical leave documents to the University Health Center for endorsement 5 days ago, but the verified fitness stamp is not yet updated on the DSW attendance portal.",
+    "created_at": "2026-09-21T10:35:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-033",
+    "student_reference": "STU-EVAL-133",
+    "subject": "Attendance biometric punch machine not recording morning lectures",
+    "description": "In Block 36 Room 201, the biometric attendance device failed to sync punches for CSE 320 lecture on 16th Sept. All 45 students were marked absent. Requesting DSW attendance correction.",
+    "created_at": "2026-09-21T10:40:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-034",
+    "student_reference": "STU-EVAL-134",
+    "subject": "Emergency medical leave condonation for surgery recovery",
+    "description": "Due to emergency appendectomy surgery on 8th September, I was on prescribed bed rest for 10 days. Submitting surgeon advice and discharge documents for attendance condonation.",
+    "created_at": "2026-09-21T10:45:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-035",
+    "student_reference": "STU-EVAL-135",
+    "subject": "National Scholarship Portal NSP verification pending at institute level",
+    "description": "Scholarship Section, my National Scholarship Portal (NSP 2026) post-matric application is pending institute level verification. The state closing deadline is 30th September. Please verify application.",
+    "created_at": "2026-09-21T10:50:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-036",
+    "student_reference": "STU-EVAL-136",
+    "subject": "Post-Matric PMS scholarship renewal verification on state portal",
+    "description": "Dear Scholarship Officer, my Post-Matric Scholarship (PMS) renewal form has been awaiting Nodal Officer verification for over 2 weeks. Aadhaar verification is already linked. Kindly approve.",
+    "created_at": "2026-09-21T10:55:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-037",
+    "student_reference": "STU-EVAL-137",
+    "subject": "Merit scholarship fee concession adjustment in term ledger",
+    "description": "I qualified for the 50% university merit scholarship based on my 9.4 CGPA in Term 4. However, the current term fee invoice shows full tuition without the scholarship deduction. Please adjust.",
+    "created_at": "2026-09-21T11:00:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-038",
+    "student_reference": "STU-EVAL-138",
+    "subject": "Central Sector Scholarship scheme institutional verification approaching due date",
+    "description": "The closing date for Central Sector Scholarship verification by university Nodal Officer is approaching on 28th September. Application ID: CSS-2026-89102. Please verify credentials.",
+    "created_at": "2026-09-21T11:05:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-039",
+    "student_reference": "STU-EVAL-139",
+    "subject": "Defective document re-upload status on NSP scholarship portal",
+    "description": "The state welfare officer marked my NSP income certificate as 'Defective'. I have re-uploaded the latest Tehsildar income certificate. Please re-verify and approve at institute level.",
+    "created_at": "2026-09-21T11:10:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-040",
+    "student_reference": "STU-EVAL-140",
+    "subject": "Freeship card scheme enrollment verification for SC/ST student",
+    "description": "Submitting State Freeship Card sanction order for academic year 2026-27. Requesting Scholarship Section to endorse enrollment and waive upfront tuition fee deposit.",
+    "created_at": "2026-09-21T11:15:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-041",
+    "student_reference": "STU-EVAL-141",
+    "subject": "Campus Fortinet Wi-Fi device limit reached MAC address registration failure",
+    "description": "IT Helpdesk, my student Wi-Fi registration gives error 'Maximum device limit reached (2/2)' even after unbinding old laptop MAC address. Unable to access University-Secure network in Block 34.",
+    "created_at": "2026-09-21T11:20:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-042",
+    "student_reference": "STU-EVAL-142",
+    "subject": "Wi-Fi MAC address re-binding error on Fortinet authentication portal",
+    "description": "Changed my smartphone and registered new MAC address 00:1A:2B:3C:4D:99 on Fortinet portal. The RADIUS session is rejecting login credentials with 'Authentication Timeout'.",
+    "created_at": "2026-09-21T11:25:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-043",
+    "student_reference": "STU-EVAL-143",
+    "subject": "Student UMS credentials locked and password reset email not arriving",
+    "description": "IT Services: My university UMS portal account is locked after 3 wrong password attempts. The automated password reset link is not arriving at my registered email. Student phone: 9812345679.",
+    "created_at": "2026-09-21T11:30:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-044",
+    "student_reference": "STU-EVAL-144",
+    "subject": "Hostel block BH-4 Wi-Fi access point offline and frequent disconnects",
+    "description": "The Fortinet wireless access point on 3rd floor BH-4 has been blinking amber and completely offline since this morning. Over 30 students are unable to connect to campus internet.",
+    "created_at": "2026-09-21T11:35:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-045",
+    "student_reference": "STU-EVAL-145",
+    "subject": "University student email mailbox quota exceeded and storage full",
+    "description": "My university Gmail account (@lpu.in) is bouncing incoming messages with 'Mailbox storage quota 100% full'. Requesting IT helpdesk to clear stale archive or increase quota.",
+    "created_at": "2026-09-21T11:40:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-046",
+    "student_reference": "STU-EVAL-146",
+    "subject": "Computer laboratory workstation login failure during practical class",
+    "description": "In Block 38 Lab 4, system workstation #14 shows domain controller authentication error when logging in with student credentials. Lab technician requested IT desk ticket.",
+    "created_at": "2026-09-21T11:45:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-047",
+    "student_reference": "STU-EVAL-147",
+    "subject": "Request for official Bonafide Certificate and Medium of Instruction letter for visa",
+    "description": "Respected Registrar Office, I have been nominated for German DAAD student exchange program. Embassy requires an official Bonafide Certificate and English Medium of Instruction (MOI) verification letter. All dues cleared.",
+    "created_at": "2026-09-21T11:50:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-048",
+    "student_reference": "STU-EVAL-148",
+    "subject": "Bonafide student certificate required for educational bank loan renewal",
+    "description": "SBI branch requires a digitally signed Bonafide Certificate stating my current semester 5 enrollment and expected graduation year 2028 for student education loan disbursement.",
+    "created_at": "2026-09-21T11:55:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-049",
+    "student_reference": "STU-EVAL-149",
+    "subject": "Medium of Instruction MOI certificate for Canadian university admission",
+    "description": "Academic Records Desk, applying for Masters degree in University of Waterloo. Requesting an official certificate on university letterhead confirming English as Medium of Instruction.",
+    "created_at": "2026-09-21T12:00:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-050",
+    "student_reference": "STU-EVAL-150",
+    "subject": "Migration certificate application dispatch timeline inquiry",
+    "description": "I submitted an online application for an official Migration Certificate and paid fee INR 500 on 12th Sept. Please share the tracking number or expected e-document dispatch date.",
+    "created_at": "2026-09-21T12:05:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-051",
+    "student_reference": "STU-EVAL-151",
+    "subject": "Duplicate student identity card issuance after loss in campus",
+    "description": "I lost my physical student smart identity card in the central library yesterday. I lodged a lost report and paid the duplicate ID fee. Kindly advise collection counter details.",
+    "created_at": "2026-09-21T12:10:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-052",
+    "student_reference": "STU-EVAL-152",
+    "subject": "Character and conduct certificate for government competitive exam interview",
+    "description": "I have cleared UPSC preliminary examination and need a certified Character & Conduct Certificate from Dean Academic Affairs before document verification next Monday.",
+    "created_at": "2026-09-21T12:15:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-053",
+    "student_reference": "STU-EVAL-153",
+    "subject": "Hostel AC unit water leak dripping into power plug in BH-6",
+    "description": "Emergency: In BH-6 Room 102, water is gushing out of the AC cooling pipe straight onto the floor power extension strip. There is high risk of electric spark or shock.",
+    "created_at": "2026-09-21T12:20:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-054",
+    "student_reference": "STU-EVAL-154",
+    "subject": "Tuition fee debited twice with duplicate transaction ID in HDFC",
+    "description": "Accounts Officer, INR 65,000 debited twice during term 5 registration timeout on 18th Sept. Bank debit statement attached. Need immediate refund.",
+    "created_at": "2026-09-21T12:25:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-055",
+    "student_reference": "STU-EVAL-155",
+    "subject": "Admit card blocked library fine error exam commences in 24 hours",
+    "description": "Emergency attention COE: End term examination commences in 24 hours. My admit card says blocked due to library fine, but library counter has confirmed zero balance with receipt.",
+    "created_at": "2026-09-21T12:30:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-056",
+    "student_reference": "STU-EVAL-156",
+    "subject": "CA marks discrepancy rubric score 27 entered as 12 in CSE 472",
+    "description": "Academic Affairs: My evaluated CA-2 assignment rubric score in CSE 472 was 27/30 but portal shows 12/30. Attached evaluator marksheet.",
+    "created_at": "2026-09-21T12:35:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-057",
+    "student_reference": "STU-EVAL-157",
+    "subject": "Lost sports equipment in university gym facility",
+    "description": "Hello, I left my personal badminton racket bag in the university central gym near court 2 yesterday evening around 6 PM. Has anyone deposited it in the lost and found counter?",
+    "created_at": "2026-09-21T12:40:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-058",
+    "student_reference": "STU-EVAL-158",
+    "subject": "Campus bookstore inquiry about availability of novel books",
+    "description": "Hi, does the campus bookstore in Block 32 stock general fiction and science fiction paperback novels, or do they only keep prescribed university engineering textbooks?",
+    "created_at": "2026-09-21T12:45:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-059",
+    "student_reference": "STU-EVAL-159",
+    "subject": "Inquiry regarding public bus timings from university main gate to railway station",
+    "description": "Could you please share the local city bus schedule that operates from the university main highway gate to the central railway station on Sunday mornings?",
+    "created_at": "2026-09-21T12:50:00Z"
+  },
+  {
+    "ticket_id": "EVAL-RMS-060",
+    "student_reference": "STU-EVAL-160",
+    "subject": "General question regarding campus cafeteria lunch hours on public holidays",
+    "description": "Are the university multi-cuisine food courts in Block 30 open on national public holidays, or do they operate on shortened weekend hours?",
+    "created_at": "2026-09-21T12:55:00Z"
+  }
+]

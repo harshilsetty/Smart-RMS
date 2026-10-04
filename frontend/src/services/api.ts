@@ -1,4 +1,12 @@
-import { Ticket, DraftResponse, AnalyticsOverview } from '../types';
+import {
+  Ticket,
+  DraftResponse,
+  AnalyticsOverview,
+  Department,
+  StaffUser,
+  AuditEvent,
+  RMSResponse
+} from '../types';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
 
@@ -20,7 +28,6 @@ export async function fetchTickets(filters?: {
     return await res.json();
   } catch (err) {
     console.warn('Backend API unavailable, falling back to local mock data:', err);
-    // Return empty fallback or let caller handle
     return { total: 0, tickets: [] };
   }
 }
@@ -34,6 +41,26 @@ export async function fetchTicketById(ticketId: string): Promise<Ticket | null> 
     console.error('Failed to fetch ticket:', err);
     return null;
   }
+}
+
+export async function createTicket(payload: {
+  student_reference: string;
+  subject: string;
+  description: string;
+  category?: string;
+  department?: string;
+  priority?: string;
+  subcategory?: string;
+  attachments?: string[];
+  source?: string;
+}): Promise<Ticket> {
+  const res = await fetch(`${API_BASE_URL}/api/v1/rms`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  if (!res.ok) throw new Error('Failed to create ticket');
+  return await res.json();
 }
 
 export async function triggerAIAnalysis(ticketId: string): Promise<any> {
@@ -81,6 +108,75 @@ export async function redirectTicket(ticketId: string, staffId: string, newDepar
   return await res.json();
 }
 
+export async function assignTicket(
+  ticketId: string,
+  payload: { department_id?: string; staff_id?: string; assigned_by: string; reason?: string }
+): Promise<any> {
+  const res = await fetch(`${API_BASE_URL}/api/v1/rms/${ticketId}/assign`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  if (!res.ok) throw new Error('Assignment failed');
+  return await res.json();
+}
+
+export async function addTicketResponse(
+  ticketId: string,
+  payload: { author_id: string; author_name?: string; author_role?: string; content: string; is_internal?: boolean }
+): Promise<RMSResponse> {
+  const res = await fetch(`${API_BASE_URL}/api/v1/rms/${ticketId}/responses`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  if (!res.ok) throw new Error('Failed to add response');
+  return await res.json();
+}
+
+export async function fetchTicketHistory(ticketId: string): Promise<AuditEvent[]> {
+  const res = await fetch(`${API_BASE_URL}/api/v1/rms/${ticketId}/history`);
+  if (!res.ok) throw new Error('Failed to fetch history');
+  return await res.json();
+}
+
+export async function fetchDepartments(): Promise<Department[]> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/v1/departments`);
+    if (!res.ok) throw new Error('Failed to fetch departments');
+    return await res.json();
+  } catch (err) {
+    console.error('Error fetching departments:', err);
+    return [];
+  }
+}
+
+export async function fetchDepartmentById(deptId: string): Promise<Department | null> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/v1/departments/${deptId}`);
+    if (!res.ok) throw new Error('Failed to fetch department');
+    return await res.json();
+  } catch (err) {
+    console.error('Error fetching department details:', err);
+    return null;
+  }
+}
+
+export async function fetchUsers(filters?: { department_id?: string; role?: string }): Promise<StaffUser[]> {
+  const params = new URLSearchParams();
+  if (filters?.department_id) params.append('department_id', filters.department_id);
+  if (filters?.role) params.append('role', filters.role);
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/v1/users?${params.toString()}`);
+    if (!res.ok) throw new Error('Failed to fetch users');
+    return await res.json();
+  } catch (err) {
+    console.error('Error fetching users:', err);
+    return [];
+  }
+}
+
 export async function fetchAnalytics(): Promise<AnalyticsOverview> {
   try {
     const res = await fetch(`${API_BASE_URL}/api/v1/analytics/overview`);
@@ -98,4 +194,10 @@ export async function fetchAnalytics(): Promise<AnalyticsOverview> {
       priority_distribution: { 'High': 3, 'Medium': 3, 'Critical': 1, 'Low': 1 }
     };
   }
+}
+
+export async function fetchEvaluationSummary(): Promise<any> {
+  const res = await fetch(`${API_BASE_URL}/api/v1/evaluation/summary`);
+  if (!res.ok) throw new Error('Failed to fetch evaluation summary');
+  return await res.json();
 }

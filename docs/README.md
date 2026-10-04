@@ -12,6 +12,8 @@ Welcome to the comprehensive technical and product documentation for **Smart RMS
 - [RAG Architecture](architecture/rag-architecture.md): Knowledge ingestion, chunking strategy, embeddings, Chroma vector store, and source attribution.
 - [Privacy & Security](architecture/privacy-security.md): Synthetic data governance, PII masking rules, RBAC matrix, and audit logging.
 - [Integration Architecture](architecture/integration-architecture.md): Pluggable adapter interfaces for university systems (UMS/RMS, ERP, LMS, Attendance).
+- [Data Contracts & Domain Model](architecture/data-contracts.md): Canonical Smart RMS data contract, domain models, lifecycle state machine, and SLA policies.
+- [Synthetic University Environment](architecture/synthetic-environment.md): Production-grade synthetic university environment specification, department taxonomy, and roles.
 
 ### 2. Product Specifications (`docs/product/`)
 - [Problem Statement](product/problem-statement.md): Deep-dive into university grievance bottlenecks, cognitive fatigue, and why simple intake portals do not solve the resolution problem.

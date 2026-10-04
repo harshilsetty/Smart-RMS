@@ -1,5 +1,5 @@
-from typing import Optional
-from fastapi import APIRouter, HTTPException, Query
+from typing import Optional, List, Dict, Any
+from fastapi import APIRouter, HTTPException, Query, status
 from app.services.rms_service import RMSService
 from app.schemas.rms import (
     Ticket,
@@ -12,7 +12,11 @@ from app.schemas.rms import (
     EscalateRequest,
     EscalateResponse,
     RedirectRequest,
-    RedirectResponse
+    RedirectResponse,
+    RMSCreateRequest,
+    AssignmentRequest,
+    RMSResponseCreateRequest,
+    RMSResponse
 )
 
 router = APIRouter()
@@ -20,7 +24,7 @@ rms_service = RMSService()
 
 @router.get("", response_model=TicketListResponse, summary="List RMS tickets with filters")
 def list_tickets(
-    department: Optional[str] = Query(None, description="Filter by department name"),
+    department: Optional[str] = Query(None, description="Filter by department name or ID"),
     priority: Optional[str] = Query(None, description="Filter by priority (Low, Medium, High, Critical)"),
     status: Optional[str] = Query(None, description="Filter by ticket status"),
     search: Optional[str] = Query(None, description="Search keyword in subject or description")
@@ -31,6 +35,13 @@ def list_tickets(
         status=status,
         search=search
     )
+
+@router.post("", response_model=Ticket, status_code=status.HTTP_201_CREATED, summary="Create or ingest a new synthetic RMS ticket")
+def create_ticket(request: RMSCreateRequest):
+    try:
+        return rms_service.create_ticket(request)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Ticket creation failed: {str(e)}")
 
 @router.get("/{ticket_id}", response_model=Ticket, summary="Get single ticket details")
 def get_ticket(ticket_id: str):
@@ -93,5 +104,30 @@ def redirect_ticket(ticket_id: str, request: RedirectRequest):
             new_department=request.new_department,
             reason=request.reason
         )
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+@router.post("/{ticket_id}/assign", summary="Assign ticket to department or staff member")
+def assign_ticket(ticket_id: str, request: AssignmentRequest):
+    try:
+        return rms_service.assign_ticket(ticket_id, request)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Assignment failed: {str(e)}")
+
+@router.post("/{ticket_id}/responses", response_model=RMSResponse, status_code=status.HTTP_201_CREATED, summary="Add staff or student communication response")
+def add_response(ticket_id: str, request: RMSResponseCreateRequest):
+    try:
+        return rms_service.add_response(ticket_id, request)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to add response: {str(e)}")
+
+@router.get("/{ticket_id}/history", response_model=List[Dict[str, Any]], summary="Get chronological audit history")
+def get_ticket_history(ticket_id: str):
+    try:
+        return rms_service.get_ticket_history(ticket_id)
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))

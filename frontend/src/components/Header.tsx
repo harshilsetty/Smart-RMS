@@ -2,8 +2,8 @@ import React from 'react';
 import { ShieldCheck, Bot, UserCheck, Bell, Activity } from 'lucide-react';
 
 interface HeaderProps {
-  activeTab: 'dashboard' | 'analytics' | 'settings';
-  setActiveTab: (tab: 'dashboard' | 'analytics' | 'settings') => void;
+  activeTab: 'dashboard' | 'analytics' | 'evaluation' | 'settings';
+  setActiveTab: (tab: 'dashboard' | 'analytics' | 'evaluation' | 'settings') => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
@@ -18,7 +18,7 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
           <div className="flex items-center space-x-2">
             <h1 className="text-lg font-bold tracking-tight text-white">SMART RMS</h1>
             <span className="px-2 py-0.5 text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full">
-              Copilot v1.0
+              Phase 2 NLP
             </span>
           </div>
           <p className="text-xs text-slate-400 font-medium">University RMS Resolution & Operations System</p>
@@ -46,6 +46,16 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
           }`}
         >
           Operations Analytics
+        </button>
+        <button
+          onClick={() => setActiveTab('evaluation')}
+          className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+            activeTab === 'evaluation'
+              ? 'bg-slate-800 text-white shadow'
+              : 'text-slate-400 hover:text-slate-200'
+          }`}
+        >
+          NLP Evaluation
         </button>
       </nav>
 
