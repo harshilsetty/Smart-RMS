@@ -2,6 +2,7 @@ from enum import Enum
 from typing import Dict, Any, Optional, List
 from datetime import datetime, timezone
 import uuid
+from app.schemas.contracts import InvalidStateTransitionError, TicketStatus
 
 class TicketState(str, Enum):
     """Lifecycle state machine states for RMS requests."""
@@ -24,6 +25,7 @@ class WorkflowEngine:
     """
     Finite state machine managing the complete ticket lifecycle,
     transition validation, and compliance audit trail generation.
+    Enforces deterministic transitions and rejects illegal jumps with InvalidStateTransitionError.
     """
 
     ALLOWED_TRANSITIONS: Dict[TicketState, List[TicketState]] = {
@@ -61,7 +63,8 @@ class WorkflowEngine:
             TicketState.WAITING_FOR_DEPARTMENT,
             TicketState.APPROVED,
             TicketState.ESCALATED,
-            TicketState.RESOLVED
+            TicketState.RESOLVED,
+            TicketState.ROUTED
         ],
         TicketState.IN_PROGRESS: [
             TicketState.WAITING_FOR_STUDENT,
@@ -80,11 +83,12 @@ class WorkflowEngine:
         TicketState.WAITING_FOR_DEPARTMENT: [
             TicketState.IN_PROGRESS,
             TicketState.STAFF_REVIEW,
+            TicketState.ESCALATED,
             TicketState.RESOLVED
         ],
         TicketState.ESCALATED: [
-            TicketState.STAFF_REVIEW,
             TicketState.IN_PROGRESS,
+            TicketState.STAFF_REVIEW,
             TicketState.APPROVED,
             TicketState.RESOLVED
         ],
@@ -94,14 +98,17 @@ class WorkflowEngine:
         ],
         TicketState.RESOLVED: [
             TicketState.CLOSED,
-            TicketState.STAFF_REVIEW  # Permitted if reopened within grace period
+            TicketState.STAFF_REVIEW  # Permitted on student reopening / dispute
         ],
         TicketState.CLOSED: [
-            TicketState.STAFF_REVIEW  # Reopen on student dispute
+            TicketState.STAFF_REVIEW  # Formal administrative reopening
         ]
     }
 
     def can_transition(self, current: str, next_state: str) -> bool:
+        """Evaluates whether transitioning from current to next_state is legally allowed."""
+        if current == next_state:
+            return True  # Idempotent state transition or note update
         try:
             curr_enum = TicketState(current)
             next_enum = TicketState(next_state)
@@ -116,15 +123,25 @@ class WorkflowEngine:
         actor_id: str,
         notes: Optional[str] = None,
         event_type: str = "STATUS_CHANGED",
-        details: Optional[Dict[str, Any]] = None
+        details: Optional[Dict[str, Any]] = None,
+        force: bool = False
     ) -> Dict[str, Any]:
         """
         Executes a validated state transition and records a structured audit event.
+        Raises InvalidStateTransitionError if the requested transition is illegal.
         """
         current_state = ticket.get("status", TicketState.INGESTED.value)
+
+        # Enforce validation unless explicitly forced
+        if not force and not self.can_transition(current_state, next_state):
+            raise InvalidStateTransitionError(
+                f"Illegal state transition from '{current_state}' to '{next_state}' "
+                f"for ticket {ticket.get('ticket_id', 'UNKNOWN')}."
+            )
+
         timestamp = datetime.now(timezone.utc).isoformat()
 
-        # Update state
+        # Update ticket state
         ticket["status"] = next_state
         ticket["updated_at"] = timestamp
         ticket["last_updated_at"] = timestamp

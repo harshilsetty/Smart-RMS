@@ -10,8 +10,13 @@ from pydantic import BaseModel, Field, ConfigDict
 
 
 # ============================================================================
-# Canonical Enums
+# Canonical Enums & Errors
 # ============================================================================
+
+class InvalidStateTransitionError(ValueError):
+    """Raised when an illegal lifecycle state transition is attempted."""
+    pass
+
 
 class TicketStatus(str, Enum):
     """Canonical lifecycle status for RMS requests."""
@@ -60,19 +65,51 @@ class SLAStatus(str, Enum):
     ON_TRACK = "ON_TRACK"
     AT_RISK = "AT_RISK"
     BREACHED = "BREACHED"
+    RESOLVED = "RESOLVED"
+
+
+class ResponseType(str, Enum):
+    """Communication thread response classification."""
+    STAFF = "STAFF"
+    AI_DRAFT = "AI_DRAFT"
+    SYSTEM = "SYSTEM"
+    ESCALATION = "ESCALATION"
+
+
+class ResponseStatus(str, Enum):
+    """Publication status of communication item."""
+    DRAFT = "DRAFT"
+    PUBLISHED = "PUBLISHED"
+    SENT = "SENT"
+
+
+class EscalationLevel(str, Enum):
+    """Escalation hierarchy tiers."""
+    LEVEL_0 = "LEVEL_0"
+    LEVEL_1 = "LEVEL_1"
+    LEVEL_2 = "LEVEL_2"
+    HOD = "HOD"
 
 
 class AuditEventType(str, Enum):
     """Audit event classifications."""
     CREATED = "CREATED"
-    STATUS_CHANGED = "STATUS_CHANGED"
+    INGESTED = "INGESTED"
     ANALYSIS_COMPLETED = "ANALYSIS_COMPLETED"
     ASSIGNED = "ASSIGNED"
+    REASSIGNED = "REASSIGNED"
     REDIRECTED = "REDIRECTED"
-    ESCALATED = "ESCALATED"
+    STAFF_REVIEW_STARTED = "STAFF_REVIEW_STARTED"
+    STATUS_CHANGED = "STATUS_CHANGED"
+    NOTE_ADDED = "NOTE_ADDED"
+    DRAFT_CREATED = "DRAFT_CREATED"
+    DRAFT_EDITED = "DRAFT_EDITED"
     DRAFT_GENERATED = "DRAFT_GENERATED"
-    APPROVED = "APPROVED"
+    RESPONSE_APPROVED = "RESPONSE_APPROVED"
+    RESPONSE_SENT = "RESPONSE_SENT"
     RESPONSE_ADDED = "RESPONSE_ADDED"
+    APPROVED = "APPROVED"
+    ESCALATED = "ESCALATED"
     RESOLVED = "RESOLVED"
     CLOSED = "CLOSED"
 
@@ -199,7 +236,7 @@ class AuditEvent(BaseModel):
 
     event_id: str = Field(..., description="Unique audit event ID")
     ticket_id: str = Field(..., description="Associated RMS ticket ID")
-    event_type: AuditEventType = Field(AuditEventType.STATUS_CHANGED, description="Event classification")
+    event_type: Union[AuditEventType, str] = Field(AuditEventType.STATUS_CHANGED, description="Event classification")
     actor_id: str = Field("SYSTEM", description="User ID or SYSTEM")
     actor_role: Optional[str] = Field(None, description="Role of the actor executing the action")
     timestamp: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
@@ -218,6 +255,8 @@ class RMSResponse(BaseModel):
     author_id: str = Field(..., description="Author user ID or STU-ID")
     author_name: str = Field("University Staff", description="Display name of author")
     author_role: str = Field("STAFF_OPERATOR", description="Role: STAFF_OPERATOR, HOD, STUDENT, AI")
+    response_type: Union[ResponseType, str] = Field(ResponseType.STAFF, description="STAFF, AI_DRAFT, SYSTEM, ESCALATION")
+    status: Union[ResponseStatus, str] = Field(ResponseStatus.PUBLISHED, description="DRAFT, PUBLISHED, SENT")
     content: str = Field(..., description="Response body text")
     is_internal: bool = Field(False, description="Whether visible only to staff or also to student")
     created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
@@ -245,6 +284,8 @@ class Escalation(BaseModel):
     ticket_id: str = Field(..., description="Target ticket ID")
     escalated_by: str = Field(..., description="Staff member initiating escalation")
     target_role: str = Field("DEPARTMENT_HOD", description="Target escalation role")
+    previous_level: str = Field("LEVEL_0", description="Previous escalation tier")
+    new_level: str = Field("LEVEL_1", description="New escalation tier (LEVEL_1, LEVEL_2, HOD)")
     reason: str = Field(..., description="Justification for escalation")
     urgent: bool = Field(False, description="Emergency escalation flag")
     escalated_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
@@ -302,12 +343,17 @@ class RMSRequest(BaseModel):
     updated_at: Optional[str] = Field(None, description="Last modification timestamp")
     due_at: Optional[str] = Field(None, description="SLA deadline timestamp")
     resolved_at: Optional[str] = Field(None, description="Resolution timestamp")
+    closed_at: Optional[str] = Field(None, description="Closure timestamp")
     resolution_text: Optional[str] = Field(None, description="Final approved resolution narrative")
+    resolving_actor: Optional[str] = Field(None, description="Staff member who resolved the ticket")
+    closing_actor: Optional[str] = Field(None, description="Staff member who closed the ticket")
     
     sla_record: Optional[SLARecord] = Field(None, description="Computed SLA metrics and status")
     tags: List[str] = Field(default_factory=list, description="Categorical tags")
-    attachments: List[Union[str, AttachmentMetadata]] = Field(default_factory=list, description="Attachment items")
+    attachments: List[Union[str, AttachmentMetadata, Dict[str, Any]]] = Field(default_factory=list, description="Attachment items")
     responses: List[RMSResponse] = Field(default_factory=list, description="Audit of staff and student communications")
+    assignments: List[Assignment] = Field(default_factory=list, description="Historical and active assignments")
+    escalations: List[Escalation] = Field(default_factory=list, description="Historical escalations")
     history: List[AuditEvent] = Field(default_factory=list, description="Chronological audit history")
     metadata: Dict[str, Any] = Field(default_factory=dict, description="Extensible metadata payload")
     
@@ -324,7 +370,7 @@ class RMSRequest(BaseModel):
 
 
 # ============================================================================
-# API Request / Response Payloads for New Capabilities
+# API Request / Response Payloads
 # ============================================================================
 
 class RMSCreateRequest(BaseModel):
@@ -336,7 +382,8 @@ class RMSCreateRequest(BaseModel):
     department: str = Field("Academic Affairs", description="Department name")
     priority: str = Field("Medium", description="Low, Medium, High, Critical")
     subcategory: Optional[str] = None
-    attachments: List[str] = Field(default_factory=list)
+    external_reference: Optional[str] = None
+    attachments: List[Any] = Field(default_factory=list)
     source: str = Field("STUDENT_PORTAL")
     metadata: Dict[str, Any] = Field(default_factory=dict)
 
@@ -350,9 +397,52 @@ class AssignmentRequest(BaseModel):
 
 
 class RMSResponseCreateRequest(BaseModel):
-    """Payload to add a response to an RMS ticket."""
+    """Payload to add a response or internal note to an RMS ticket."""
     author_id: str
     author_name: Optional[str] = "Staff Operator"
     author_role: str = "STAFF_OPERATOR"
+    response_type: str = "STAFF"
     content: str
     is_internal: bool = False
+
+
+class ResolveRequest(BaseModel):
+    """Payload to officially resolve an RMS ticket."""
+    staff_id: str = Field(..., description="Staff member resolving the ticket")
+    resolution_text: str = Field(..., min_length=5, description="Official resolution narrative provided to student")
+    notes: Optional[str] = Field(None, description="Internal staff notes regarding the resolution")
+
+
+class CloseRequest(BaseModel):
+    """Payload to permanently close an RMS ticket."""
+    staff_id: str = Field(..., description="Staff member closing the ticket")
+    notes: Optional[str] = Field(None, description="Closure notes or verification summary")
+    satisfaction_score: Optional[int] = Field(None, ge=1, le=5, description="Student feedback score (1-5)")
+
+
+class TicketPatchRequest(BaseModel):
+    """Payload to update fields of a ticket with lifecycle validation."""
+    status: Optional[str] = None
+    priority: Optional[str] = None
+    assigned_staff_id: Optional[str] = None
+    assigned_department_id: Optional[str] = None
+    category: Optional[str] = None
+    subcategory: Optional[str] = None
+    tags: Optional[List[str]] = None
+    actor_id: str = Field("STAFF_OPERATOR", description="Actor performing modification")
+    reason: Optional[str] = None
+
+
+class OperationsAnalytics(BaseModel):
+    """Comprehensive operational metrics computed across tickets."""
+    total_tickets: int
+    open_backlog: int
+    resolved_count: int
+    closed_count: int
+    escalation_count: int
+    avg_resolution_time_hours: float
+    avg_closure_time_hours: float
+    tickets_by_status: Dict[str, int]
+    tickets_by_department: Dict[str, int]
+    tickets_by_priority: Dict[str, int]
+    tickets_by_sla_status: Dict[str, int]

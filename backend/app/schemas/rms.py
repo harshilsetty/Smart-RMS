@@ -4,10 +4,14 @@ from pydantic import BaseModel, Field, ConfigDict, model_validator
 
 # Re-export canonical domain contracts
 from app.schemas.contracts import (
+    InvalidStateTransitionError,
     TicketStatus,
     PriorityLevel,
     StaffRole,
     SLAStatus,
+    ResponseType,
+    ResponseStatus,
+    EscalationLevel,
     AuditEventType,
     StudentReference,
     DepartmentSLAPolicy,
@@ -25,7 +29,11 @@ from app.schemas.contracts import (
     RMSRequest,
     RMSCreateRequest,
     AssignmentRequest,
-    RMSResponseCreateRequest
+    RMSResponseCreateRequest,
+    ResolveRequest,
+    CloseRequest,
+    TicketPatchRequest,
+    OperationsAnalytics
 )
 
 
@@ -89,7 +97,7 @@ class Ticket(TicketBase):
     """
     Core Ticket model.
     Maintains 100% backward compatibility with Phase 1 frontend/tests,
-    while embodying the full Milestone 1 canonical data contract.
+    while embodying the full Milestone 1 & 2 canonical data contract.
     """
     model_config = ConfigDict(extra="ignore", populate_by_name=True)
 
@@ -104,10 +112,15 @@ class Ticket(TicketBase):
     due_at: Optional[str] = None
     updated_at: Optional[str] = None
     resolved_at: Optional[str] = None
+    closed_at: Optional[str] = None
     resolution_text: Optional[str] = None
+    resolving_actor: Optional[str] = None
+    closing_actor: Optional[str] = None
     tags: List[str] = Field(default_factory=list)
     sla_record: Optional[SLARecord] = None
     responses: List[RMSResponse] = Field(default_factory=list)
+    assignments: List[Assignment] = Field(default_factory=list)
+    escalations: List[Escalation] = Field(default_factory=list)
     history: List[Union[AuditEvent, Dict[str, Any]]] = Field(default_factory=list)
     metadata: Dict[str, Any] = Field(default_factory=dict)
     is_synthetic: bool = True

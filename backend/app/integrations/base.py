@@ -47,13 +47,58 @@ class UniversitySystemAdapter(ABC):
         pass
 
     @abstractmethod
+    def redirect_ticket(
+        self,
+        ticket_id: str,
+        new_department: str,
+        staff_id: str,
+        reason: str
+    ) -> bool:
+        """Redirects ticket from one department to another, archiving previous assignments."""
+        pass
+
+    @abstractmethod
     def add_response(self, ticket_id: str, response_data: Dict[str, Any]) -> Dict[str, Any]:
         """Appends a staff or student message/response to the ticket communication thread."""
         pass
 
     @abstractmethod
+    def escalate_ticket(
+        self,
+        ticket_id: str,
+        staff_id: str,
+        target_role: str,
+        reason: str,
+        urgent: bool = False,
+        new_level: str = "LEVEL_1"
+    ) -> Dict[str, Any]:
+        """Escalates a ticket to a higher administrative tier with audit tracking."""
+        pass
+
+    @abstractmethod
     def post_resolution(self, ticket_id: str, resolution_text: str, staff_id: str) -> bool:
         """Publishes official resolution back to the university system."""
+        pass
+
+    @abstractmethod
+    def resolve_ticket(
+        self,
+        ticket_id: str,
+        staff_id: str,
+        resolution_text: str,
+        notes: Optional[str] = None
+    ) -> bool:
+        """Formally marks a ticket as RESOLVED with audit logging."""
+        pass
+
+    @abstractmethod
+    def close_ticket(
+        self,
+        ticket_id: str,
+        staff_id: str,
+        notes: Optional[str] = None
+    ) -> bool:
+        """Permanently closes a resolved ticket upon workflow completion."""
         pass
 
     @abstractmethod
@@ -88,4 +133,9 @@ class UniversitySystemAdapter(ABC):
     @abstractmethod
     def get_student_context(self, student_reference: str) -> Optional[Dict[str, Any]]:
         """Retrieves non-PII academic context for a student."""
+        pass
+
+    @abstractmethod
+    def get_operations_analytics(self) -> Dict[str, Any]:
+        """Computes comprehensive operational analytics directly from the dataset."""
         pass

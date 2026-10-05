@@ -29,13 +29,18 @@ from app.schemas.rms import (
     RMSResponse,
     Department,
     StaffUser,
-    AuditEvent
+    AuditEvent,
+    ResolveRequest,
+    CloseRequest,
+    TicketPatchRequest,
+    OperationsAnalytics,
+    InvalidStateTransitionError
 )
 
 class RMSService:
     """
-    Core university service coordinating AI, Privacy, RAG, Workflow,
-    and synthetic university data sources via stable contracts.
+    Central orchestration service coordinating AI, Privacy, RAG, Workflow,
+    SLA calculation, and synthetic university operations via stable contracts.
     """
 
     def __init__(self):
@@ -116,8 +121,51 @@ class RMSService:
         created = self.adapter.create_ticket(ticket_data)
         return Ticket(**created)
 
+    def patch_ticket(self, ticket_id: str, request: TicketPatchRequest) -> Ticket:
+        """Applies selective updates to a ticket, validating lifecycle transitions."""
+        ticket = self.adapter.get_ticket_by_id(ticket_id)
+        if not ticket:
+            raise ValueError(f"Ticket {ticket_id} not found")
+
+        updates: Dict[str, Any] = {}
+
+        # If a state transition is requested, validate through WorkflowEngine
+        if request.status and request.status != ticket.get("status"):
+            self.workflow.transition(
+                ticket,
+                request.status,
+                actor_id=request.actor_id,
+                notes=request.reason or f"Status changed to {request.status}"
+            )
+            updates["status"] = request.status
+
+        if request.priority:
+            updates["priority"] = request.priority
+        if request.category:
+            updates["category"] = request.category
+        if request.subcategory:
+            updates["subcategory"] = request.subcategory
+        if request.tags is not None:
+            updates["tags"] = request.tags
+
+        # Update assignment if specified
+        if request.assigned_staff_id or request.assigned_department_id:
+            self.adapter.assign_ticket(
+                ticket_id=ticket_id,
+                department_id=request.assigned_department_id,
+                staff_id=request.assigned_staff_id,
+                assigned_by=request.actor_id,
+                reason=request.reason
+            )
+
+        if updates:
+            self.adapter.update_ticket(ticket_id, updates)
+
+        updated = self.adapter.get_ticket_by_id(ticket_id)
+        return Ticket(**updated)
+
     def assign_ticket(self, ticket_id: str, request: AssignmentRequest) -> Dict[str, Any]:
-        """Assigns ticket to department or staff with audit tracking."""
+        """Assigns or reassigns ticket to department or staff with validation and audit tracking."""
         ticket = self.adapter.get_ticket_by_id(ticket_id)
         if not ticket:
             raise ValueError(f"Ticket {ticket_id} not found")
@@ -152,8 +200,43 @@ class RMSService:
             "message": "Ticket successfully assigned."
         }
 
+    def redirect_ticket(self, ticket_id: str, staff_id: str, new_department: str, reason: str) -> RedirectResponse:
+        """Redirects ticket to another department, deactivating existing assignments."""
+        ticket = self.adapter.get_ticket_by_id(ticket_id)
+        if not ticket:
+            raise ValueError(f"Ticket {ticket_id} not found")
+
+        old_dept = ticket.get("department", "Unknown")
+
+        # Execute adapter redirection
+        self.adapter.redirect_ticket(
+            ticket_id=ticket_id,
+            new_department=new_department,
+            staff_id=staff_id,
+            reason=reason
+        )
+
+        # Transition state to STAFF_REVIEW or ROUTED
+        target_state = TicketState.STAFF_REVIEW.value if self.workflow.can_transition(ticket.get("status"), TicketState.STAFF_REVIEW.value) else ticket.get("status")
+        self.workflow.transition(
+            ticket,
+            target_state,
+            actor_id=staff_id,
+            notes=f"Redirected from {old_dept} to {new_department}: {reason}",
+            event_type="REDIRECTED"
+        )
+        self.adapter.update_ticket(ticket_id, {"status": target_state})
+
+        return RedirectResponse(
+            ticket_id=ticket_id,
+            previous_department=old_dept,
+            new_department=new_department,
+            status=target_state,
+            message=f"Ticket redirected to {new_department}."
+        )
+
     def add_response(self, ticket_id: str, request: RMSResponseCreateRequest) -> RMSResponse:
-        """Appends a response message to the ticket."""
+        """Appends a communication message or internal note to the ticket."""
         ticket = self.adapter.get_ticket_by_id(ticket_id)
         if not ticket:
             raise ValueError(f"Ticket {ticket_id} not found")
@@ -188,11 +271,21 @@ class RMSService:
             department=analysis.suggested_department
         )
 
-        # 4. Update ticket metadata
+        # 4. State transition to ANALYZED if valid
+        target_status = TicketState.ANALYZED.value
+        if self.workflow.can_transition(raw.get("status"), target_status):
+            self.workflow.transition(
+                raw,
+                target_status,
+                actor_id="SYSTEM",
+                notes="AI analysis pipeline executed"
+            )
+
+        # 5. Update ticket metadata
         self.adapter.update_ticket(ticket_id, {
             "ai_analysis": analysis.model_dump(),
             "confidence": analysis.confidence,
-            "status": TicketState.ANALYZED.value
+            "status": target_status
         })
 
         return AnalyzeResponse(
@@ -235,16 +328,28 @@ class RMSService:
         if not is_safe:
             draft.requires_staff_edit = True
 
+        # 5. Record AI draft response in ticket communication thread (status: DRAFT, not official)
+        self.adapter.add_response(ticket_id, {
+            "author_id": "SYSTEM_AI",
+            "author_name": "Smart RMS AI Assistant",
+            "author_role": "AI",
+            "response_type": "AI_DRAFT",
+            "status": "DRAFT",
+            "content": draft.draft_response,
+            "is_internal": True
+        })
+
         return draft
 
     def approve_ticket(self, ticket_id: str, staff_id: str, approved_text: str, notes: Optional[str] = None) -> ApprovalResponse:
+        """Staff approval workflow: marks approved and publishes official response."""
         ticket = self.adapter.get_ticket_by_id(ticket_id)
         if not ticket:
             raise ValueError(f"Ticket {ticket_id} not found")
 
-        # Human-in-the-loop: mark approved and post resolution
-        self.adapter.post_resolution(ticket_id, approved_text, staff_id)
+        # Validate transition to APPROVED
         self.workflow.transition(ticket, TicketState.APPROVED.value, actor_id=staff_id, notes=notes)
+        self.adapter.post_resolution(ticket_id, approved_text, staff_id)
 
         resolved_ts = datetime.now(timezone.utc).isoformat()
         return ApprovalResponse(
@@ -255,18 +360,31 @@ class RMSService:
             message="Ticket successfully approved by staff and queued for resolution dispatch."
         )
 
-    def escalate_ticket(self, ticket_id: str, staff_id: str, target_role: str, reason: str) -> EscalateResponse:
+    def escalate_ticket(
+        self,
+        ticket_id: str,
+        staff_id: str,
+        target_role: str,
+        reason: str,
+        urgent: bool = False,
+        new_level: str = "LEVEL_1"
+    ) -> EscalateResponse:
+        """Escalates ticket to Department HOD or higher tier."""
         ticket = self.adapter.get_ticket_by_id(ticket_id)
         if not ticket:
             raise ValueError(f"Ticket {ticket_id} not found")
 
-        self.adapter.update_ticket(ticket_id, {
-            "status": TicketState.ESCALATED.value,
-            "escalated_to": target_role,
-            "escalation_reason": reason,
-            "escalation_level": ticket.get("escalation_level", 0) + 1
-        })
+        # Validate state transition
         self.workflow.transition(ticket, TicketState.ESCALATED.value, actor_id=staff_id, notes=f"Escalated: {reason}")
+        
+        self.adapter.escalate_ticket(
+            ticket_id=ticket_id,
+            staff_id=staff_id,
+            target_role=target_role,
+            reason=reason,
+            urgent=urgent,
+            new_level=new_level
+        )
 
         return EscalateResponse(
             ticket_id=ticket_id,
@@ -275,25 +393,40 @@ class RMSService:
             message=f"Ticket escalated to {target_role} for review: {reason}"
         )
 
-    def redirect_ticket(self, ticket_id: str, staff_id: str, new_department: str, reason: str) -> RedirectResponse:
+    def resolve_ticket(self, ticket_id: str, request: ResolveRequest) -> Ticket:
+        """Controlled official resolution of an RMS request."""
         ticket = self.adapter.get_ticket_by_id(ticket_id)
         if not ticket:
             raise ValueError(f"Ticket {ticket_id} not found")
 
-        old_dept = ticket.get("department", "Unknown")
-        self.adapter.update_ticket(ticket_id, {
-            "department": new_department,
-            "status": TicketState.STAFF_REVIEW.value
-        })
-        self.workflow.transition(ticket, TicketState.STAFF_REVIEW.value, actor_id=staff_id, notes=f"Redirected from {old_dept} to {new_department}: {reason}")
-
-        return RedirectResponse(
+        # Validate transition to RESOLVED
+        self.workflow.transition(ticket, TicketState.RESOLVED.value, actor_id=request.staff_id, notes=request.notes)
+        self.adapter.resolve_ticket(
             ticket_id=ticket_id,
-            previous_department=old_dept,
-            new_department=new_department,
-            status=TicketState.STAFF_REVIEW.value,
-            message=f"Ticket redirected to {new_department}."
+            staff_id=request.staff_id,
+            resolution_text=request.resolution_text,
+            notes=request.notes
         )
+
+        updated = self.adapter.get_ticket_by_id(ticket_id)
+        return Ticket(**updated)
+
+    def close_ticket(self, ticket_id: str, request: CloseRequest) -> Ticket:
+        """Final administrative closure of a resolved RMS request."""
+        ticket = self.adapter.get_ticket_by_id(ticket_id)
+        if not ticket:
+            raise ValueError(f"Ticket {ticket_id} not found")
+
+        # Validate transition to CLOSED
+        self.workflow.transition(ticket, TicketState.CLOSED.value, actor_id=request.staff_id, notes=request.notes)
+        self.adapter.close_ticket(
+            ticket_id=ticket_id,
+            staff_id=request.staff_id,
+            notes=request.notes
+        )
+
+        updated = self.adapter.get_ticket_by_id(ticket_id)
+        return Ticket(**updated)
 
     def get_analytics_overview(self) -> AnalyticsOverviewResponse:
         tickets = self.adapter.fetch_tickets()
@@ -311,7 +444,7 @@ class RMSService:
             prio_dist[prio] = prio_dist.get(prio, 0) + 1
 
             status = t.get("status", "INGESTED")
-            if status in ["APPROVED", "RESOLVED"]:
+            if status in ["APPROVED", "RESOLVED", "CLOSED"]:
                 approved_count += 1
             elif status == "ESCALATED":
                 escalated_count += 1
@@ -328,6 +461,11 @@ class RMSService:
             department_distribution=dept_dist,
             priority_distribution=prio_dist
         )
+
+    def get_operations_analytics(self) -> OperationsAnalytics:
+        """Returns detailed operational metrics calculated directly from the live dataset."""
+        data = self.adapter.get_operations_analytics()
+        return OperationsAnalytics(**data)
 
     def list_departments(self) -> List[Department]:
         depts = self.adapter.list_departments()
