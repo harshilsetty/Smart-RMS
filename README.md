@@ -51,6 +51,32 @@ graph TD
 - **ML / NLP**: Scikit-Learn (TF-IDF + SVM baseline), SentenceTransformers
 - **Testing**: Pytest
 
+## Project Structure
+
+```
+Smart RMS/
+├── backend/
+│   ├── app/          # FastAPI application, routers, services, adapters
+│   ├── data/         # Mock synthetic university data 
+│   ├── ml/           # Machine learning pipelines, dataset builder, eval logic
+│   └── tests/        # Pytest regression suite
+├── frontend/         # React, Vite, Tailwind CSS staff UI
+├── feedback/         # Local datastore for Active Learning model registry
+├── evaluation/       # Evaluation reports (Benchmarks, Architecture, Readiness)
+└── docs/             # Documentation (Research, API, Demo, Architecture)
+```
+
+## ML Results
+
+The NLP pipeline is evaluated using a **frozen synthetic benchmark dataset** (500 tickets). Current `tfidf_svm_v1` production benchmark results:
+
+- **Intent Accuracy**: ~94%
+- **Department Routing**: ~96%
+- **Priority Detection**: ~91%
+- **Latency**: <50ms per inference
+
+*Note: All tests and benchmarks rely strictly on **synthetic** generated student queries to preserve complete privacy. No genuine LPU ticket data is used.*
+
 ## Setup
 
 1. **Clone the repository.**
