@@ -1,0 +1,442 @@
+{
+  "total_samples": 120,
+  "total_duration_seconds": 0.041,
+  "latency": {
+    "average_ms": 0.341,
+    "p95_ms": 0.479,
+    "throughput_tickets_per_sec": 2905.65
+  },
+  "intent_metrics": {
+    "accuracy": 0.9,
+    "macro_precision": 0.7986,
+    "macro_recall": 0.8361,
+    "macro_f1": 0.8117,
+    "weighted_f1": 0.8784,
+    "classes": {
+      "ACADEMIC": {
+        "precision": 0.6522,
+        "recall": 1.0,
+        "f1_score": 0.7895,
+        "support": 15
+      },
+      "ATTENDANCE": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "support": 13
+      },
+      "EXAMINATION": {
+        "precision": 1.0,
+        "recall": 0.9375,
+        "f1_score": 0.9677,
+        "support": 16
+      },
+      "FEE_PAYMENT": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "support": 16
+      },
+      "GENERAL_INQUIRY": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "support": 8
+      },
+      "HOSTEL_MAINTENANCE": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "support": 15
+      },
+      "IT_SUPPORT": {
+        "precision": 1.0,
+        "recall": 0.9231,
+        "f1_score": 0.96,
+        "support": 13
+      },
+      "SCHOLARSHIP": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "support": 13
+      },
+      "STUDENT_SERVICES": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "support": 7
+      },
+      "UNKNOWN": {
+        "precision": 0.3333,
+        "recall": 0.5,
+        "f1_score": 0.4,
+        "support": 4
+      }
+    }
+  },
+  "department_metrics": {
+    "accuracy": 0.9833,
+    "macro_precision": 0.9856,
+    "macro_recall": 0.9856,
+    "macro_f1": 0.9856,
+    "weighted_f1": 0.9833,
+    "classes": {
+      "Academic Affairs": {
+        "precision": 0.9444,
+        "recall": 1.0,
+        "f1_score": 0.9714,
+        "support": 34
+      },
+      "Accounts & Finance": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "support": 16
+      },
+      "Examination Branch": {
+        "precision": 1.0,
+        "recall": 0.9375,
+        "f1_score": 0.9677,
+        "support": 16
+      },
+      "Hostel Affairs": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "support": 15
+      },
+      "IT Services": {
+        "precision": 1.0,
+        "recall": 0.9231,
+        "f1_score": 0.96,
+        "support": 13
+      },
+      "Scholarship Section": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "support": 13
+      },
+      "Student Welfare": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "support": 13
+      }
+    }
+  },
+  "priority_metrics": {
+    "accuracy": 0.8833,
+    "macro_precision": 0.8794,
+    "macro_recall": 0.8955,
+    "macro_f1": 0.8819,
+    "classes": {
+      "Critical": {
+        "precision": 0.875,
+        "recall": 1.0,
+        "f1_score": 0.9333,
+        "support": 14
+      },
+      "High": {
+        "precision": 0.9348,
+        "recall": 0.9348,
+        "f1_score": 0.9348,
+        "support": 46
+      },
+      "Low": {
+        "precision": 0.92,
+        "recall": 0.7188,
+        "f1_score": 0.807,
+        "support": 32
+      },
+      "Medium": {
+        "precision": 0.7879,
+        "recall": 0.9286,
+        "f1_score": 0.8525,
+        "support": 28
+      }
+    }
+  },
+  "urgency_metrics": {
+    "accuracy": 0.775
+  },
+  "ambiguity_metrics": {
+    "ambiguity_detection_accuracy": 0.9667,
+    "total_ambiguous_queries": 14,
+    "detected_ambiguous_queries": 10,
+    "false_confident_count": 4
+  },
+  "entity_extractions": {
+    "hostel_block": 17,
+    "room_number": 19,
+    "detected_issues": 60,
+    "time_window": 21,
+    "currency_amount": 14,
+    "bank_name": 9,
+    "portal_type": 19,
+    "semester": 15,
+    "examination_type": 7,
+    "course_code": 18,
+    "date_reference": 4,
+    "certificate_type": 6
+  },
+  "error_analysis": {
+    "total_errors": 19,
+    "sample_errors": [
+      {
+        "ticket_id": "EVAL-RMS-018",
+        "subject": "Re-evaluation grade result not updated in official marksheet transcript",
+        "expected_intent": "EXAMINATION",
+        "predicted_intent": "ACADEMIC",
+        "expected_department": "Examination Branch",
+        "predicted_department": "Academic Affairs",
+        "expected_priority": "High",
+        "predicted_priority": "High",
+        "confidence": 0.85,
+        "reason": {
+          "intent": "Matched ACADEMIC keywords: grade.",
+          "department": "Matched to Academic Affairs via classified intent 'ACADEMIC'.",
+          "priority": "Examination schedule or official transcript requirement",
+          "urgency": "Assessed as URGENT urgency based on temporal cues: None."
+        }
+      },
+      {
+        "ticket_id": "EVAL-RMS-021",
+        "subject": "Examination center allotment change request on medical grounds",
+        "expected_intent": "EXAMINATION",
+        "predicted_intent": "EXAMINATION",
+        "expected_department": "Examination Branch",
+        "predicted_department": "Examination Branch",
+        "expected_priority": "High",
+        "predicted_priority": "Low",
+        "confidence": 0.94,
+        "reason": {
+          "intent": "Matched EXAMINATION keywords: exam, exam center, seating.",
+          "department": "Direct domain routing for EXAMINATION request.",
+          "priority": "Routine request subject to standard departmental turnaround.",
+          "urgency": "Assessed as LOW urgency based on temporal cues: None."
+        }
+      },
+      {
+        "ticket_id": "EVAL-RMS-034",
+        "subject": "Emergency medical leave condonation for surgery recovery",
+        "expected_intent": "ATTENDANCE",
+        "predicted_intent": "ATTENDANCE",
+        "expected_department": "Student Welfare",
+        "predicted_department": "Student Welfare",
+        "expected_priority": "Medium",
+        "predicted_priority": "Critical",
+        "confidence": 0.96,
+        "reason": {
+          "intent": "Matched ATTENDANCE keywords: attendance, medical leave, condonation.",
+          "department": "Direct domain routing for ATTENDANCE request.",
+          "priority": "Acute health emergency requirement",
+          "urgency": "Assessed as IMMEDIATE urgency based on temporal cues: None."
+        }
+      },
+      {
+        "ticket_id": "EVAL-RMS-050",
+        "subject": "Migration certificate application dispatch timeline inquiry",
+        "expected_intent": "STUDENT_SERVICES",
+        "predicted_intent": "STUDENT_SERVICES",
+        "expected_department": "Academic Affairs",
+        "predicted_department": "Academic Affairs",
+        "expected_priority": "Low",
+        "predicted_priority": "High",
+        "confidence": 0.92,
+        "reason": {
+          "intent": "Matched STUDENT_SERVICES keywords: certificate, migration, e-document.",
+          "department": "Matched to Academic Affairs via classified intent 'STUDENT_SERVICES'.",
+          "priority": "Financial reconciliation or statutory scholarship verification requirement",
+          "urgency": "Assessed as URGENT urgency based on temporal cues: None."
+        }
+      },
+      {
+        "ticket_id": "EVAL-RMS-051",
+        "subject": "Duplicate student identity card issuance after loss in campus",
+        "expected_intent": "STUDENT_SERVICES",
+        "predicted_intent": "STUDENT_SERVICES",
+        "expected_department": "Academic Affairs",
+        "predicted_department": "Academic Affairs",
+        "expected_priority": "Low",
+        "predicted_priority": "High",
+        "confidence": 0.86,
+        "reason": {
+          "intent": "Matched STUDENT_SERVICES keywords: duplicate id.",
+          "department": "Matched to Academic Affairs via classified intent 'STUDENT_SERVICES'.",
+          "priority": "Financial reconciliation or statutory scholarship verification requirement",
+          "urgency": "Assessed as URGENT urgency based on temporal cues: None."
+        }
+      },
+      {
+        "ticket_id": "EVAL-RMS-057",
+        "subject": "Lost sports equipment in university gym facility",
+        "expected_intent": "GENERAL_INQUIRY",
+        "predicted_intent": "UNKNOWN",
+        "expected_department": "Academic Affairs",
+        "predicted_department": "Academic Affairs",
+        "expected_priority": "Low",
+        "predicted_priority": "Low",
+        "confidence": 0.53,
+        "reason": {
+          "intent": "No recognizable domain signals detected; classified as UNKNOWN intent.",
+          "department": "Default routing applied; no unambiguous departmental signals found.",
+          "priority": "Routine request subject to standard departmental turnaround.",
+          "urgency": "Assessed as LOW urgency based on temporal cues: None."
+        }
+      },
+      {
+        "ticket_id": "EVAL-RMS-058",
+        "subject": "Campus bookstore inquiry about availability of novel books",
+        "expected_intent": "GENERAL_INQUIRY",
+        "predicted_intent": "ACADEMIC",
+        "expected_department": "Academic Affairs",
+        "predicted_department": "Academic Affairs",
+        "expected_priority": "Low",
+        "predicted_priority": "Medium",
+        "confidence": 0.86,
+        "reason": {
+          "intent": "Matched ACADEMIC keywords: ca.",
+          "department": "Matched to Academic Affairs via classified intent 'ACADEMIC'.",
+          "priority": "Standard academic/attendance review timeline",
+          "urgency": "Assessed as NORMAL urgency based on temporal cues: None."
+        }
+      },
+      {
+        "ticket_id": "EVAL-RMS-059",
+        "subject": "Inquiry regarding public bus timings from university main gate to railway station",
+        "expected_intent": "GENERAL_INQUIRY",
+        "predicted_intent": "ACADEMIC",
+        "expected_department": "Academic Affairs",
+        "predicted_department": "Academic Affairs",
+        "expected_priority": "Low",
+        "predicted_priority": "Medium",
+        "confidence": 0.84,
+        "reason": {
+          "intent": "Matched ACADEMIC keywords: ca.",
+          "department": "Matched to Academic Affairs via classified intent 'ACADEMIC'.",
+          "priority": "Standard academic/attendance review timeline",
+          "urgency": "Assessed as NORMAL urgency based on temporal cues: None."
+        }
+      },
+      {
+        "ticket_id": "EVAL-RMS-060",
+        "subject": "General question regarding campus cafeteria lunch hours on public holidays",
+        "expected_intent": "GENERAL_INQUIRY",
+        "predicted_intent": "ACADEMIC",
+        "expected_department": "Academic Affairs",
+        "predicted_department": "Academic Affairs",
+        "expected_priority": "Low",
+        "predicted_priority": "Medium",
+        "confidence": 0.86,
+        "reason": {
+          "intent": "Matched ACADEMIC keywords: ca.",
+          "department": "Matched to Academic Affairs via classified intent 'ACADEMIC'.",
+          "priority": "Standard academic/attendance review timeline",
+          "urgency": "Assessed as NORMAL urgency based on temporal cues: None."
+        }
+      },
+      {
+        "ticket_id": "EVAL-NLP-081",
+        "subject": "Corridor ceiling water seepage near electrical board in BH-5",
+        "expected_intent": "HOSTEL_MAINTENANCE",
+        "predicted_intent": "HOSTEL_MAINTENANCE",
+        "expected_department": "Hostel Affairs",
+        "predicted_department": "Hostel Affairs",
+        "expected_priority": "High",
+        "predicted_priority": "Critical",
+        "confidence": 0.93,
+        "reason": {
+          "intent": "Matched HOSTEL_MAINTENANCE keywords: room, bh, water.",
+          "department": "Direct residential entity matched (Hostel Block / Room Number).",
+          "priority": "Physical safety hazard: water proximity to electrical fixtures",
+          "urgency": "Assessed as IMMEDIATE urgency based on temporal cues: None."
+        }
+      }
+    ]
+  },
+  "confusion_matrices": {
+    "intent": {
+      "HOSTEL_MAINTENANCE": {
+        "HOSTEL_MAINTENANCE": 15
+      },
+      "FEE_PAYMENT": {
+        "FEE_PAYMENT": 16
+      },
+      "EXAMINATION": {
+        "EXAMINATION": 15,
+        "ACADEMIC": 1
+      },
+      "ACADEMIC": {
+        "ACADEMIC": 15
+      },
+      "ATTENDANCE": {
+        "ATTENDANCE": 13
+      },
+      "SCHOLARSHIP": {
+        "SCHOLARSHIP": 13
+      },
+      "IT_SUPPORT": {
+        "IT_SUPPORT": 12,
+        "ACADEMIC": 1
+      },
+      "STUDENT_SERVICES": {
+        "STUDENT_SERVICES": 7
+      },
+      "GENERAL_INQUIRY": {
+        "UNKNOWN": 4,
+        "ACADEMIC": 4
+      },
+      "UNKNOWN": {
+        "ACADEMIC": 2,
+        "UNKNOWN": 2
+      }
+    },
+    "department": {
+      "Hostel Affairs": {
+        "Hostel Affairs": 15
+      },
+      "Accounts & Finance": {
+        "Accounts & Finance": 16
+      },
+      "Examination Branch": {
+        "Examination Branch": 15,
+        "Academic Affairs": 1
+      },
+      "Academic Affairs": {
+        "Academic Affairs": 34
+      },
+      "Student Welfare": {
+        "Student Welfare": 13
+      },
+      "Scholarship Section": {
+        "Scholarship Section": 13
+      },
+      "IT Services": {
+        "IT Services": 12,
+        "Academic Affairs": 1
+      }
+    },
+    "priority": {
+      "Critical": {
+        "Critical": 14
+      },
+      "High": {
+        "High": 43,
+        "Low": 2,
+        "Critical": 1
+      },
+      "Medium": {
+        "Medium": 26,
+        "Critical": 1,
+        "High": 1
+      },
+      "Low": {
+        "Low": 23,
+        "High": 2,
+        "Medium": 7
+      }
+    }
+  }
+}

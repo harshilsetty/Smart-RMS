@@ -28,6 +28,16 @@ dev-frontend:
 test:
 	cd backend && pytest tests/ -v
 
+ml-train:
+	python ml/dataset.py
+	python ml/train.py
+
+ml-benchmark:
+	python ml/evaluate.py
+
+copilot-benchmark:
+	python scripts/benchmark_copilot_500.py
+
 health:
 	python scripts/health_check.py
 
@@ -35,3 +45,4 @@ clean:
 	find . -type d -name "__pycache__" -exec rm -rf {} +
 	find . -type f -name "*.pyc" -delete
 	rm -rf backend/.pytest_cache frontend/dist
+

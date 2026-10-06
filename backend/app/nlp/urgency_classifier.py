@@ -1,7 +1,7 @@
 import re
 from abc import ABC, abstractmethod
 from typing import Dict, Any, List, Optional
-from app.nlp.schemas import PriorityLevel, UrgencyClassificationResult
+from app.nlp.schemas import PriorityLevel, UrgencyClassificationResult, UrgencyLevel
 
 class BaseUrgencyClassifier(ABC):
     """Abstract interface for Urgency & Priority Classifiers."""
@@ -45,6 +45,14 @@ class RuleBasedUrgencyClassifier(BaseUrgencyClassifier):
         (r"(?:biometric|punch machine|mentor|credit transfer|elective)", "Routine academic administration or attendance biometric discrepancy")
     ]
 
+    TEMPORAL_PATTERNS = [
+        (r"\b(?:starts?\s+in\s+24\s*hours?|within\s+24\s*hours?|today|tonight)\b", "Immediate time-window (within 24 hours)"),
+        (r"\b(?:tomorrow|in\s+48\s*hours?|within\s+2\s*days?)\b", "Near-term time-window (24-48 hours)"),
+        (r"\b(?:this\s+week|by\s+friday|in\s+3\s*days?|3rd\s+day)\b", "Weekly operational window"),
+        (r"\b(?:deadline\s+is\s+\d{1,2}(?:st|nd|rd|th)?|closing\s+date|due\s+date)\b", "Explicit calendar deadline constraint"),
+        (r"\b(?:pending.*(?:3\s*weeks|month|repeatedly|no\s+response|reminder))\b", "Long-standing delay backlog")
+    ]
+
     def classify(
         self,
         text: str,
@@ -54,6 +62,13 @@ class RuleBasedUrgencyClassifier(BaseUrgencyClassifier):
         entities = entities or {}
         lower = text.lower()
         signals: List[str] = []
+        temporal_exprs: List[str] = []
+
+        # Extract temporal cues
+        for pat, desc in self.TEMPORAL_PATTERNS:
+            matches = re.findall(pat, lower)
+            if matches:
+                temporal_exprs.append(desc)
 
         # 1. Evaluate Critical Signals
         for pattern, reason in self.CRITICAL_SIGNALS:
@@ -65,7 +80,10 @@ class RuleBasedUrgencyClassifier(BaseUrgencyClassifier):
                 confidence=0.95,
                 priority_score=4,
                 signals_detected=signals,
-                reason="; ".join(signals)
+                reason="; ".join(signals),
+                urgency=UrgencyLevel.IMMEDIATE,
+                urgency_confidence=0.95,
+                temporal_expressions=temporal_exprs
             )
 
         # 2. Evaluate High Signals
@@ -77,12 +95,17 @@ class RuleBasedUrgencyClassifier(BaseUrgencyClassifier):
             signals.append(f"Standard operational triage for high-impact {intent} domain")
 
         if signals:
+            is_immediate_urgency = any("Immediate" in t or "Near-term" in t for t in temporal_exprs)
+            urgency_val = UrgencyLevel.IMMEDIATE if is_immediate_urgency else UrgencyLevel.URGENT
             return UrgencyClassificationResult(
                 priority=PriorityLevel.HIGH,
                 confidence=0.90,
                 priority_score=3,
                 signals_detected=signals,
-                reason="; ".join(signals)
+                reason="; ".join(signals),
+                urgency=urgency_val,
+                urgency_confidence=0.90,
+                temporal_expressions=temporal_exprs
             )
 
         # 3. Evaluate Medium Signals
@@ -93,12 +116,16 @@ class RuleBasedUrgencyClassifier(BaseUrgencyClassifier):
             signals.append("Standard academic/attendance review timeline")
 
         if signals:
+            urgency_val = UrgencyLevel.URGENT if temporal_exprs else UrgencyLevel.NORMAL
             return UrgencyClassificationResult(
                 priority=PriorityLevel.MEDIUM,
                 confidence=0.88,
                 priority_score=2,
                 signals_detected=signals,
-                reason="; ".join(signals)
+                reason="; ".join(signals),
+                urgency=urgency_val,
+                urgency_confidence=0.88,
+                temporal_expressions=temporal_exprs
             )
 
         # 4. Default: Low Priority
@@ -107,5 +134,8 @@ class RuleBasedUrgencyClassifier(BaseUrgencyClassifier):
             confidence=0.85,
             priority_score=1,
             signals_detected=["Routine administrative inquiry without acute time constraint"],
-            reason="Routine request subject to standard departmental turnaround."
+            reason="Routine request subject to standard departmental turnaround.",
+            urgency=UrgencyLevel.LOW,
+            urgency_confidence=0.85,
+            temporal_expressions=temporal_exprs
         )

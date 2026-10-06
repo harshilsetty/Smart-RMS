@@ -1,0 +1,434 @@
+[
+  {
+    "query_id": "QRY-ACAD-001",
+    "query": "How do I challenge an error in continuous assessment marks?",
+    "department": "Academic Affairs",
+    "expected_doc_id": "DOC-ACAD-001",
+    "expected_section": "Clause 4.1",
+    "category": "direct"
+  },
+  {
+    "query_id": "QRY-ACAD-002",
+    "query": "What is the deadline for raising continuous assessment rubric discrepancies?",
+    "department": "Academic Affairs",
+    "expected_doc_id": "DOC-ACAD-001",
+    "expected_section": "Clause 4.1",
+    "category": "paraphrased"
+  },
+  {
+    "query_id": "QRY-ACAD-003",
+    "query": "What is the maximum number of credits I can register in a single semester?",
+    "department": "Academic Affairs",
+    "expected_doc_id": "DOC-ACAD-001",
+    "expected_section": "Clause 6.3",
+    "category": "direct"
+  },
+  {
+    "query_id": "QRY-ACAD-004",
+    "query": "Can a student take credit overload if their CGPA is 8.5?",
+    "department": "Academic Affairs",
+    "expected_doc_id": "DOC-ACAD-001",
+    "expected_section": "Clause 6.3",
+    "category": "paraphrased"
+  },
+  {
+    "query_id": "QRY-ACAD-005",
+    "query": "How much duty leave attendance condonation is permitted for sports meets?",
+    "department": "Academic Affairs",
+    "expected_doc_id": "DOC-ACAD-001",
+    "expected_section": "Clause 9.2",
+    "category": "direct"
+  },
+  {
+    "query_id": "QRY-ACAD-006",
+    "query": "What is the last date to drop an elective without receiving an F grade?",
+    "department": "Academic Affairs",
+    "expected_doc_id": "DOC-ACAD-002",
+    "expected_section": "SOP-11.2",
+    "category": "direct"
+  },
+  {
+    "query_id": "QRY-ACAD-007",
+    "query": "Does a withdrawn elective course impact my semester CGPA?",
+    "department": "Academic Affairs",
+    "expected_doc_id": "DOC-ACAD-002",
+    "expected_section": "SOP-11.2",
+    "category": "paraphrased"
+  },
+  {
+    "query_id": "QRY-ACAD-008",
+    "query": "How long can a student take a break in studies for entrepreneurial incubation?",
+    "department": "Academic Affairs",
+    "expected_doc_id": "DOC-ACAD-002",
+    "expected_section": "SOP-14.1",
+    "category": "paraphrased"
+  },
+  {
+    "query_id": "QRY-EXAM-001",
+    "query": "My admit card is blocked due to library clearance delay, what should I do?",
+    "department": "Examination Branch",
+    "expected_doc_id": "DOC-EXAM-001",
+    "expected_section": "Regulation 12.1",
+    "category": "direct"
+  },
+  {
+    "query_id": "QRY-EXAM-002",
+    "query": "Can exam branch give emergency clearance override for hall ticket holds?",
+    "department": "Examination Branch",
+    "expected_doc_id": "DOC-EXAM-001",
+    "expected_section": "Regulation 12.1",
+    "category": "paraphrased"
+  },
+  {
+    "query_id": "QRY-EXAM-003",
+    "query": "What is the procedure and fee for re-evaluation of end term answer scripts?",
+    "department": "Examination Branch",
+    "expected_doc_id": "DOC-EXAM-001",
+    "expected_section": "Regulation 15.3",
+    "category": "direct"
+  },
+  {
+    "query_id": "QRY-EXAM-004",
+    "query": "How many days do I have to apply for paper re-checking after results are declared?",
+    "department": "Examination Branch",
+    "expected_doc_id": "DOC-EXAM-001",
+    "expected_section": "Regulation 15.3",
+    "category": "paraphrased"
+  },
+  {
+    "query_id": "QRY-EXAM-005",
+    "query": "I was hospitalized and missed my end-term exam. Can I get a special supplementary?",
+    "department": "Examination Branch",
+    "expected_doc_id": "DOC-EXAM-001",
+    "expected_section": "Regulation 18.2",
+    "category": "direct"
+  },
+  {
+    "query_id": "QRY-EXAM-006",
+    "query": "What happens if two of my backlog exam subjects clash on the exact same date and time?",
+    "department": "Examination Branch",
+    "expected_doc_id": "DOC-EXAM-001",
+    "expected_section": "Regulation 8.4",
+    "category": "direct"
+  },
+  {
+    "query_id": "QRY-HOSTEL-001",
+    "query": "AC unit in hostel room leaking water and rattling loudly",
+    "department": "Hostel Affairs",
+    "expected_doc_id": "DOC-HOSTEL-001",
+    "expected_section": "Clause 4.2",
+    "category": "direct"
+  },
+  {
+    "query_id": "QRY-HOSTEL-002",
+    "query": "What is the SLA turnaround time for air conditioner and electrical maintenance in hostel?",
+    "department": "Hostel Affairs",
+    "expected_doc_id": "DOC-HOSTEL-001",
+    "expected_section": "Clause 4.2",
+    "category": "paraphrased"
+  },
+  {
+    "query_id": "QRY-HOSTEL-003",
+    "query": "Water purifier not working and washroom tap leaking in girls hostel",
+    "department": "Hostel Affairs",
+    "expected_doc_id": "DOC-HOSTEL-001",
+    "expected_section": "Clause 5.1",
+    "category": "direct"
+  },
+  {
+    "query_id": "QRY-HOSTEL-004",
+    "query": "Can two students mutually swap their hostel rooms?",
+    "department": "Hostel Affairs",
+    "expected_doc_id": "DOC-HOSTEL-001",
+    "expected_section": "Clause 8.3",
+    "category": "direct"
+  },
+  {
+    "query_id": "QRY-HOSTEL-005",
+    "query": "What is the timeline window for requesting mutual hostel room transfers?",
+    "department": "Hostel Affairs",
+    "expected_doc_id": "DOC-HOSTEL-001",
+    "expected_section": "Clause 8.3",
+    "category": "paraphrased"
+  },
+  {
+    "query_id": "QRY-FIN-001",
+    "query": "Tuition fee debited twice from bank account due to payment gateway error",
+    "department": "Accounts & Finance",
+    "expected_doc_id": "DOC-FIN-001",
+    "expected_section": "Clause 8.3",
+    "category": "direct"
+  },
+  {
+    "query_id": "QRY-FIN-002",
+    "query": "When will double deduction fee refund be credited back to my account?",
+    "department": "Accounts & Finance",
+    "expected_doc_id": "DOC-FIN-001",
+    "expected_section": "Clause 8.3",
+    "category": "paraphrased"
+  },
+  {
+    "query_id": "QRY-FIN-003",
+    "query": "What is the late fee penalty policy if semester fee payment is delayed?",
+    "department": "Accounts & Finance",
+    "expected_doc_id": "DOC-FIN-001",
+    "expected_section": "Clause 5.2",
+    "category": "direct"
+  },
+  {
+    "query_id": "QRY-FIN-004",
+    "query": "How much hostel fee is refunded if I cancel hostel admission within 15 days?",
+    "department": "Accounts & Finance",
+    "expected_doc_id": "DOC-FIN-001",
+    "expected_section": "Clause 14.1",
+    "category": "direct"
+  },
+  {
+    "query_id": "QRY-SCHOL-001",
+    "query": "What documents are required for National Scholarship Portal NSP physical biometric verification?",
+    "department": "Scholarship Section",
+    "expected_doc_id": "DOC-SCHOL-001",
+    "expected_section": "Clause 3.1",
+    "category": "direct"
+  },
+  {
+    "query_id": "QRY-SCHOL-002",
+    "query": "NSP portal application rejected due to bonafide certificate verification discrepancy",
+    "department": "Scholarship Section",
+    "expected_doc_id": "DOC-SCHOL-001",
+    "expected_section": "Clause 3.1",
+    "category": "paraphrased"
+  },
+  {
+    "query_id": "QRY-SCHOL-003",
+    "query": "What is the minimum CGPA required to retain merit scholarship during renewal?",
+    "department": "Scholarship Section",
+    "expected_doc_id": "DOC-SCHOL-001",
+    "expected_section": "Clause 6.4",
+    "category": "direct"
+  },
+  {
+    "query_id": "QRY-SCHOL-004",
+    "query": "Will disciplinary warning disqualify a student from merit tuition fee concession?",
+    "department": "Scholarship Section",
+    "expected_doc_id": "DOC-SCHOL-001",
+    "expected_section": "Clause 6.4",
+    "category": "paraphrased"
+  },
+  {
+    "query_id": "QRY-IT-001",
+    "query": "Campus Wi-Fi portal mac address registration and RADIUS authentication failure",
+    "department": "IT Services",
+    "expected_doc_id": "DOC-IT-001",
+    "expected_section": "Clause 3.2",
+    "category": "direct"
+  },
+  {
+    "query_id": "QRY-IT-002",
+    "query": "How many personal devices can a student register on the campus Wi-Fi network?",
+    "department": "IT Services",
+    "expected_doc_id": "DOC-IT-001",
+    "expected_section": "Clause 3.2",
+    "category": "paraphrased"
+  },
+  {
+    "query_id": "QRY-IT-003",
+    "query": "Account locked on university student portal due to invalid password attempts",
+    "department": "IT Services",
+    "expected_doc_id": "DOC-IT-001",
+    "expected_section": "Clause 7.1",
+    "category": "direct"
+  },
+  {
+    "query_id": "QRY-IT-004",
+    "query": "How quickly does IT helpdesk unlock student portal accounts after password lockout?",
+    "department": "IT Services",
+    "expected_doc_id": "DOC-IT-001",
+    "expected_section": "Clause 7.1",
+    "category": "paraphrased"
+  },
+  {
+    "query_id": "QRY-WELFARE-001",
+    "query": "How many days of medical leave duty can be sanctioned for inpatient hospitalization?",
+    "department": "Student Welfare",
+    "expected_doc_id": "DOC-WELFARE-001",
+    "expected_section": "Clause 5.1",
+    "category": "direct"
+  },
+  {
+    "query_id": "QRY-WELFARE-002",
+    "query": "Procedure for medical leave attendance sanction after dengue hospitalization",
+    "department": "Student Welfare",
+    "expected_doc_id": "DOC-WELFARE-001",
+    "expected_section": "Clause 5.1",
+    "category": "paraphrased"
+  },
+  {
+    "query_id": "QRY-WELFARE-003",
+    "query": "Are student counseling sessions confidential at the University Counseling Cell?",
+    "department": "Student Welfare",
+    "expected_doc_id": "DOC-WELFARE-001",
+    "expected_section": "Clause 9.3",
+    "category": "direct"
+  },
+  {
+    "query_id": "QRY-AMBIG-001",
+    "query": "Can I get an extension on deadlines?",
+    "department": "Academic Affairs",
+    "expected_doc_id": "DOC-ACAD-001",
+    "expected_section": null,
+    "category": "ambiguous"
+  },
+  {
+    "query_id": "QRY-AMBIG-002",
+    "query": "Clearance issues before examination hall entry",
+    "department": "Examination Branch",
+    "expected_doc_id": "DOC-EXAM-001",
+    "expected_section": "Regulation 12.1",
+    "category": "ambiguous"
+  },
+  {
+    "query_id": "QRY-AMBIG-003",
+    "query": "Maintenance request for room furniture and fixture",
+    "department": "Hostel Affairs",
+    "expected_doc_id": "DOC-HOSTEL-001",
+    "expected_section": "Clause 4.2",
+    "category": "ambiguous"
+  },
+  {
+    "query_id": "QRY-AMBIG-004",
+    "query": "Discrepancy in online transaction fee amount",
+    "department": "Accounts & Finance",
+    "expected_doc_id": "DOC-FIN-001",
+    "expected_section": "Clause 8.3",
+    "category": "ambiguous"
+  },
+  {
+    "query_id": "QRY-AMBIG-005",
+    "query": "My verification is pending for financial grant",
+    "department": "Scholarship Section",
+    "expected_doc_id": "DOC-SCHOL-001",
+    "expected_section": "Clause 3.1",
+    "category": "ambiguous"
+  },
+  {
+    "query_id": "QRY-NOANS-001",
+    "query": "Where can I buy second-hand fiction novels on campus?",
+    "department": "Academic Affairs",
+    "expected_doc_id": null,
+    "expected_section": null,
+    "category": "no_answer"
+  },
+  {
+    "query_id": "QRY-NOANS-002",
+    "query": "What are the rules for adopting a pet dog inside the university hostel room?",
+    "department": "Hostel Affairs",
+    "expected_doc_id": null,
+    "expected_section": null,
+    "category": "no_answer"
+  },
+  {
+    "query_id": "QRY-NOANS-003",
+    "query": "Can the university waive 100% of my fees without submitting any proof or application?",
+    "department": "Accounts & Finance",
+    "expected_doc_id": null,
+    "expected_section": null,
+    "category": "no_answer"
+  },
+  {
+    "query_id": "QRY-NOANS-004",
+    "query": "Which cafeteria serves the best cold coffee near Block 34?",
+    "department": "Student Welfare",
+    "expected_doc_id": null,
+    "expected_section": null,
+    "category": "no_answer"
+  },
+  {
+    "query_id": "QRY-NOANS-005",
+    "query": "How can I install illegal torrent clients bypassing university network firewalls?",
+    "department": "IT Services",
+    "expected_doc_id": null,
+    "expected_section": null,
+    "category": "no_answer"
+  },
+  {
+    "query_id": "QRY-NOANS-006",
+    "query": "Can the examination controller guarantee me an automatic pass grade without writing exams?",
+    "department": "Examination Branch",
+    "expected_doc_id": null,
+    "expected_section": null,
+    "category": "no_answer"
+  },
+  {
+    "query_id": "QRY-NOANS-007",
+    "query": "What is the procedure for booking a private helicopter on university grounds?",
+    "department": "Hostel Affairs",
+    "expected_doc_id": null,
+    "expected_section": null,
+    "category": "no_answer"
+  },
+  {
+    "query_id": "QRY-NOANS-008",
+    "query": "Can an unapproved student club collect cash dues without registration?",
+    "department": "Student Welfare",
+    "expected_doc_id": null,
+    "expected_section": null,
+    "category": "no_answer"
+  },
+  {
+    "query_id": "QRY-NOANS-009",
+    "query": "Can I claim a 5-year break in studies under obsolete 2018 policy rules?",
+    "department": "Academic Affairs",
+    "expected_doc_id": null,
+    "expected_section": null,
+    "category": "no_answer"
+  },
+  {
+    "query_id": "QRY-NOANS-010",
+    "query": "What is the secret Wi-Fi password for staff lounge routers?",
+    "department": "IT Services",
+    "expected_doc_id": null,
+    "expected_section": null,
+    "category": "no_answer"
+  },
+  {
+    "query_id": "QRY-NOANS-011",
+    "query": "How to get a discount on campus cinema tickets?",
+    "department": "Student Welfare",
+    "expected_doc_id": null,
+    "expected_section": null,
+    "category": "no_answer"
+  },
+  {
+    "query_id": "QRY-NOANS-012",
+    "query": "Can I transfer my scholarship money directly to cryptocurrency wallets?",
+    "department": "Scholarship Section",
+    "expected_doc_id": null,
+    "expected_section": null,
+    "category": "no_answer"
+  },
+  {
+    "query_id": "QRY-NOANS-013",
+    "query": "What brand of shampoo is supplied in the hostel bathrooms?",
+    "department": "Hostel Affairs",
+    "expected_doc_id": null,
+    "expected_section": null,
+    "category": "no_answer"
+  },
+  {
+    "query_id": "QRY-NOANS-014",
+    "query": "Can I bring an industrial electric welding machine into hostel room?",
+    "department": "Hostel Affairs",
+    "expected_doc_id": null,
+    "expected_section": null,
+    "category": "no_answer"
+  },
+  {
+    "query_id": "QRY-NOANS-015",
+    "query": "Does the library sell snacks during mid-term preparation week?",
+    "department": "Academic Affairs",
+    "expected_doc_id": null,
+    "expected_section": null,
+    "category": "no_answer"
+  }
+]

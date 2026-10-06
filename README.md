@@ -217,26 +217,13 @@ Resolution Dispatched & Audit Log Recorded
 
 ## 📊 Current Project Status
 
-### Phase 1: Foundation & Copilot Prototype
+### Milestone Progression
 
-```
-Phase 1 — Foundation & Copilot Prototype
-[████████████████░░░░] 80% Complete
-```
-
-- [x] Repository structure and developer standards initialized
-- [x] Comprehensive architectural and product documentation created
-- [x] Realistic synthetic university RMS dataset (zero student PII)
-- [x] PII detection and redaction privacy engine
-- [x] Provider-independent AI abstraction (`MockAIProvider` & `GeminiProvider`)
-- [x] RAG vector store abstraction (`MockVectorStore` & `ChromaVectorStore`)
-- [x] University system integration adapters (`MockRMSAdapter` & `FutureUMSAdapter`)
-- [x] FastAPI REST API endpoints (`/health`, `/rms`, `/analyze`, `/draft`, `/approve`)
-- [x] React + TypeScript + Tailwind Staff Copilot Dashboard
-- [x] Automated test suite and GitHub Actions CI workflow
-- [ ] Phase 2: Live Chroma ingestion of full university handbooks (Planned)
-- [ ] Phase 3: Multi-role escalation workflows with email/SMS webhooks (Planned)
-- [ ] Phase 4: Staging integration with university test bed (Planned)
+- [x] **Milestone 1: Complete Synthetic University Environment & Canonical Data Contracts** (47 tests passing)
+- [x] **Milestone 2: Complete RMS Lifecycle & Operational Workflow** (500 synthetic tickets, 76 tests passing)
+- [x] **Milestone 3: Grounded RAG Knowledge System & Policy Retrieval** (54-query benchmark, 100% no-answer safety)
+- [x] **Milestone 4: NLP Intelligence Pipeline** (Intent + Routing + Priority + Urgency + Entity Extraction + Confidence, 89 tests passing, 120-query NLP benchmark, 500-ticket batch analysis)
+- [ ] **Milestone 5: Advanced LLM / Transformer Classification & Multi-Turn Staff Copilot** (Planned)
 
 ---
 
@@ -363,21 +350,47 @@ npm run dev
 ```
 Staff Copilot Dashboard will be running at: **http://localhost:5173**
 
-### 4. Run Automated Tests
+### 4. Run Automated Tests & Benchmarks
 ```bash
-cd backend
-pytest tests/ -v
+# Run full backend test suite (102 passed)
+cd backend && pytest tests/ -v
+
+# Train and serialize ML model artifacts
+make ml-train
+
+# Run scientific ML Intent Classification benchmark
+make ml-benchmark
+
+# Run 500-ticket end-to-end Staff Copilot pipeline benchmark
+make copilot-benchmark
 ```
+
+---
+
+## 🚦 Operational Workflow & State Machine
+
+Smart RMS implements a complete, deterministic operational workflow:
+- **Canonical Lifecycle**: `NEW` &rarr; `INGESTED` &rarr; `ANALYZED` &rarr; `ROUTED` &rarr; `STAFF_REVIEW` &rarr; `IN_PROGRESS` &rarr; `WAITING_FOR_STUDENT` / `WAITING_FOR_DEPARTMENT` / `ESCALATED` &rarr; `RESOLVED` &rarr; `CLOSED`.
+- **Operational Actions**: Ticket Assignment, Historical Reassignment, Department Redirection, Staff Communication (`STAFF`, `AI_DRAFT`, `SYSTEM`, `ESCALATION`), Resolution, and Administrative Closure.
+- **Deterministic SLA Engine**: Derives turnaround time from department policies and priority, evaluating risk deterministically (`ON_TRACK`, `AT_RISK`, `BREACHED`).
+- **Comprehensive Audit Trail**: Append-only audit events tracking actor, state transition, and operational rationale.
+- **Human Override Architecture**: Staff can override recommended department, priority, urgency, or intent without destroying original AI predictions.
 
 ---
 
 ## 🗺️ Roadmap Overview
 
-- **Phase 1: Foundation (Current):** Architectural blueprint, mock adapters, PII masking, deterministic mock AI copilot, and staff triage dashboard.
-- **Phase 2: RAG Pipeline & Policy Ingestion:** PyMuPDF document parser, chunking strategies, and live Chroma vector store integration.
-- **Phase 3: Multi-Agent Workflows:** Department-specific LangGraph workflows, escalation hierarchies, and SLA breach monitors.
-- **Phase 4: Analytics & Feedback Loop:** Staff feedback capture (draft edit distance), intent distribution analytics, and response quality scoring.
-- **Phase 5: LPU UMS/RMS Integration:** Secure, authenticated enterprise adapter connecting to staging university endpoints with full audit logging.
+- **Milestone 1: Environment & Canonical Data Contracts (COMPLETED):** Pydantic V2 domain models, synthetic university environment (departments, staff, SLA policies, mock adapter), and verification test suite.
+- **Milestone 2: Complete RMS Lifecycle & Operational Workflow (COMPLETED):** Deterministic finite state machine, assignment & redirection, staff communication thread, operational SLA & escalation, resolution & closure, audit trail, 500+ ticket validation, and operational UI workstation.
+- **Milestone 3: Grounded RAG Knowledge System & Policy Retrieval (COMPLETED):** Semantic vector retrieval, policy clause grounding, source attribution, strict "No-Source &rarr; No-Answer" refusal safeguards, and 500-ticket retrieval benchmark.
+- **Milestone 4: NLP Intelligence Pipeline (COMPLETED):** PII redaction, entity extraction, intent classification, department routing, priority/urgency scoring, and ambiguity detection across 120 evaluation cases.
+- **Milestone 5: Classical ML Benchmark & Unified Staff Copilot (COMPLETED):**
+  - Scientific evaluation of Model 0 (Deterministic), Model 1 (TF-IDF + Logistic Regression), Model 2 (TF-IDF + Calibrated Linear SVM), and Model 3 (Dense Sentence-Transformers) on a frozen, zero-leakage test split.
+  - Model 2 achieves **100.00% accuracy and 1.0000 Macro F1** with **1.81 ms P95 latency**.
+  - Non-destructive Human Override workflow with audit logging (`event_type="HUMAN_OVERRIDE"`).
+  - 500-Ticket End-to-End Staff Copilot Benchmark: **253.2 tickets/sec throughput**, **54.0% grounded drafts**, **46.0% no-source refusals**, and **70.4% enforced human review rate**.
+  - 102/102 backend tests passing, clean frontend production build.
+
 
 ---
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Filter, Sparkles, CheckCircle, AlertCircle, Clock } from 'lucide-react';
+import { Search, CheckCircle, AlertCircle, Clock, ShieldAlert, Archive, UserCheck, AlertTriangle } from 'lucide-react';
 import { Ticket } from '../types';
 
 interface TicketQueueProps {
@@ -12,6 +12,8 @@ interface TicketQueueProps {
   setSelectedDepartment: (dept: string) => void;
   selectedPriority: string;
   setSelectedPriority: (prio: string) => void;
+  selectedStatus?: string;
+  setSelectedStatus?: (status: string) => void;
 }
 
 const DEPARTMENTS = [
@@ -27,6 +29,22 @@ const DEPARTMENTS = [
 
 const PRIORITIES = ['All Priorities', 'Critical', 'High', 'Medium', 'Low'];
 
+const STATUSES = [
+  'All Statuses',
+  'NEW',
+  'INGESTED',
+  'ANALYZED',
+  'ROUTED',
+  'STAFF_REVIEW',
+  'IN_PROGRESS',
+  'WAITING_FOR_STUDENT',
+  'WAITING_FOR_DEPARTMENT',
+  'ESCALATED',
+  'APPROVED',
+  'RESOLVED',
+  'CLOSED'
+];
+
 export const TicketQueue: React.FC<TicketQueueProps> = ({
   tickets,
   selectedTicketId,
@@ -36,7 +54,9 @@ export const TicketQueue: React.FC<TicketQueueProps> = ({
   selectedDepartment,
   setSelectedDepartment,
   selectedPriority,
-  setSelectedPriority
+  setSelectedPriority,
+  selectedStatus = 'All Statuses',
+  setSelectedStatus
 }) => {
   const getPriorityBadge = (priority: string) => {
     switch (priority) {
@@ -55,25 +75,53 @@ export const TicketQueue: React.FC<TicketQueueProps> = ({
     switch (status) {
       case 'APPROVED':
       case 'RESOLVED':
-        return <span className="inline-flex items-center text-[10px] text-emerald-400 font-semibold"><CheckCircle className="w-3 h-3 mr-1" /> Approved</span>;
+        return <span className="inline-flex items-center text-[10px] text-emerald-400 font-semibold"><CheckCircle className="w-3 h-3 mr-1" /> Resolved</span>;
+      case 'CLOSED':
+        return <span className="inline-flex items-center text-[10px] text-slate-400 font-semibold"><Archive className="w-3 h-3 mr-1" /> Closed</span>;
       case 'ESCALATED':
-        return <span className="inline-flex items-center text-[10px] text-purple-400 font-semibold"><AlertCircle className="w-3 h-3 mr-1" /> Escalated</span>;
-      case 'DRAFTED':
-        return <span className="inline-flex items-center text-[10px] text-teal-400 font-semibold"><Sparkles className="w-3 h-3 mr-1" /> Draft Ready</span>;
+        return <span className="inline-flex items-center text-[10px] text-purple-400 font-semibold"><ShieldAlert className="w-3 h-3 mr-1" /> Escalated</span>;
+      case 'IN_PROGRESS':
+        return <span className="inline-flex items-center text-[10px] text-sky-400 font-semibold"><Clock className="w-3 h-3 mr-1" /> In Progress</span>;
+      case 'WAITING_FOR_STUDENT':
+        return <span className="inline-flex items-center text-[10px] text-amber-400 font-semibold"><Clock className="w-3 h-3 mr-1" /> Waiting Student</span>;
+      case 'WAITING_FOR_DEPARTMENT':
+        return <span className="inline-flex items-center text-[10px] text-orange-400 font-semibold"><Clock className="w-3 h-3 mr-1" /> Waiting Dept</span>;
       default:
-        return <span className="inline-flex items-center text-[10px] text-amber-400 font-semibold"><Clock className="w-3 h-3 mr-1" /> In Review</span>;
+        return <span className="inline-flex items-center text-[10px] text-yellow-400 font-semibold"><Clock className="w-3 h-3 mr-1" /> {status}</span>;
     }
+  };
+
+  const getSLABadge = (slaStatus?: string) => {
+    if (slaStatus === 'BREACHED') {
+      return (
+        <span className="inline-flex items-center text-[9px] px-1.5 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30 font-semibold">
+          <AlertTriangle className="w-2.5 h-2.5 mr-0.5" /> BREACHED
+        </span>
+      );
+    }
+    if (slaStatus === 'AT_RISK') {
+      return (
+        <span className="inline-flex items-center text-[9px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30 font-semibold">
+          <AlertCircle className="w-2.5 h-2.5 mr-0.5" /> AT RISK
+        </span>
+      );
+    }
+    return (
+      <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold">
+        ON TRACK
+      </span>
+    );
   };
 
   return (
     <div className="bg-slate-900/60 border border-slate-800 rounded-xl flex flex-col h-full overflow-hidden">
       {/* Search & Filter Header */}
-      <div className="p-3.5 border-b border-slate-800 space-y-2.5">
+      <div className="p-3 border-b border-slate-800 space-y-2">
         <div className="relative">
           <Search className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
             type="text"
-            placeholder="Search tickets, subject, or keywords..."
+            placeholder="Search tickets, subject, keywords..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-9 pr-3 py-1.5 bg-slate-950/80 border border-slate-700/80 rounded-lg text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500"
@@ -81,11 +129,11 @@ export const TicketQueue: React.FC<TicketQueueProps> = ({
         </div>
 
         {/* Filter Dropdowns */}
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-3 gap-1.5">
           <select
             value={selectedDepartment}
             onChange={(e) => setSelectedDepartment(e.target.value)}
-            className="w-full bg-slate-950/80 border border-slate-800 text-[11px] text-slate-300 rounded-md px-2 py-1 focus:outline-none focus:border-emerald-500"
+            className="w-full bg-slate-950/80 border border-slate-800 text-[10px] text-slate-300 rounded-md px-1.5 py-1 focus:outline-none focus:border-emerald-500"
           >
             {DEPARTMENTS.map((d) => (
               <option key={d} value={d}>
@@ -97,7 +145,7 @@ export const TicketQueue: React.FC<TicketQueueProps> = ({
           <select
             value={selectedPriority}
             onChange={(e) => setSelectedPriority(e.target.value)}
-            className="w-full bg-slate-950/80 border border-slate-800 text-[11px] text-slate-300 rounded-md px-2 py-1 focus:outline-none focus:border-emerald-500"
+            className="w-full bg-slate-950/80 border border-slate-800 text-[10px] text-slate-300 rounded-md px-1.5 py-1 focus:outline-none focus:border-emerald-500"
           >
             {PRIORITIES.map((p) => (
               <option key={p} value={p}>
@@ -105,6 +153,20 @@ export const TicketQueue: React.FC<TicketQueueProps> = ({
               </option>
             ))}
           </select>
+
+          {setSelectedStatus && (
+            <select
+              value={selectedStatus}
+              onChange={(e) => setSelectedStatus(e.target.value)}
+              className="w-full bg-slate-950/80 border border-slate-800 text-[10px] text-slate-300 rounded-md px-1.5 py-1 focus:outline-none focus:border-emerald-500"
+            >
+              {STATUSES.map((s) => (
+                <option key={s} value={s}>
+                  {s}
+                </option>
+              ))}
+            </select>
+          )}
         </div>
       </div>
 
@@ -121,45 +183,39 @@ export const TicketQueue: React.FC<TicketQueueProps> = ({
               <div
                 key={t.ticket_id}
                 onClick={() => onSelectTicket(t)}
-                className={`p-3.5 cursor-pointer transition-all ${
+                className={`p-3 cursor-pointer transition-all ${
                   isSelected
                     ? 'bg-slate-800/90 border-l-4 border-l-emerald-500'
                     : 'hover:bg-slate-800/40'
                 }`}
               >
-                {/* Meta row */}
-                <div className="flex items-center justify-between mb-1.5">
-                  <div className="flex items-center space-x-2">
+                {/* Top Meta row */}
+                <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center space-x-1.5">
                     <span className="text-[10px] font-mono text-slate-400 font-semibold">{t.ticket_id}</span>
-                    <span className={`px-1.5 py-0.5 rounded text-[10px] font-semibold border ${getPriorityBadge(t.priority)}`}>
+                    <span className={`px-1.5 py-0.2 rounded text-[9px] font-semibold border ${getPriorityBadge(t.priority)}`}>
                       {t.priority}
                     </span>
                   </div>
-                  {getStatusBadge(t.status)}
+                  <div className="flex items-center space-x-1.5">
+                    {getSLABadge(t.sla_record?.status)}
+                    {getStatusBadge(t.status)}
+                  </div>
                 </div>
 
                 {/* Subject */}
                 <h3 className="text-xs font-semibold text-slate-200 line-clamp-1 mb-1">
-                  {t.subject}
+                  {t.subject || t.title}
                 </h3>
 
-                {/* Department & Student Ref */}
-                <div className="flex items-center justify-between text-[11px] text-slate-400">
-                  <span className="truncate max-w-[140px] text-slate-300 font-medium">{t.department}</span>
-                  <span className="font-mono text-[10px] text-slate-500">{t.student_reference}</span>
+                {/* Department & Staff Assignment */}
+                <div className="flex items-center justify-between text-[10px] text-slate-400">
+                  <span className="truncate max-w-[130px] text-slate-300 font-medium">{t.department}</span>
+                  <span className="inline-flex items-center text-slate-400 font-mono">
+                    <UserCheck className="w-2.5 h-2.5 mr-1 text-slate-500" />
+                    {t.assigned_staff || t.assigned_staff_id || 'Unassigned'}
+                  </span>
                 </div>
-
-                {/* AI Triage Snippet */}
-                {t.ai_analysis && (
-                  <div className="mt-2 pt-1.5 border-t border-slate-800/60 flex items-center justify-between text-[10px]">
-                    <span className="text-emerald-400 font-medium truncate max-w-[160px]">
-                      ⚡ {t.ai_analysis.intent}
-                    </span>
-                    <span className="text-slate-400 font-semibold">
-                      {Math.round(t.confidence * 100)}% conf
-                    </span>
-                  </div>
-                )}
               </div>
             );
           })
@@ -168,3 +224,4 @@ export const TicketQueue: React.FC<TicketQueueProps> = ({
     </div>
   );
 };
+

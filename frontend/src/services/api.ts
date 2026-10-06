@@ -5,7 +5,8 @@ import {
   Department,
   StaffUser,
   AuditEvent,
-  RMSResponse
+  RMSResponse,
+  OperationsAnalytics
 } from '../types';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
@@ -75,6 +76,41 @@ export async function triggerAIAnalysis(ticketId: string): Promise<any> {
 export async function fetchDraftResponse(ticketId: string): Promise<DraftResponse> {
   const res = await fetch(`${API_BASE_URL}/api/v1/rms/${ticketId}/draft`);
   if (!res.ok) throw new Error('Failed to fetch draft');
+  return await res.json();
+}
+
+export async function regenerateDraftResponse(ticketId: string): Promise<DraftResponse> {
+  const res = await fetch(`${API_BASE_URL}/api/v1/rms/${ticketId}/draft/regenerate`, {
+    method: 'POST'
+  });
+  if (!res.ok) throw new Error('Failed to regenerate draft');
+  return await res.json();
+}
+
+export async function overrideGroundingStatus(
+  ticketId: string,
+  staffId: string,
+  reason: string,
+  actionTaken: string = 'ACCEPT_DRAFT',
+  notes?: string
+): Promise<any> {
+  const res = await fetch(`${API_BASE_URL}/api/v1/rms/${ticketId}/grounding-override`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      staff_id: staffId,
+      reason,
+      action_taken: actionTaken,
+      notes
+    })
+  });
+  if (!res.ok) throw new Error('Grounding override failed');
+  return await res.json();
+}
+
+export async function fetchTelemetryMetrics(): Promise<any> {
+  const res = await fetch(`${API_BASE_URL}/api/v1/analytics/telemetry`);
+  if (!res.ok) throw new Error('Failed to fetch telemetry');
   return await res.json();
 }
 
@@ -194,6 +230,68 @@ export async function fetchAnalytics(): Promise<AnalyticsOverview> {
       priority_distribution: { 'High': 3, 'Medium': 3, 'Critical': 1, 'Low': 1 }
     };
   }
+}
+
+export async function fetchOperationsAnalytics(): Promise<OperationsAnalytics> {
+  const res = await fetch(`${API_BASE_URL}/api/v1/analytics/operations`);
+  if (!res.ok) throw new Error('Failed to fetch operations analytics');
+  return await res.json();
+}
+
+export async function resolveTicket(
+  ticketId: string,
+  payload: { staff_id: string; resolution_text: string; notes?: string }
+): Promise<Ticket> {
+  const res = await fetch(`${API_BASE_URL}/api/v1/rms/${ticketId}/resolve`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ detail: 'Resolution failed' }));
+    throw new Error(err.detail || 'Resolution failed');
+  }
+  return await res.json();
+}
+
+export async function closeTicket(
+  ticketId: string,
+  payload: { staff_id: string; notes?: string }
+): Promise<Ticket> {
+  const res = await fetch(`${API_BASE_URL}/api/v1/rms/${ticketId}/close`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ detail: 'Closure failed' }));
+    throw new Error(err.detail || 'Closure failed');
+  }
+  return await res.json();
+}
+
+export async function patchTicket(
+  ticketId: string,
+  payload: {
+    status?: string;
+    priority?: string;
+    department?: string;
+    assigned_staff_id?: string;
+    assigned_department_id?: string;
+    actor_id: string;
+    reason?: string;
+  }
+): Promise<Ticket> {
+  const res = await fetch(`${API_BASE_URL}/api/v1/rms/${ticketId}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ detail: 'Update failed' }));
+    throw new Error(err.detail || 'Update failed');
+  }
+  return await res.json();
 }
 
 export async function fetchEvaluationSummary(): Promise<any> {

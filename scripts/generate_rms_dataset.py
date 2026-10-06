@@ -3,13 +3,18 @@ import json
 import random
 from pathlib import Path
 from typing import List, Dict, Any
+from datetime import datetime, timezone, timedelta
 
 TEMPLATES = [
     # HOSTEL_MAINTENANCE
     {
         "intent": "HOSTEL_MAINTENANCE",
         "department": "Hostel Affairs",
+        "dept_id": "DEPT-HOSTEL",
+        "staff_id": "USR-STAFF-01",
+        "category": "Hostel",
         "priority": "High",
+        "sla_hours": {"LOW": 48, "MEDIUM": 24, "HIGH": 12, "CRITICAL": 4},
         "subject_templates": [
             "Water leakage in {hostel_block} Room {room_number}",
             "AC unit malfunctioning and noisy in {hostel_block}",
@@ -28,7 +33,11 @@ TEMPLATES = [
     {
         "intent": "FEE_PAYMENT",
         "department": "Accounts & Finance",
+        "dept_id": "DEPT-ACCOUNTS",
+        "staff_id": "USR-STAFF-03",
+        "category": "Finance",
         "priority": "High",
+        "sla_hours": {"LOW": 72, "MEDIUM": 48, "HIGH": 24, "CRITICAL": 12},
         "subject_templates": [
             "Semester {sem} fee debited twice from {bank} account",
             "Tuition fee deduction timeout during online payment",
@@ -47,7 +56,11 @@ TEMPLATES = [
     {
         "intent": "EXAMINATION",
         "department": "Examination Branch",
+        "dept_id": "DEPT-EXAM",
+        "staff_id": "USR-STAFF-04",
+        "category": "Examination",
         "priority": "Critical",
+        "sla_hours": {"LOW": 48, "MEDIUM": 24, "HIGH": 12, "CRITICAL": 4},
         "subject_templates": [
             "Admit card blocked due to clearance error before exam",
             "Hall ticket download failure with exam in {hours} hours",
@@ -66,7 +79,11 @@ TEMPLATES = [
     {
         "intent": "ACADEMIC",
         "department": "Academic Affairs",
+        "dept_id": "DEPT-ACADEMICS",
+        "staff_id": "USR-STAFF-02",
+        "category": "Academics",
         "priority": "Medium",
+        "sla_hours": {"LOW": 72, "MEDIUM": 48, "HIGH": 24, "CRITICAL": 8},
         "subject_templates": [
             "Continuous Assessment CA-2 marks discrepancy in {course_code}",
             "CA rubric evaluation score not reflecting in portal ledger",
@@ -85,7 +102,11 @@ TEMPLATES = [
     {
         "intent": "ATTENDANCE",
         "department": "Student Welfare",
+        "dept_id": "DEPT-WELFARE",
+        "staff_id": "USR-STAFF-05",
+        "category": "Student Welfare",
         "priority": "Medium",
+        "sla_hours": {"LOW": 72, "MEDIUM": 36, "HIGH": 18, "CRITICAL": 6},
         "subject_templates": [
             "Medical leave attendance condonation for hospitalization period",
             "Attendance adjustment for dengue fever recovery",
@@ -98,85 +119,89 @@ TEMPLATES = [
             "Requesting attendance duty adjustment for 6 days absence due to hospitalization. Medical certificates have been verified at University Health Center.",
             "Biometric attendance device in Block {block} Room 201 failed to register morning class punches. Requesting attendance duty credit."
         ],
-        "entities": {"illness": ["typhoid", "dengue fever", "viral hepatitis", "acute gastroenteritis"]}
+        "entities": {"illness": ["dengue fever", "typhoid", "severe viral illness", "fracture rehabilitation"]}
     },
     # SCHOLARSHIP
     {
         "intent": "SCHOLARSHIP",
         "department": "Scholarship Section",
+        "dept_id": "DEPT-SCHOLARSHIP",
+        "staff_id": "USR-STAFF-06",
+        "category": "Scholarship",
         "priority": "High",
+        "sla_hours": {"LOW": 96, "MEDIUM": 72, "HIGH": 36, "CRITICAL": 12},
         "subject_templates": [
-            "National Scholarship Portal NSP verification pending at institute level",
-            "Post-Matric PMS scholarship renewal portal verification delay",
-            "State scholarship application pending verification nearing closing date",
-            "Merit scholarship fee concession adjustment in term invoice",
-            "Central Sector Scheme scholarship institutional endorsement status"
+            "National Scholarship Portal institutional verification pending",
+            "Post-Matric scholarship state nodal officer approval delay",
+            "Merit-based university scholarship disbursement inquiry",
+            "Aadhaar linkage mismatch on state welfare scholarship portal",
+            "Income certificate verification hold for scholarship renewal"
         ],
         "desc_templates": [
-            "Dear Scholarship Section, my application on National Scholarship Portal (NSP) is pending institute-level verification. The state portal closes on 30th September. Please verify application ID: NSP-2026-{reg}.",
-            "My Post-Matric scholarship renewal has been awaiting Nodal Officer verification for over 3 weeks. Aadhaar authentication is completed. Kindly approve before deadline.",
-            "I qualified for university merit scholarship with 9.2 CGPA. Please adjust the fee concession of INR {amount} in my current semester ledger."
+            "Dear Nodal Officer, my NSP 2026 application verification is pending at the institute level. Portal closing date is approaching. Please verify my student record so state welfare department can release funds.",
+            "My scholarship disbursement of INR {amount} has been approved by government but institutional verification status is unverified. Registration: 1220{reg}.",
+            "Submitted renewal documents for merit scholarship 2 weeks ago. Please update verification status on student UMS dashboard."
         ],
         "entities": {}
     },
-    # IT_SUPPORT
+    # IT_SERVICES
     {
-        "intent": "IT_SUPPORT",
+        "intent": "IT_SERVICES",
         "department": "IT Services",
+        "dept_id": "DEPT-IT",
+        "staff_id": "USR-STAFF-07",
+        "category": "IT Services",
         "priority": "Low",
+        "sla_hours": {"LOW": 48, "MEDIUM": 24, "HIGH": 8, "CRITICAL": 2},
         "subject_templates": [
-            "Campus Wi-Fi Fortinet MAC address registration error (2/2 limit)",
-            "Student UMS credentials locked and password reset link not received",
-            "Student email mailbox storage quota full and bouncing emails",
-            "Wi-Fi access point offline in {hostel_block} corridor",
-            "Laboratory computer workstation domain authentication login error"
+            "Campus Wi-Fi MAC address registration limit error",
+            "University email account password reset request",
+            "Student portal LMS login authentication failure",
+            "Laboratory desktop network drive inaccessible in Block {block}",
+            "Fortinet firewall captive portal connection timeout"
         ],
         "desc_templates": [
-            "IT Helpdesk, trying to register new MAC address {mac} on Fortinet Wi-Fi registration portal. It reports device limit reached although old device was deleted. Student phone: +91-{phone}.",
-            "My student UMS login is locked after multiple invalid password attempts. Password reset link is not reaching my personal email. Contact: {email}.",
-            "The wireless access point in {hostel_block} has been offline all day. Students are unable to connect to campus internet network."
-        ],
-        "entities": {}
-    },
-    # STUDENT_SERVICES
-    {
-        "intent": "STUDENT_SERVICES",
-        "department": "Academic Affairs",
-        "priority": "Low",
-        "subject_templates": [
-            "Request for official Bonafide Certificate and MOI letter for visa",
-            "Bonafide certificate required for educational bank loan renewal",
-            "Medium of Instruction verification certificate for foreign university",
-            "Duplicate student identity card issuance request",
-            "Migration certificate dispatch tracking status inquiry"
-        ],
-        "desc_templates": [
-            "Respected Registrar Office, I require an official stamped Bonafide Certificate and English Medium of Instruction (MOI) verification letter for embassy visa application. All dues cleared.",
-            "Applying for bank education loan renewal at {bank}. Kindly issue digitally signed Bonafide Student Certificate stating current semester {sem} enrollment.",
-            "I paid the fee for duplicate student ID card yesterday after losing my card on campus. Please inform collection desk details."
+            "IT Helpdesk, replaced my phone and unable to register new MAC address {mac} on university Wi-Fi portal. Error shows device limit exceeded. Please unbind old device.",
+            "Cannot log in to student portal after password expiration. Need authentication reset link sent to registered mobile.",
+            "Campus Wi-Fi disconnects continuously in Block {block} lecture hall. Signal strength drops to zero during class hours."
         ],
         "entities": {}
     }
 ]
 
-HOSTEL_BLOCKS = ["BH-1", "BH-2", "BH-3", "BH-4", "BH-5", "BH-6", "BH-7", "BH-8", "GH-1", "GH-2", "GH-3", "GH-4"]
-COURSES = ["CSE 472", "CSE 320", "MTH 402", "INT 108", "ECE 213", "MGT 101", "PEA 305", "CSE 202"]
-BANKS = ["HDFC Bank", "SBI", "ICICI Bank", "Punjab National Bank", "Axis Bank"]
-DATES = ["12th Sept", "15th Sept", "18th Sept", "20th Sept", "22nd Sept", "25th Sept", "28th Sept", "30th Sept"]
+HOSTELS = ["BH-1", "BH-2", "BH-3", "BH-4", "BH-5", "GH-1", "GH-2", "GH-3"]
+BANKS = ["HDFC Bank", "State Bank of India", "ICICI Bank", "Punjab National Bank", "Axis Bank"]
+COURSES = ["CSE 472", "CSE 320", "INT 213", "MTH 402", "ECE 216", "CSE 316"]
+LIFECYCLE_STATES = [
+    "INGESTED",
+    "ANALYZED",
+    "ROUTED",
+    "STAFF_REVIEW",
+    "IN_PROGRESS",
+    "WAITING_FOR_STUDENT",
+    "WAITING_FOR_DEPARTMENT",
+    "ESCALATED",
+    "APPROVED",
+    "RESOLVED",
+    "CLOSED"
+]
 
 def generate_synthetic_dataset(count: int = 500, seed: int = 42) -> List[Dict[str, Any]]:
     random.seed(seed)
     dataset: List[Dict[str, Any]] = []
 
-    for i in range(count):
+    base_time = datetime(2026, 9, 21, 10, 0, 0, tzinfo=timezone.utc)
+
+    for i in range(1, count + 1):
         cat = random.choice(TEMPLATES)
-        ticket_id = f"TKT-SYN-{2000 + i + 1}"
+        ticket_id = f"TKT-SYN-{2000 + i}"
         student_ref = f"STU-SYN-{random.randint(1000, 9999)}"
-        hostel = random.choice(HOSTEL_BLOCKS)
-        room = f"{random.randint(1, 6)}{random.randint(0, 9):02d}"
+
+        hostel = random.choice(HOSTELS)
+        room = str(random.randint(101, 520))
         course = random.choice(COURSES)
         bank = random.choice(BANKS)
-        date = random.choice(DATES)
+        date = f"{random.randint(10, 22)}th Sept 2026"
         amount = f"{random.randint(20, 85)},000"
         sem = str(random.randint(1, 8))
         phone = f"98{random.randint(10000000, 99999999)}"
@@ -212,21 +237,147 @@ def generate_synthetic_dataset(count: int = 500, seed: int = 42) -> List[Dict[st
         subject = subject_template.format(**format_args)
         desc = desc_template.format(**format_args)
 
-        # Critical hazard or deadline adjustments
+        # Critical hazard adjustments
         priority = cat["priority"]
         if "switchboard" in desc.lower() or "power" in desc.lower() or "24 hours" in desc.lower():
             priority = "Critical"
 
-        dataset.append({
+        # Realistic lifecycle distribution
+        status = random.choice(LIFECYCLE_STATES)
+        escalation_level = 1 if status == "ESCALATED" else 0
+
+        # Timestamp generation
+        offset_hours = random.randint(1, 120)
+        ticket_time = base_time - timedelta(hours=offset_hours)
+        ticket_time_iso = ticket_time.isoformat()
+
+        # Compute SLA
+        sla_hours = cat["sla_hours"].get(priority.upper(), 48)
+        due_time = ticket_time + timedelta(hours=sla_hours)
+        due_time_iso = due_time.isoformat()
+
+        # Deterministic SLA status calculation
+        rem_sec = (due_time - base_time).total_seconds()
+        rem_hrs = round(rem_sec / 3600.0, 1)
+
+        if status in ["RESOLVED", "APPROVED", "CLOSED"]:
+            sla_st = "RESOLVED"
+            is_breached = False
+        elif rem_sec <= 0:
+            sla_st = "BREACHED"
+            is_breached = True
+        elif rem_hrs <= max(sla_hours * 0.25, 4.0):
+            sla_st = "AT_RISK"
+            is_breached = False
+        else:
+            sla_st = "ON_TRACK"
+            is_breached = False
+
+        record = {
             "ticket_id": ticket_id,
+            "external_reference": f"UMS-EXT-{2000 + i}",
             "student_reference": student_ref,
+            "title": subject,
             "subject": subject,
             "description": desc,
+            "redacted_description": desc,
+            "category": cat["category"],
+            "subcategory": cat["intent"],
+            "department": cat["department"],
+            "assigned_department_id": cat["dept_id"],
+            "assigned_staff_id": cat["staff_id"],
+            "assigned_staff": cat["staff_id"],
+            "priority": priority,
+            "status": status,
+            "escalation_level": escalation_level,
+            "source": "STUDENT_PORTAL",
+            "created_at": ticket_time_iso,
+            "updated_at": ticket_time_iso,
+            "due_at": due_time_iso,
+            "tags": [cat["category"].lower(), priority.lower(), status.lower()],
+            "attachments": [],
+            "responses": [
+                {
+                    "response_id": f"RSP-{2000 + i}-01",
+                    "ticket_id": ticket_id,
+                    "author_id": cat["staff_id"],
+                    "author_name": "University Staff",
+                    "author_role": "STAFF_OPERATOR",
+                    "response_type": "STAFF",
+                    "status": "PUBLISHED",
+                    "content": f"Ticket logged and queued for {cat['department']} review.",
+                    "is_internal": True,
+                    "created_at": ticket_time_iso
+                }
+            ],
+            "assignments": [
+                {
+                    "assignment_id": f"ASG-{2000 + i}-01",
+                    "ticket_id": ticket_id,
+                    "department_id": cat["dept_id"],
+                    "staff_id": cat["staff_id"],
+                    "assigned_by": "SYSTEM",
+                    "assigned_at": ticket_time_iso,
+                    "reason": "Initial operational routing",
+                    "active": True
+                }
+            ],
+            "escalations": [
+                {
+                    "escalation_id": f"ESC-{2000 + i}-01",
+                    "ticket_id": ticket_id,
+                    "escalated_by": cat["staff_id"],
+                    "target_role": "DEPARTMENT_HOD",
+                    "previous_level": "LEVEL_0",
+                    "new_level": "LEVEL_1",
+                    "reason": "SLA warning or complexity escalation",
+                    "urgent": False,
+                    "escalated_at": ticket_time_iso,
+                    "status": "PENDING"
+                }
+            ] if escalation_level > 0 else [],
+            "history": [
+                {
+                    "event_id": f"AUD-{2000 + i}-01",
+                    "ticket_id": ticket_id,
+                    "event_type": "INGESTED",
+                    "actor_id": student_ref,
+                    "actor_role": "STUDENT",
+                    "timestamp": ticket_time_iso,
+                    "from_state": "NEW",
+                    "to_state": "INGESTED",
+                    "notes": "Ticket ingested via synthetic portal",
+                    "details": {"source": "STUDENT_PORTAL"}
+                }
+            ],
+            "sla_record": {
+                "priority": priority,
+                "sla_hours": sla_hours,
+                "due_at": due_time_iso,
+                "is_breached": is_breached,
+                "remaining_hours": rem_hrs,
+                "status": sla_st
+            },
+            "metadata": {"environment": "synthetic", "batch": "milestone_2"},
+            "is_synthetic": True,
+            # Ground truth fields for NLP benchmarks
             "ground_truth_intent": cat["intent"],
             "ground_truth_department": cat["department"],
-            "ground_truth_priority": priority,
-            "created_at": "2026-09-21T12:00:00Z"
-        })
+            "ground_truth_priority": priority
+        }
+
+        # If resolved or closed, add resolution fields
+        if status in ["RESOLVED", "CLOSED"]:
+            resolved_time = ticket_time + timedelta(hours=random.randint(2, min(sla_hours, 24)))
+            record["resolved_at"] = resolved_time.isoformat()
+            record["resolution_text"] = f"Official resolution provided by {cat['department']} staff: action confirmed."
+            record["resolving_actor"] = cat["staff_id"]
+            if status == "CLOSED":
+                closed_time = resolved_time + timedelta(hours=random.randint(1, 12))
+                record["closed_at"] = closed_time.isoformat()
+                record["closing_actor"] = cat["staff_id"]
+
+        dataset.append(record)
 
     return dataset
 
@@ -238,7 +389,6 @@ def main():
 
     args = parser.parse_args()
 
-    # Determine absolute path
     repo_root = Path(__file__).resolve().parent.parent
     output_path = repo_root / args.output if not Path(args.output).is_absolute() else Path(args.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)

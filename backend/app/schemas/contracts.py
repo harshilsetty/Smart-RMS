@@ -6,7 +6,7 @@ Defines typed domain models and source-of-truth contracts for the university env
 from enum import Enum
 from typing import List, Optional, Dict, Any, Union
 from datetime import datetime, timezone
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, model_validator
 
 
 # ============================================================================
@@ -91,6 +91,14 @@ class EscalationLevel(str, Enum):
     HOD = "HOD"
 
 
+class GroundingStatus(str, Enum):
+    """Classification of RAG retrieval and answer grounding quality."""
+    GROUNDED = "GROUNDED"
+    INSUFFICIENT_EVIDENCE = "INSUFFICIENT_EVIDENCE"
+    LOW_RELEVANCE = "LOW_RELEVANCE"
+    INVALID_SOURCE = "INVALID_SOURCE"
+
+
 class AuditEventType(str, Enum):
     """Audit event classifications."""
     CREATED = "CREATED"
@@ -112,6 +120,7 @@ class AuditEventType(str, Enum):
     ESCALATED = "ESCALATED"
     RESOLVED = "RESOLVED"
     CLOSED = "CLOSED"
+    GROUNDING_OVERRIDE = "GROUNDING_OVERRIDE"
 
 
 # ============================================================================
@@ -292,19 +301,88 @@ class Escalation(BaseModel):
     status: str = Field("PENDING", description="Status of escalation: PENDING, ACKNOWLEDGED, RESOLVED")
 
 
+class KnowledgeSection(BaseModel):
+    """Section or clause of a university policy document."""
+    model_config = ConfigDict(extra="ignore")
+
+    section_id: str = Field(..., description="Section identifier (e.g. SEC-EXAM-01)")
+    heading: str = Field(..., description="Section title or heading")
+    clause: str = Field(..., description="Specific statutory or policy clause citation")
+    content: str = Field(..., description="Full section policy text")
+    keywords: List[str] = Field(default_factory=list, description="Keywords for indexing and retrieval")
+
+
 class KnowledgeDocument(BaseModel):
     """Approved university policy document for RAG grounding."""
     model_config = ConfigDict(extra="ignore")
 
-    document_id: str = Field(..., description="Document identifier (e.g. DOC-2024-HOSTEL-01)")
+    document_id: str = Field(..., description="Document identifier (e.g. DOC-EXAM-001)")
     title: str = Field(..., description="Document policy title")
-    department: str = Field(..., description="Governing department name or code")
-    clause: str = Field(..., description="Section or clause citation")
-    content: str = Field(..., description="Full policy text or article content")
-    effective_date: str = Field(..., description="Effective enforcement date")
-    keywords: List[str] = Field(default_factory=list, description="Topic search tags")
+    document_type: str = Field("REGULATION", description="POLICY, REGULATION, SOP, GUIDELINE")
+    department_id: Optional[str] = Field(None, description="Department ID (e.g. DEPT-EXAM)")
+    department: str = Field(..., description="Governing department name")
     version: str = Field("1.0", description="Policy document version")
+    effective_date: str = Field(..., description="Effective enforcement date")
+    expiry_date: Optional[str] = Field(None, description="Expiry date if applicable")
+    approval_status: str = Field("APPROVED", description="APPROVED, SUPERSEDED, EXPIRED, DRAFT")
+    source: str = Field("SYNTHETIC_UNIVERSITY_REGISTRY", description="Authoritative issuer source")
+    sections: List[KnowledgeSection] = Field(default_factory=list, description="Structured policy sections")
+    keywords: List[str] = Field(default_factory=list, description="Document-level search tags")
     is_active: bool = Field(True, description="Active enforcement status")
+    is_synthetic: bool = Field(True, description="Synthetic demonstration flag")
+    clause: Optional[str] = Field(None, description="Legacy/convenience top-level clause citation")
+    content: Optional[str] = Field(None, description="Legacy/convenience top-level text content")
+
+    @model_validator(mode="before")
+    @classmethod
+    def populate_legacy_and_sections(cls, data: Any) -> Any:
+        if isinstance(data, dict):
+            sections = data.get("sections", [])
+            # If sections provided, populate clause and content for backward compatibility
+            if sections and isinstance(sections, list) and len(sections) > 0:
+                first_sec = sections[0]
+                if isinstance(first_sec, dict):
+                    if not data.get("clause"):
+                        data["clause"] = first_sec.get("clause", "")
+                    if not data.get("content"):
+                        data["content"] = "\n\n".join(s.get("content", "") for s in sections if isinstance(s, dict))
+            # If legacy clause and content provided but no sections, create a default section
+            elif not sections and data.get("content"):
+                data["sections"] = [
+                    {
+                        "section_id": f"{data.get('document_id', 'DOC')}-S1",
+                        "heading": data.get("title", "Main Section"),
+                        "clause": data.get("clause", "General Policy"),
+                        "content": data.get("content", ""),
+                        "keywords": data.get("keywords", [])
+                    }
+                ]
+        return data
+
+
+class KnowledgeChunk(BaseModel):
+    """Segmented unit of policy text for semantic embedding and retrieval."""
+    model_config = ConfigDict(extra="ignore")
+
+    chunk_id: str = Field(..., description="Unique chunk identifier (e.g. DOC-EXAM-001-V2-S1-C1)")
+    document_id: str = Field(..., description="Parent document identifier")
+    document_title: str = Field(..., description="Parent document title")
+    document_version: str = Field("1.0", description="Policy document version")
+    section_id: str = Field(..., description="Section identifier")
+    heading: str = Field(..., description="Section heading")
+    clause: str = Field(..., description="Statutory clause citation")
+    department_id: Optional[str] = Field(None, description="Department ID")
+    department: str = Field(..., description="Department name")
+    document_type: str = Field("REGULATION", description="POLICY, REGULATION, SOP, GUIDELINE")
+    approval_status: str = Field("APPROVED", description="APPROVED, SUPERSEDED, EXPIRED, DRAFT")
+    effective_date: str = Field(..., description="Effective date")
+    expiry_date: Optional[str] = Field(None, description="Expiry date")
+    source: str = Field("SYNTHETIC_UNIVERSITY_REGISTRY", description="Issuer source")
+    content: str = Field(..., description="Chunk text content")
+    excerpt: Optional[str] = Field(None, description="Display snippet")
+    keywords: List[str] = Field(default_factory=list, description="Keywords")
+    token_count: int = Field(0, description="Approximate word count")
+
 
 
 # ============================================================================

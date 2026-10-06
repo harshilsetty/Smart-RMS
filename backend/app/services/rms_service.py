@@ -34,8 +34,19 @@ from app.schemas.rms import (
     CloseRequest,
     TicketPatchRequest,
     OperationsAnalytics,
-    InvalidStateTransitionError
+    InvalidStateTransitionError,
+    HumanOverrideRequest,
+    HumanOverrideResponse
 )
+from app.schemas.contracts import AuditEventType
+from app.schemas.grounding import (
+    DraftGroundingVerification,
+    GroundingOverrideRequest,
+    GroundingOverrideResponse,
+    DraftGroundingStatus
+)
+from app.grounding import get_grounding_pipeline
+from app.telemetry import get_telemetry_service, TelemetryRecord
 
 class RMSService:
     """
@@ -61,6 +72,8 @@ class RMSService:
         self.policy_retriever = PolicyRetriever()
         self.policy_validator = PolicyValidator()
         self.workflow = WorkflowEngine()
+        self.grounding_pipeline = get_grounding_pipeline()
+        self.telemetry = get_telemetry_service()
 
     def get_tickets(
         self,
@@ -230,9 +243,9 @@ class RMSService:
         return RedirectResponse(
             ticket_id=ticket_id,
             previous_department=old_dept,
-            new_department=new_department,
+            new_department=ticket.get("department", new_department),
             status=target_state,
-            message=f"Ticket redirected to {new_department}."
+            message=f"Ticket redirected to {ticket.get('department', new_department)}."
         )
 
     def add_response(self, ticket_id: str, request: RMSResponseCreateRequest) -> RMSResponse:
@@ -250,6 +263,164 @@ class RMSService:
         if not ticket:
             raise ValueError(f"Ticket {ticket_id} not found")
         return self.adapter.get_audit_history(ticket_id)
+
+    def override_ticket(self, ticket_id: str, request: HumanOverrideRequest) -> HumanOverrideResponse:
+        """
+        Allows authorized staff to override AI recommendations (department, priority, urgency, intent, response).
+        Preserves original AI prediction, logs staff identity, timestamp, and mandatory rationale,
+        and appends a formal HUMAN_OVERRIDE audit event to the ticket history.
+        """
+        raw = self.adapter.get_ticket_by_id(ticket_id)
+        if not raw:
+            raise ValueError(f"Ticket {ticket_id} not found")
+
+        now_iso = datetime.now(timezone.utc).isoformat()
+        metadata = raw.setdefault("metadata", {})
+
+        # 1. Preserve original AI prediction in metadata if not already archived
+        if "ai_original_prediction" not in metadata:
+            metadata["ai_original_prediction"] = raw.get("ai_analysis") or {
+                "intent": raw.get("ground_truth_intent", "UNKNOWN"),
+                "department": raw.get("department", "General Administration"),
+                "priority": raw.get("priority", "Medium"),
+                "urgency": "NORMAL",
+                "confidence": raw.get("confidence", 0.85)
+            }
+
+        applied_overrides: Dict[str, Any] = {}
+        updates: Dict[str, Any] = {}
+
+        # 2. Apply Department Override
+        if request.override_department and request.override_department != raw.get("department"):
+            applied_overrides["department"] = {
+                "from": raw.get("department"),
+                "to": request.override_department
+            }
+            updates["department"] = request.override_department
+            for dept in self.adapter.list_departments():
+                if dept.get("name") == request.override_department or dept.get("department_name") == request.override_department:
+                    updates["assigned_department_id"] = dept.get("id") or dept.get("department_id")
+                    break
+
+        # 3. Apply Priority Override
+        if request.override_priority and request.override_priority != raw.get("priority"):
+            applied_overrides["priority"] = {
+                "from": raw.get("priority"),
+                "to": request.override_priority
+            }
+            updates["priority"] = request.override_priority
+
+        # 4. Apply Urgency Override
+        if request.override_urgency:
+            prev_urg = (raw.get("ai_analysis") or {}).get("urgency", "NORMAL")
+            applied_overrides["urgency"] = {
+                "from": prev_urg,
+                "to": request.override_urgency
+            }
+            updates["urgency"] = request.override_urgency
+
+        # 5. Apply Intent Override
+        if request.override_intent:
+            current_intent = (raw.get("ai_analysis") or {}).get("intent", "UNKNOWN")
+            if request.override_intent != current_intent:
+                applied_overrides["intent"] = {
+                    "from": current_intent,
+                    "to": request.override_intent
+                }
+                if raw.get("ai_analysis"):
+                    raw["ai_analysis"]["intent"] = request.override_intent
+                    raw["ai_analysis"]["reason"] = f"Overridden by staff {request.staff_id}: {request.reason}"
+                    updates["ai_analysis"] = raw["ai_analysis"]
+                try:
+                    self.telemetry.record_intent_correction(
+                        ticket_id=ticket_id,
+                        original_ai_intent=current_intent,
+                        human_corrected_intent=request.override_intent,
+                        context_summary=raw.get("subject", ""),
+                        actor_id=request.staff_id,
+                        reason=request.reason
+                    )
+                except Exception:
+                    pass
+
+        # Also record department correction if applied
+        if "department" in applied_overrides:
+            try:
+                self.telemetry.record_department_correction(
+                    ticket_id=ticket_id,
+                    original_ai_department=applied_overrides["department"]["from"],
+                    human_corrected_department=applied_overrides["department"]["to"],
+                    context_summary=raw.get("subject", ""),
+                    actor_id=request.staff_id,
+                    reason=request.reason
+                )
+            except Exception:
+                pass
+
+        # 6. Apply Suggested Response Override if provided
+        if request.override_response:
+            applied_overrides["response_content"] = "Custom staff response drafted."
+            self.adapter.add_response(ticket_id, {
+                "author_id": request.staff_id,
+                "author_name": "Staff Reviewer",
+                "author_role": "STAFF",
+                "response_type": "STAFF_DRAFT",
+                "status": "DRAFT",
+                "content": request.override_response,
+                "is_internal": True
+            })
+
+        if not applied_overrides:
+            applied_overrides["note"] = "Staff validated and confirmed ticket."
+
+        # 7. Record override history in metadata
+        override_history = metadata.setdefault("human_overrides", [])
+        override_id = f"OVR-{int(datetime.now().timestamp() * 1000)}"
+        override_record = {
+            "override_id": override_id,
+            "staff_id": request.staff_id,
+            "timestamp": now_iso,
+            "reason": request.reason,
+            "overrides": applied_overrides
+        }
+        override_history.append(override_record)
+        updates["metadata"] = metadata
+
+        # 8. Create formal Audit Trail Event
+        audit_event_id = f"AUDIT-OVR-{int(datetime.now().timestamp() * 1000)}"
+        audit_event = {
+            "event_id": audit_event_id,
+            "ticket_id": ticket_id,
+            "timestamp": now_iso,
+            "actor_id": request.staff_id,
+            "actor_name": "Staff Officer",
+            "actor_role": "STAFF",
+            "event_type": "HUMAN_OVERRIDE",
+            "from_state": raw.get("status"),
+            "to_state": raw.get("status"),
+            "notes": f"AI recommendation overridden by staff ({request.staff_id}): {request.reason}. Modifications: {list(applied_overrides.keys())}",
+            "details": {
+                "applied_overrides": applied_overrides,
+                "original_ai": metadata["ai_original_prediction"],
+                "staff_reason": request.reason
+            }
+        }
+        self.adapter.add_audit_event(ticket_id, audit_event)
+
+        # 9. Persist updates
+        self.adapter.update_ticket(ticket_id, updates)
+        updated_ticket = self.adapter.get_ticket_by_id(ticket_id)
+
+        return HumanOverrideResponse(
+            ticket_id=ticket_id,
+            status=updated_ticket.get("status", "STAFF_REVIEW"),
+            original_ai_prediction=metadata["ai_original_prediction"],
+            applied_overrides=applied_overrides,
+            overridden_by=request.staff_id,
+            timestamp=now_iso,
+            audit_event_id=audit_event_id,
+            message="AI recommendation successfully overridden by staff. Audit log preserved."
+        )
 
     async def analyze_ticket(self, ticket_id: str, override_text: Optional[str] = None) -> AnalyzeResponse:
         raw = self.adapter.get_ticket_by_id(ticket_id)
@@ -322,13 +493,34 @@ class RMSService:
         )
         draft.ticket_id = ticket_id
 
-        # 4. Validate output safety
+        # 4. Claim Grounding Verification Layer (Milestone 6)
+        verification = self.grounding_pipeline.verify_draft(
+            draft_text=draft.draft_response,
+            sources=sources
+        )
+        draft.claim_verification = verification
+
+        # Check if sources were empty / below threshold (strict No-Source-No-Answer guardrail)
+        if not sources or not any(getattr(s, "relevance_score", 0.0) >= 0.65 for s in sources):
+            draft.grounding_status = "INSUFFICIENT_EVIDENCE"
+            draft.needs_human_review = True
+            draft.requires_staff_edit = True
+        else:
+            draft.grounding_status = verification.overall_status.value
+            if verification.is_blocked:
+                draft.requires_staff_edit = True
+                draft.needs_human_review = True
+                if verification.block_reason:
+                    draft.refusal_reason = verification.block_reason
+
+        # 5. Validate output safety
         is_safe, _ = self.policy_validator.validate_response(draft.draft_response)
         draft.policy_compliance_passed = is_safe
         if not is_safe:
             draft.requires_staff_edit = True
+            draft.needs_human_review = True
 
-        # 5. Record AI draft response in ticket communication thread (status: DRAFT, not official)
+        # 6. Record AI draft response in ticket communication thread (status: DRAFT, not official)
         self.adapter.add_response(ticket_id, {
             "author_id": "SYSTEM_AI",
             "author_name": "Smart RMS AI Assistant",
@@ -339,7 +531,98 @@ class RMSService:
             "is_internal": True
         })
 
+        # 7. Operational Telemetry Logging
+        try:
+            self.telemetry.record_event(
+                TelemetryRecord(
+                    event_id=f"TEL-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}",
+                    ticket_id=ticket_id,
+                    event_type="DRAFT_GENERATED",
+                    selected_department=department,
+                    rag_source_ids=[getattr(s, 'document_id', 'DOC') for s in sources],
+                    grounding_status=draft.grounding_status,
+                    human_override=False,
+                    actor_id="SYSTEM_AI"
+                )
+            )
+        except Exception:
+            pass
+
         return draft
+
+    def override_grounding(self, ticket_id: str, request: GroundingOverrideRequest) -> GroundingOverrideResponse:
+        """
+        Staff Operational Grounding Override (Milestone 6).
+        Records explicit staff responsibility when overriding grounding status.
+        Does NOT alter or delete previous verification history.
+        """
+        ticket = self.adapter.get_ticket_by_id(ticket_id)
+        if not ticket:
+            raise ValueError(f"Ticket {ticket_id} not found")
+
+        prev_status = ticket.get("grounding_status", "REQUIRES_HUMAN_REVIEW")
+        updated_status = "OVERRIDDEN_BY_STAFF" if request.action_taken == "ACCEPT_DRAFT" else "REJECTED_BY_STAFF"
+
+        # Formal Audit Event logging
+        audit_event_id = f"AUD-OVR-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}"
+        audit_entry = {
+            "id": audit_event_id,
+            "event_type": AuditEventType.GROUNDING_OVERRIDE.value,
+            "actor_id": request.staff_id,
+            "actor_role": "STAFF",
+            "notes": f"Staff overridden grounding: {request.reason} | Action: {request.action_taken}",
+            "metadata": {
+                "ticket_id": ticket_id,
+                "previous_grounding_status": prev_status,
+                "updated_grounding_status": updated_status,
+                "action_taken": request.action_taken,
+                "staff_notes": request.notes or "",
+                "responsibility": "HUMAN_ACCEPTED_RESPONSIBILITY"
+            },
+            "timestamp": datetime.now(timezone.utc).isoformat()
+        }
+        self.adapter.add_audit_event(ticket_id, audit_entry)
+
+        # Active Learning Feedback logging
+        try:
+            self.telemetry.record_grounding_feedback(
+                ticket_id=ticket_id,
+                original_grounding_status=prev_status,
+                human_action=request.action_taken,
+                failed_claims=[],
+                actor_id=request.staff_id,
+                reason=request.reason
+            )
+            self.telemetry.record_event(
+                TelemetryRecord(
+                    event_id=f"TEL-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S%f')}",
+                    ticket_id=ticket_id,
+                    event_type="GROUNDING_OVERRIDE",
+                    selected_department=ticket.get("department"),
+                    grounding_status=updated_status,
+                    human_override=True,
+                    actor_id=request.staff_id
+                )
+            )
+        except Exception:
+            pass
+
+        return GroundingOverrideResponse(
+            ticket_id=ticket_id,
+            previous_grounding_status=prev_status,
+            updated_grounding_status=updated_status,
+            overridden_by=request.staff_id,
+            timestamp=datetime.now(timezone.utc).isoformat(),
+            audit_event_id=audit_event_id,
+            message="Staff operational grounding override registered. Human accepted responsibility."
+        )
+
+    async def regenerate_draft(self, ticket_id: str) -> DraftResponse:
+        """
+        Regenerates an AI response draft and guarantees mandatory re-verification.
+        The system NEVER marks a regenerated draft as grounded without full verification.
+        """
+        return await self.get_draft_response(ticket_id)
 
     def approve_ticket(self, ticket_id: str, staff_id: str, approved_text: str, notes: Optional[str] = None) -> ApprovalResponse:
         """Staff approval workflow: marks approved and publishes official response."""
@@ -399,8 +682,12 @@ class RMSService:
         if not ticket:
             raise ValueError(f"Ticket {ticket_id} not found")
 
-        # Validate transition to RESOLVED
-        self.workflow.transition(ticket, TicketState.RESOLVED.value, actor_id=request.staff_id, notes=request.notes)
+        current_state = ticket.get("status")
+        if not self.workflow.can_transition(current_state, TicketState.RESOLVED.value):
+            raise InvalidStateTransitionError(
+                f"Cannot transition ticket from '{current_state}' to '{TicketState.RESOLVED.value}'."
+            )
+
         self.adapter.resolve_ticket(
             ticket_id=ticket_id,
             staff_id=request.staff_id,
@@ -417,8 +704,12 @@ class RMSService:
         if not ticket:
             raise ValueError(f"Ticket {ticket_id} not found")
 
-        # Validate transition to CLOSED
-        self.workflow.transition(ticket, TicketState.CLOSED.value, actor_id=request.staff_id, notes=request.notes)
+        current_state = ticket.get("status")
+        if not self.workflow.can_transition(current_state, TicketState.CLOSED.value):
+            raise InvalidStateTransitionError(
+                f"Cannot transition ticket from '{current_state}' to '{TicketState.CLOSED.value}'."
+            )
+
         self.adapter.close_ticket(
             ticket_id=ticket_id,
             staff_id=request.staff_id,

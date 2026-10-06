@@ -16,8 +16,15 @@ from app.schemas.rms import (
     RMSCreateRequest,
     AssignmentRequest,
     RMSResponseCreateRequest,
-    RMSResponse
+    RMSResponse,
+    ResolveRequest,
+    CloseRequest,
+    TicketPatchRequest,
+    InvalidStateTransitionError,
+    HumanOverrideRequest,
+    HumanOverrideResponse
 )
+from app.schemas.grounding import GroundingOverrideRequest, GroundingOverrideResponse
 
 router = APIRouter()
 rms_service = RMSService()
@@ -27,7 +34,7 @@ def list_tickets(
     department: Optional[str] = Query(None, description="Filter by department name or ID"),
     priority: Optional[str] = Query(None, description="Filter by priority (Low, Medium, High, Critical)"),
     status: Optional[str] = Query(None, description="Filter by ticket status"),
-    search: Optional[str] = Query(None, description="Search keyword in subject or description")
+    search: Optional[str] = Query(None, description="Search keyword in subject, description, ticket_id, or student_reference")
 ):
     return rms_service.get_tickets(
         department=department,
@@ -50,6 +57,19 @@ def get_ticket(ticket_id: str):
         raise HTTPException(status_code=404, detail=f"Ticket {ticket_id} not found")
     return ticket
 
+@router.patch("/{ticket_id}", response_model=Ticket, summary="Update ticket fields with lifecycle state machine validation")
+def patch_ticket(ticket_id: str, request: TicketPatchRequest):
+    try:
+        return rms_service.patch_ticket(ticket_id, request)
+    except InvalidStateTransitionError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except ValueError as e:
+        if "not found" in str(e).lower():
+            raise HTTPException(status_code=404, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Patch failed: {str(e)}")
+
 @router.post("/{ticket_id}/analyze", response_model=AnalyzeResponse, summary="Trigger AI NLP analysis on ticket")
 async def analyze_ticket(ticket_id: str, request: Optional[AnalyzeRequest] = None):
     try:
@@ -69,6 +89,37 @@ async def get_draft(ticket_id: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Draft generation failed: {str(e)}")
 
+@router.post("/{ticket_id}/draft/regenerate", response_model=DraftResponse, summary="Regenerate draft with mandatory verification")
+async def regenerate_draft(ticket_id: str):
+    try:
+        return await rms_service.regenerate_draft(ticket_id)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Draft regeneration failed: {str(e)}")
+
+@router.post("/{ticket_id}/grounding-override", response_model=GroundingOverrideResponse, summary="Staff override of claim grounding status")
+def override_grounding(ticket_id: str, request: GroundingOverrideRequest):
+    try:
+        return rms_service.override_grounding(ticket_id, request)
+    except ValueError as e:
+        if "not found" in str(e).lower():
+            raise HTTPException(status_code=404, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Grounding override failed: {str(e)}")
+
+@router.post("/{ticket_id}/override", response_model=HumanOverrideResponse, summary="Staff override of AI recommendations with audit logging")
+def override_ticket(ticket_id: str, request: HumanOverrideRequest):
+    try:
+        return rms_service.override_ticket(ticket_id, request)
+    except ValueError as e:
+        if "not found" in str(e).lower():
+            raise HTTPException(status_code=404, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Human override failed: {str(e)}")
+
 @router.post("/{ticket_id}/approve", response_model=ApprovalResponse, summary="Staff approve and finalize ticket")
 def approve_ticket(ticket_id: str, request: ApprovalRequest):
     try:
@@ -78,8 +129,12 @@ def approve_ticket(ticket_id: str, request: ApprovalRequest):
             approved_text=request.approved_text,
             notes=request.notes
         )
+    except InvalidStateTransitionError as e:
+        raise HTTPException(status_code=400, detail=str(e))
     except ValueError as e:
-        raise HTTPException(status_code=404, detail=str(e))
+        if "not found" in str(e).lower():
+            raise HTTPException(status_code=404, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Approval failed: {str(e)}")
 
@@ -90,10 +145,16 @@ def escalate_ticket(ticket_id: str, request: EscalateRequest):
             ticket_id=ticket_id,
             staff_id=request.staff_id,
             target_role=request.target_role,
-            reason=request.reason
+            reason=request.reason,
+            urgent=request.urgent
         )
+    except InvalidStateTransitionError as e:
+        raise HTTPException(status_code=400, detail=str(e))
     except ValueError as e:
-        raise HTTPException(status_code=404, detail=str(e))
+        err_msg = str(e)
+        if f"ticket {ticket_id} not found" in err_msg.lower():
+            raise HTTPException(status_code=404, detail=err_msg)
+        raise HTTPException(status_code=400, detail=err_msg)
 
 @router.post("/{ticket_id}/redirect", response_model=RedirectResponse, summary="Redirect ticket to another department")
 def redirect_ticket(ticket_id: str, request: RedirectRequest):
@@ -104,26 +165,67 @@ def redirect_ticket(ticket_id: str, request: RedirectRequest):
             new_department=request.new_department,
             reason=request.reason
         )
+    except InvalidStateTransitionError as e:
+        raise HTTPException(status_code=400, detail=str(e))
     except ValueError as e:
-        raise HTTPException(status_code=404, detail=str(e))
+        err_msg = str(e)
+        if f"ticket {ticket_id} not found" in err_msg.lower():
+            raise HTTPException(status_code=404, detail=err_msg)
+        raise HTTPException(status_code=400, detail=err_msg)
 
-@router.post("/{ticket_id}/assign", summary="Assign ticket to department or staff member")
+@router.post("/{ticket_id}/assign", summary="Assign or reassign ticket to department or staff member")
 def assign_ticket(ticket_id: str, request: AssignmentRequest):
     try:
         return rms_service.assign_ticket(ticket_id, request)
+    except InvalidStateTransitionError as e:
+        raise HTTPException(status_code=400, detail=str(e))
     except ValueError as e:
-        raise HTTPException(status_code=404, detail=str(e))
+        err_msg = str(e)
+        if f"ticket {ticket_id} not found" in err_msg.lower():
+            raise HTTPException(status_code=404, detail=err_msg)
+        raise HTTPException(status_code=400, detail=err_msg)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Assignment failed: {str(e)}")
 
-@router.post("/{ticket_id}/responses", response_model=RMSResponse, status_code=status.HTTP_201_CREATED, summary="Add staff or student communication response")
+@router.post("/{ticket_id}/responses", response_model=RMSResponse, status_code=status.HTTP_201_CREATED, summary="Add staff communication or internal note")
 def add_response(ticket_id: str, request: RMSResponseCreateRequest):
     try:
         return rms_service.add_response(ticket_id, request)
     except ValueError as e:
-        raise HTTPException(status_code=404, detail=str(e))
+        err_msg = str(e)
+        if f"ticket {ticket_id} not found" in err_msg.lower():
+            raise HTTPException(status_code=404, detail=err_msg)
+        raise HTTPException(status_code=400, detail=err_msg)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to add response: {str(e)}")
+
+@router.post("/{ticket_id}/resolve", response_model=Ticket, summary="Officially mark ticket as resolved by staff")
+def resolve_ticket(ticket_id: str, request: ResolveRequest):
+    try:
+        return rms_service.resolve_ticket(ticket_id, request)
+    except InvalidStateTransitionError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except ValueError as e:
+        err_msg = str(e)
+        if f"ticket {ticket_id} not found" in err_msg.lower():
+            raise HTTPException(status_code=404, detail=err_msg)
+        raise HTTPException(status_code=400, detail=err_msg)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Resolution failed: {str(e)}")
+
+@router.post("/{ticket_id}/close", response_model=Ticket, summary="Permanently close a resolved ticket")
+def close_ticket(ticket_id: str, request: CloseRequest):
+    try:
+        return rms_service.close_ticket(ticket_id, request)
+    except InvalidStateTransitionError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except ValueError as e:
+        err_msg = str(e)
+        if f"ticket {ticket_id} not found" in err_msg.lower():
+            raise HTTPException(status_code=404, detail=err_msg)
+        raise HTTPException(status_code=400, detail=err_msg)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Closure failed: {str(e)}")
 
 @router.get("/{ticket_id}/history", response_model=List[Dict[str, Any]], summary="Get chronological audit history")
 def get_ticket_history(ticket_id: str):

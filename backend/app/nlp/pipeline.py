@@ -2,7 +2,7 @@ from typing import Dict, Any, Optional, List
 from app.nlp.schemas import NLPResult, SemanticMatch, PriorityLevel
 from app.nlp.preprocessing import clean_text
 from app.nlp.entity_extractor import EntityExtractor
-from app.nlp.intent_classifier import BaseIntentClassifier, RuleBasedIntentClassifier
+from app.nlp.intent_classifier import BaseIntentClassifier, RuleBasedIntentClassifier, get_intent_classifier
 from app.nlp.department_classifier import BaseDepartmentClassifier, RuleBasedDepartmentRouter
 from app.nlp.urgency_classifier import BaseUrgencyClassifier, RuleBasedUrgencyClassifier
 from app.nlp.semantic_similarity import SemanticSimilarityEngine
@@ -24,7 +24,8 @@ class NLPPipeline:
         similarity_engine: Optional[SemanticSimilarityEngine] = None,
         confidence_evaluator: Optional[ConfidenceEvaluator] = None
     ):
-        self.intent_classifier = intent_classifier or RuleBasedIntentClassifier()
+        self.intent_classifier = intent_classifier or get_intent_classifier()
+        self.classifier_mode = getattr(self.intent_classifier, "classifier_name", "deterministic_baseline")
         self.department_router = department_router or RuleBasedDepartmentRouter()
         self.urgency_classifier = urgency_classifier or RuleBasedUrgencyClassifier()
         self.entity_extractor = entity_extractor or EntityExtractor()
@@ -42,6 +43,7 @@ class NLPPipeline:
 
         # 1. Entity Extraction
         entities = self.entity_extractor.extract(combined_text)
+        structured_entities = self.entity_extractor.extract_structured(combined_text)
 
         # 2. Intent Classification
         intent_res = self.intent_classifier.classify(combined_text)
@@ -78,19 +80,43 @@ class NLPPipeline:
                         excerpt=doc.get("content", "")[:160] + "..." if len(doc.get("content", "")) > 160 else doc.get("content", "")
                     )
                 )
-            # If top match similarity is very low (< 0.20), flag as lacking authoritative match
             if not ranked or ranked[0][0] < 0.20:
                 has_authoritative_match = False
 
-        # 6. Confidence & Human Review Assessment
+        # 6. Ambiguity Assessment
+        needs_clarification = intent_res.is_ambiguous or intent_res.intent in ["GENERAL_INQUIRY", "UNKNOWN", "OTHER"]
+        clarification_reason = None
+        if needs_clarification:
+            clarification_reason = (
+                f"Request exhibits ambiguous or unclassified intent signals ({intent_res.intent}). "
+                "Additional student information or manual staff confirmation is required."
+            )
+
+        # 7. Confidence & Human Review Assessment
         conf_level, requires_review, review_reasons = self.confidence_evaluator.evaluate(
             intent_conf=intent_res.confidence,
             dept_conf=dept_res.confidence,
             priority_conf=urgency_res.confidence,
             has_authoritative_source=has_authoritative_match
         )
+        if needs_clarification and clarification_reason not in review_reasons:
+            review_reasons.append(clarification_reason)
+            requires_review = True
 
-        # 7. Summary & Suggested Action Synthesis
+        overall_conf = round(
+            (0.40 * intent_res.confidence) + (0.35 * dept_res.confidence) + (0.25 * urgency_res.confidence),
+            2
+        )
+
+        # 8. Machine-readable Explanations
+        explanation = {
+            "intent": intent_res.reason or f"Predicted {intent_res.intent} from keyword signals.",
+            "department": dept_res.reason or f"Mapped to {dept_res.department}.",
+            "priority": urgency_res.reason or f"Assessed as {urgency_res.priority.value} priority.",
+            "urgency": f"Assessed as {urgency_res.urgency.value} urgency based on temporal cues: {urgency_res.temporal_expressions or 'None'}."
+        }
+
+        # 9. Summary & Suggested Action Synthesis
         summary = self._generate_summary(subject, intent_res.intent, dept_res.department, entities)
         suggested_action = self._suggest_action(dept_res.department, urgency_res.priority, intent_res.intent)
 
@@ -102,14 +128,26 @@ class NLPPipeline:
             priority=urgency_res.priority.value,
             priority_confidence=urgency_res.confidence,
             priority_score=urgency_res.priority_score,
+            urgency=urgency_res.urgency.value,
+            urgency_confidence=urgency_res.urgency_confidence,
             entities=entities,
+            structured_entities=structured_entities,
             summary=summary,
             suggested_action=suggested_action,
             semantic_matches=semantic_matches,
             requires_human_review=requires_review,
             review_reasons=review_reasons,
+            needs_clarification=needs_clarification,
+            clarification_reason=clarification_reason,
             confidence_level=conf_level,
-            classifier_mode="deterministic_baseline"
+            overall_confidence=overall_conf,
+            explanation=explanation,
+            classifier_mode=self.classifier_mode,
+            processing_metadata={
+                "temporal_signals": urgency_res.temporal_expressions,
+                "matched_keywords": intent_res.matched_keywords,
+                "intent_margin": intent_res.margin
+            }
         )
 
     def _generate_summary(self, subject: str, intent: str, dept: str, entities: Dict[str, Any]) -> str:

@@ -38,13 +38,18 @@ class WorkflowEngine:
         TicketState.INGESTED: [
             TicketState.ANALYZED,
             TicketState.ROUTED,
-            TicketState.STAFF_REVIEW
+            TicketState.STAFF_REVIEW,
+            TicketState.IN_PROGRESS,
+            TicketState.APPROVED,
+            TicketState.ESCALATED
         ],
         TicketState.ANALYZED: [
             TicketState.ROUTED,
             TicketState.DRAFTED,
             TicketState.STAFF_REVIEW,
-            TicketState.IN_PROGRESS
+            TicketState.IN_PROGRESS,
+            TicketState.APPROVED,
+            TicketState.ESCALATED
         ],
         TicketState.ROUTED: [
             TicketState.STAFF_REVIEW,

@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Dict, List, Tuple, Optional
 from app.nlp.schemas import IntentType, IntentClassificationResult
-from app.nlp.preprocessing import tokenize, extract_ngrams
+from app.nlp.preprocessing import tokenize, extract_ngrams, normalize_text
 
 class BaseIntentClassifier(ABC):
     """Abstract interface for Intent Classifiers in Smart RMS."""
@@ -72,11 +72,26 @@ class RuleBasedIntentClassifier(BaseIntentClassifier):
         }
     }
 
+    AMBIGUOUS_PATTERNS = [
+        "issue is not solved",
+        "need help with fee",
+        "need help with fees",
+        "something is wrong",
+        "problem with portal",
+        "please help me urgently",
+        "status pending please check",
+        "query regarding university",
+        "matter is pending"
+    ]
+
     def classify(self, text: str) -> IntentClassificationResult:
-        lower = text.lower()
-        tokens = tokenize(lower, remove_stopwords=False)
+        normalized = normalize_text(text)
+        tokens = tokenize(normalized, remove_stopwords=False)
         bigrams = extract_ngrams(tokens, n=2)
         n_gram_pool = set(tokens).union(set(bigrams))
+
+        # Check for explicitly ambiguous or low-information queries
+        is_generic = any(pat in normalized for pat in self.AMBIGUOUS_PATTERNS)
 
         scores: Dict[str, float] = {}
         matches_per_intent: Dict[str, List[str]] = {}
@@ -85,7 +100,7 @@ class RuleBasedIntentClassifier(BaseIntentClassifier):
             intent_score = 0.0
             matched: List[str] = []
             for kw, weight in kw_dict.items():
-                if kw in lower or kw in n_gram_pool:
+                if kw in normalized or kw in n_gram_pool:
                     intent_score += weight
                     matched.append(kw)
             scores[intent] = intent_score
@@ -96,26 +111,96 @@ class RuleBasedIntentClassifier(BaseIntentClassifier):
         top_intent, top_score = sorted_intents[0]
         second_intent, second_score = sorted_intents[1] if len(sorted_intents) > 1 else (None, 0.0)
 
-        # Base case: no strong signals
-        if top_score <= 1.0:
+        # Base case 1: Zero domain signal -> UNKNOWN
+        if top_score == 0.0:
             return IntentClassificationResult(
-                intent=IntentType.GENERAL_INQUIRY.value,
-                confidence=0.55,
-                secondary_intent=top_intent if top_score > 0 else None,
-                margin=top_score,
-                matched_keywords=[]
+                intent=IntentType.UNKNOWN.value,
+                confidence=0.30,
+                secondary_intent=None,
+                margin=0.0,
+                matched_keywords=[],
+                reason="No recognizable domain signals detected; classified as UNKNOWN intent.",
+                is_ambiguous=True
             )
 
-        # Compute calibrated confidence: evidence weight + margin over second best
         margin = top_score - second_score
-        # Confidence formula: asymptotic bounded function [0.65, 0.98]
+
+        # Base case 2: Competing top intents with minimal margin or explicitly ambiguous pattern -> Ambiguity flag
+        is_ambiguous = (second_score > 0 and margin < 0.5) or is_generic
+
+        # Compute calibrated heuristic confidence: evidence weight + margin over second best
         raw_conf = 0.70 + min(top_score * 0.03, 0.20) + min(margin * 0.02, 0.08)
-        confidence = round(min(max(raw_conf, 0.60), 0.98), 2)
+        if is_ambiguous:
+            raw_conf -= 0.18
+        confidence = round(min(max(raw_conf, 0.50), 0.98), 2)
+
+        matched_kws = matches_per_intent.get(top_intent, [])
+        reason = f"Matched {top_intent} keywords: {', '.join(matched_kws[:4])}."
+        if is_generic:
+            reason += " Request query is terse/ambiguous; requires student clarification or staff verification."
+        elif is_ambiguous:
+            reason += f" Closely competes with {second_intent} (margin: {margin:.1f}); staff verification required."
 
         return IntentClassificationResult(
             intent=top_intent,
             confidence=confidence,
             secondary_intent=second_intent if second_score > 0 else None,
             margin=round(margin, 2),
-            matched_keywords=matches_per_intent.get(top_intent, [])
+            matched_keywords=matched_kws,
+            reason=reason,
+            is_ambiguous=is_ambiguous
         )
+
+    @property
+    def classifier_name(self) -> str:
+        return "deterministic_baseline"
+
+
+def get_intent_classifier(provider_name: Optional[str] = None) -> BaseIntentClassifier:
+    """
+    Factory function to instantiate configured intent classifier.
+    Supports:
+      - 'deterministic': Fast rule-based baseline
+      - 'tfidf_logistic': TF-IDF + Logistic Regression
+      - 'tfidf_svm': TF-IDF + Linear SVM (calibrated)
+      - 'sentence_transformer': Dense Embeddings + Classifier
+    Gracefully falls back to RuleBasedIntentClassifier if model artifacts are not found or loading fails.
+    """
+    from app.config import settings
+    selected = provider_name or getattr(settings, "NLP_MODEL_PROVIDER", "deterministic")
+    selected = str(selected).lower().strip()
+
+    if selected == "deterministic":
+        return RuleBasedIntentClassifier()
+
+    try:
+        from app.nlp.ml_classifiers import (
+            TFIDFLogisticIntentModel,
+            TFIDFSVMIntentModel,
+            SentenceTransformerIntentModel,
+            MODELS_DIR
+        )
+
+        if selected == "tfidf_logistic":
+            model_path = MODELS_DIR / "tfidf_logistic.joblib"
+            if model_path.exists():
+                return TFIDFLogisticIntentModel().load(model_path)
+            # Return fresh untrained model or fallback
+            return RuleBasedIntentClassifier()
+
+        elif selected == "tfidf_svm":
+            model_path = MODELS_DIR / "tfidf_svm.joblib"
+            if model_path.exists():
+                return TFIDFSVMIntentModel().load(model_path)
+            return RuleBasedIntentClassifier()
+
+        elif selected in ["sentence_transformer", "dense_embedding"]:
+            model_path = MODELS_DIR / "sentence_transformer.joblib"
+            if model_path.exists():
+                return SentenceTransformerIntentModel().load(model_path)
+            return RuleBasedIntentClassifier()
+
+    except Exception:
+        pass
+
+    return RuleBasedIntentClassifier()

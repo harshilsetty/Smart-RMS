@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
 from app.config import settings
-from app.api.v1.endpoints import rms, analytics, knowledge, evaluation, departments, users
+from app.api.v1.endpoints import rms, analytics, knowledge, evaluation, departments, users, nlp
 from app.schemas.rms import HealthResponse
 
 import sys
@@ -66,6 +66,7 @@ app.include_router(departments.router, prefix="/api/v1/departments", tags=["Depa
 app.include_router(users.router, prefix="/api/v1/users", tags=["Staff Users"])
 app.include_router(analytics.router, prefix="/api/v1/analytics", tags=["Operations Analytics"])
 app.include_router(knowledge.router, prefix="/api/v1/knowledge", tags=["Knowledge Base"])
+app.include_router(nlp.router, prefix="/api/v1/nlp", tags=["NLP Intelligence"])
 app.include_router(evaluation.router, prefix="/api/v1/evaluation", tags=["Evaluation"])
 
 if __name__ == "__main__":

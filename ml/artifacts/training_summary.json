@@ -1,0 +1,51 @@
+{
+  "tfidf_logistic": {
+    "training_time_sec": 0.0928,
+    "classes": [
+      "ACADEMIC",
+      "ATTENDANCE",
+      "EXAMINATION",
+      "FEE_PAYMENT",
+      "GENERAL_INQUIRY",
+      "HOSTEL_MAINTENANCE",
+      "IT_SUPPORT",
+      "SCHOLARSHIP",
+      "STUDENT_SERVICES",
+      "UNKNOWN"
+    ],
+    "artifact": "C:\\Users\\HARSHIL SOMISETTY\\HS\\Education\\LPU\\Academics\\SEM 5\\CSE 472 DEEP LEARNING FOR NATURAL LANGUAGE\\Smart RMS\\backend\\app\\nlp\\models\\tfidf_logistic.joblib"
+  },
+  "tfidf_svm": {
+    "training_time_sec": 0.0974,
+    "classes": [
+      "ACADEMIC",
+      "ATTENDANCE",
+      "EXAMINATION",
+      "FEE_PAYMENT",
+      "GENERAL_INQUIRY",
+      "HOSTEL_MAINTENANCE",
+      "IT_SUPPORT",
+      "SCHOLARSHIP",
+      "STUDENT_SERVICES",
+      "UNKNOWN"
+    ],
+    "artifact": "C:\\Users\\HARSHIL SOMISETTY\\HS\\Education\\LPU\\Academics\\SEM 5\\CSE 472 DEEP LEARNING FOR NATURAL LANGUAGE\\Smart RMS\\backend\\app\\nlp\\models\\tfidf_svm.joblib"
+  },
+  "sentence_transformer": {
+    "training_time_sec": 38.1704,
+    "embedding_type": "sentence_transformer_all_MiniLM_L6_v2",
+    "classes": [
+      "ACADEMIC",
+      "ATTENDANCE",
+      "EXAMINATION",
+      "FEE_PAYMENT",
+      "GENERAL_INQUIRY",
+      "HOSTEL_MAINTENANCE",
+      "IT_SUPPORT",
+      "SCHOLARSHIP",
+      "STUDENT_SERVICES",
+      "UNKNOWN"
+    ],
+    "artifact": "C:\\Users\\HARSHIL SOMISETTY\\HS\\Education\\LPU\\Academics\\SEM 5\\CSE 472 DEEP LEARNING FOR NATURAL LANGUAGE\\Smart RMS\\backend\\app\\nlp\\models\\sentence_transformer.joblib"
+  }
+}

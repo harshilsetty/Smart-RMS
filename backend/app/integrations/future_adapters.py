@@ -96,6 +96,9 @@ class FutureUMSAdapter(UniversitySystemAdapter):
     def get_audit_history(self, ticket_id: str) -> List[Dict[str, Any]]:
         return self._fallback.get_audit_history(ticket_id)
 
+    def add_audit_event(self, ticket_id: str, event: Dict[str, Any]) -> bool:
+        return self._fallback.add_audit_event(ticket_id, event)
+
     def list_departments(self) -> List[Dict[str, Any]]:
         return self._fallback.list_departments()
 

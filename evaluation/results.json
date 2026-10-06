@@ -1,122 +1,133 @@
 {
   "summary": {
     "total_processed": 500,
-    "elapsed_seconds": 0.914,
-    "throughput_tickets_per_sec": 547.04,
-    "average_confidence": 0.9343,
-    "human_review_required_count": 105,
-    "human_review_required_percentage": 21.0,
-    "pii_redacted_count": 200,
+    "elapsed_seconds": 1.016,
+    "throughput_tickets_per_sec": 492.01,
+    "latency_average_ms": 1.328,
+    "latency_p95_ms": 1.861,
+    "average_confidence": 0.9349,
+    "human_review_required_count": 319,
+    "human_review_required_percentage": 63.8,
+    "clarification_required_count": 3,
+    "clarification_required_percentage": 0.6,
+    "unknown_intent_count": 0,
+    "pii_redacted_count": 208,
     "department_distribution": {
-      "Accounts & Finance": 76,
-      "Academic Affairs": 138,
-      "Hostel Affairs": 63,
-      "Student Welfare": 59,
-      "Examination Branch": 52,
-      "Scholarship Section": 54,
-      "IT Services": 58
+      "Scholarship Section": 74,
+      "Accounts & Finance": 79,
+      "Hostel Affairs": 64,
+      "Examination Branch": 72,
+      "Academic Affairs": 90,
+      "IT Services": 47,
+      "Student Welfare": 74
     },
     "intent_distribution": {
-      "FEE_PAYMENT": 76,
-      "STUDENT_SERVICES": 68,
-      "ACADEMIC": 70,
-      "HOSTEL_MAINTENANCE": 63,
-      "ATTENDANCE": 59,
-      "EXAMINATION": 52,
-      "SCHOLARSHIP": 54,
-      "IT_SUPPORT": 58
+      "SCHOLARSHIP": 74,
+      "FEE_PAYMENT": 79,
+      "HOSTEL_MAINTENANCE": 64,
+      "EXAMINATION": 72,
+      "ACADEMIC": 90,
+      "IT_SUPPORT": 47,
+      "ATTENDANCE": 74
     },
     "priority_distribution": {
-      "High": 190,
-      "Low": 112,
-      "Medium": 129,
-      "Critical": 69
+      "High": 196,
+      "Critical": 93,
+      "Medium": 164,
+      "Low": 47
+    },
+    "urgency_distribution": {
+      "URGENT": 228,
+      "IMMEDIATE": 93,
+      "NORMAL": 132,
+      "LOW": 47
     }
   },
   "processed_sample": [
     {
       "ticket_id": "TKT-SYN-2001",
-      "intent": "FEE_PAYMENT",
-      "department": "Accounts & Finance",
+      "intent": "SCHOLARSHIP",
+      "department": "Scholarship Section",
       "priority": "High",
-      "confidence": 0.93,
-      "requires_human_review": true,
+      "urgency": "URGENT",
+      "confidence": 0.94,
+      "requires_human_review": false,
+      "needs_clarification": false,
       "entities": {
-        "currency_amount": "31,000",
-        "bank_name": "SBI"
+        "portal_type": "UMS",
+        "time_window": "2 weeks"
       },
-      "sources_retrieved_count": 1
+      "sources_retrieved_count": 2
     },
     {
       "ticket_id": "TKT-SYN-2002",
-      "intent": "STUDENT_SERVICES",
-      "department": "Academic Affairs",
+      "intent": "FEE_PAYMENT",
+      "department": "Accounts & Finance",
       "priority": "High",
-      "confidence": 0.87,
-      "requires_human_review": true,
-      "entities": {},
+      "urgency": "URGENT",
+      "confidence": 0.93,
+      "requires_human_review": false,
+      "needs_clarification": false,
+      "entities": {
+        "semester": "6"
+      },
       "sources_retrieved_count": 2
     },
     {
       "ticket_id": "TKT-SYN-2003",
-      "intent": "FEE_PAYMENT",
-      "department": "Accounts & Finance",
+      "intent": "HOSTEL_MAINTENANCE",
+      "department": "Hostel Affairs",
       "priority": "High",
-      "confidence": 0.93,
-      "requires_human_review": false,
-      "entities": {},
-      "sources_retrieved_count": 1
+      "urgency": "URGENT",
+      "confidence": 0.95,
+      "requires_human_review": true,
+      "needs_clarification": false,
+      "entities": {
+        "hostel_block": "BH-2",
+        "room_number": "383",
+        "detected_issues": "Water Leakage"
+      },
+      "sources_retrieved_count": 2
     },
     {
       "ticket_id": "TKT-SYN-2004",
-      "intent": "FEE_PAYMENT",
-      "department": "Accounts & Finance",
-      "priority": "High",
-      "confidence": 0.93,
+      "intent": "EXAMINATION",
+      "department": "Examination Branch",
+      "priority": "Critical",
+      "urgency": "IMMEDIATE",
+      "confidence": 0.96,
       "requires_human_review": true,
+      "needs_clarification": false,
       "entities": {
-        "currency_amount": "54,000",
-        "bank_name": "Punjab National Bank"
+        "time_window": "36 hours",
+        "detected_issues": "Admit Card Hold"
       },
-      "sources_retrieved_count": 1
+      "sources_retrieved_count": 2
     },
     {
       "ticket_id": "TKT-SYN-2005",
-      "intent": "STUDENT_SERVICES",
+      "intent": "ACADEMIC",
       "department": "Academic Affairs",
-      "priority": "Low",
-      "confidence": 0.92,
+      "priority": "Medium",
+      "urgency": "NORMAL",
+      "confidence": 0.93,
       "requires_human_review": false,
+      "needs_clarification": false,
       "entities": {
-        "certificate_type": [
-          "Bonafide Certificate",
-          "MOI",
-          "Medium of Instruction"
-        ]
+        "course_code": "INT 213",
+        "detected_issues": "Marks Discrepancy"
       },
       "sources_retrieved_count": 2
     },
     {
       "ticket_id": "TKT-SYN-2006",
-      "intent": "FEE_PAYMENT",
-      "department": "Accounts & Finance",
-      "priority": "High",
-      "confidence": 0.93,
-      "requires_human_review": false,
-      "entities": {
-        "currency_amount": "34,000",
-        "bank_name": "Axis Bank",
-        "detected_issues": "Duplicate Payment"
-      },
-      "sources_retrieved_count": 1
-    },
-    {
-      "ticket_id": "TKT-SYN-2007",
       "intent": "ACADEMIC",
       "department": "Academic Affairs",
       "priority": "Medium",
+      "urgency": "NORMAL",
       "confidence": 0.93,
-      "requires_human_review": false,
+      "requires_human_review": true,
+      "needs_clarification": false,
       "entities": {
         "course_code": "CSE 472",
         "detected_issues": "Marks Discrepancy"
@@ -124,181 +135,222 @@
       "sources_retrieved_count": 2
     },
     {
-      "ticket_id": "TKT-SYN-2008",
-      "intent": "STUDENT_SERVICES",
-      "department": "Academic Affairs",
+      "ticket_id": "TKT-SYN-2007",
+      "intent": "IT_SUPPORT",
+      "department": "IT Services",
       "priority": "Low",
+      "urgency": "LOW",
       "confidence": 0.92,
       "requires_human_review": false,
+      "needs_clarification": false,
       "entities": {
-        "certificate_type": [
-          "Medium of Instruction",
-          "Bonafide Certificate",
-          "MOI"
-        ]
+        "detected_issues": "Network Connectivity"
+      },
+      "sources_retrieved_count": 2
+    },
+    {
+      "ticket_id": "TKT-SYN-2008",
+      "intent": "EXAMINATION",
+      "department": "Examination Branch",
+      "priority": "Critical",
+      "urgency": "IMMEDIATE",
+      "confidence": 0.96,
+      "requires_human_review": true,
+      "needs_clarification": false,
+      "entities": {
+        "time_window": "24 hours",
+        "detected_issues": "Admit Card Hold"
       },
       "sources_retrieved_count": 2
     },
     {
       "ticket_id": "TKT-SYN-2009",
-      "intent": "HOSTEL_MAINTENANCE",
-      "department": "Hostel Affairs",
+      "intent": "SCHOLARSHIP",
+      "department": "Scholarship Section",
       "priority": "High",
+      "urgency": "URGENT",
       "confidence": 0.94,
-      "requires_human_review": true,
+      "requires_human_review": false,
+      "needs_clarification": false,
       "entities": {
-        "hostel_block": "GH-4",
-        "room_number": "600",
-        "detected_issues": "Appliance Malfunction"
+        "currency_amount": "85,000"
       },
-      "sources_retrieved_count": 1
+      "sources_retrieved_count": 2
     },
     {
       "ticket_id": "TKT-SYN-2010",
-      "intent": "FEE_PAYMENT",
-      "department": "Accounts & Finance",
-      "priority": "High",
+      "intent": "ACADEMIC",
+      "department": "Academic Affairs",
+      "priority": "Medium",
+      "urgency": "NORMAL",
       "confidence": 0.93,
-      "requires_human_review": false,
+      "requires_human_review": true,
+      "needs_clarification": false,
       "entities": {
-        "currency_amount": "26,000",
-        "bank_name": "Punjab National Bank",
-        "portal_type": "payment gateway",
-        "detected_issues": "Duplicate Payment"
+        "course_code": "MTH 402",
+        "semester": "1",
+        "detected_issues": "Marks Discrepancy"
       },
-      "sources_retrieved_count": 1
+      "sources_retrieved_count": 2
     },
     {
       "ticket_id": "TKT-SYN-2011",
-      "intent": "ATTENDANCE",
-      "department": "Student Welfare",
-      "priority": "Medium",
-      "confidence": 0.94,
-      "requires_human_review": false,
+      "intent": "HOSTEL_MAINTENANCE",
+      "department": "Hostel Affairs",
+      "priority": "High",
+      "urgency": "URGENT",
+      "confidence": 0.95,
+      "requires_human_review": true,
+      "needs_clarification": false,
       "entities": {
-        "time_window": "6 days",
-        "detected_issues": "Medical Condonation"
+        "hostel_block": "BH-2",
+        "room_number": "126",
+        "detected_issues": [
+          "Water Leakage",
+          "Appliance Malfunction"
+        ]
       },
-      "sources_retrieved_count": 1
+      "sources_retrieved_count": 2
     },
     {
       "ticket_id": "TKT-SYN-2012",
-      "intent": "ATTENDANCE",
-      "department": "Student Welfare",
-      "priority": "Medium",
-      "confidence": 0.93,
+      "intent": "SCHOLARSHIP",
+      "department": "Scholarship Section",
+      "priority": "High",
+      "urgency": "URGENT",
+      "confidence": 0.94,
       "requires_human_review": false,
+      "needs_clarification": false,
       "entities": {
-        "room_number": "201"
+        "portal_type": [
+          "National Scholarship Portal",
+          "NSP"
+        ]
       },
-      "sources_retrieved_count": 1
+      "sources_retrieved_count": 2
     },
     {
       "ticket_id": "TKT-SYN-2013",
-      "intent": "FEE_PAYMENT",
-      "department": "Accounts & Finance",
+      "intent": "HOSTEL_MAINTENANCE",
+      "department": "Hostel Affairs",
       "priority": "High",
-      "confidence": 0.93,
+      "urgency": "URGENT",
+      "confidence": 0.95,
       "requires_human_review": true,
+      "needs_clarification": false,
       "entities": {
-        "currency_amount": "51,000",
-        "bank_name": "Punjab National Bank"
+        "hostel_block": "BH-1",
+        "room_number": "418",
+        "detected_issues": "Appliance Malfunction"
       },
-      "sources_retrieved_count": 1
+      "sources_retrieved_count": 2
     },
     {
       "ticket_id": "TKT-SYN-2014",
       "intent": "ATTENDANCE",
       "department": "Student Welfare",
       "priority": "Medium",
-      "confidence": 0.94,
-      "requires_human_review": false,
+      "urgency": "NORMAL",
+      "confidence": 0.93,
+      "requires_human_review": true,
+      "needs_clarification": false,
       "entities": {
-        "course_code": "CSE 202",
-        "detected_issues": "Medical Condonation"
+        "room_number": "201"
       },
-      "sources_retrieved_count": 1
+      "sources_retrieved_count": 2
     },
     {
       "ticket_id": "TKT-SYN-2015",
+      "intent": "HOSTEL_MAINTENANCE",
+      "department": "Hostel Affairs",
+      "priority": "High",
+      "urgency": "URGENT",
+      "confidence": 0.95,
+      "requires_human_review": true,
+      "needs_clarification": false,
+      "entities": {
+        "hostel_block": "BH-3",
+        "room_number": "240",
+        "detected_issues": "Water Leakage"
+      },
+      "sources_retrieved_count": 2
+    },
+    {
+      "ticket_id": "TKT-SYN-2016",
       "intent": "EXAMINATION",
       "department": "Examination Branch",
       "priority": "Critical",
+      "urgency": "IMMEDIATE",
       "confidence": 0.96,
-      "requires_human_review": false,
+      "requires_human_review": true,
+      "needs_clarification": false,
+      "entities": {
+        "time_window": "24 hours",
+        "detected_issues": "Admit Card Hold"
+      },
+      "sources_retrieved_count": 2
+    },
+    {
+      "ticket_id": "TKT-SYN-2017",
+      "intent": "EXAMINATION",
+      "department": "Examination Branch",
+      "priority": "Critical",
+      "urgency": "IMMEDIATE",
+      "confidence": 0.96,
+      "requires_human_review": true,
+      "needs_clarification": false,
       "entities": {
         "time_window": "36 hours",
         "detected_issues": "Admit Card Hold"
       },
-      "sources_retrieved_count": 1
-    },
-    {
-      "ticket_id": "TKT-SYN-2016",
-      "intent": "ATTENDANCE",
-      "department": "Student Welfare",
-      "priority": "Medium",
-      "confidence": 0.94,
-      "requires_human_review": false,
-      "entities": {
-        "course_code": "ECE 213",
-        "detected_issues": "Medical Condonation"
-      },
-      "sources_retrieved_count": 1
-    },
-    {
-      "ticket_id": "TKT-SYN-2017",
-      "intent": "SCHOLARSHIP",
-      "department": "Scholarship Section",
-      "priority": "High",
-      "confidence": 0.94,
-      "requires_human_review": false,
-      "entities": {
-        "portal_type": [
-          "National Scholarship Portal",
-          "NSP"
-        ],
-        "date_reference": "30th September",
-        "detected_issues": "Scholarship Delay"
-      },
-      "sources_retrieved_count": 1
+      "sources_retrieved_count": 2
     },
     {
       "ticket_id": "TKT-SYN-2018",
-      "intent": "HOSTEL_MAINTENANCE",
-      "department": "Hostel Affairs",
-      "priority": "Critical",
-      "confidence": 0.96,
-      "requires_human_review": true,
-      "entities": {
-        "hostel_block": "GH-4",
-        "room_number": "306",
-        "detected_issues": "Water Leakage"
-      },
-      "sources_retrieved_count": 1
-    },
-    {
-      "ticket_id": "TKT-SYN-2019",
-      "intent": "SCHOLARSHIP",
-      "department": "Scholarship Section",
-      "priority": "High",
-      "confidence": 0.94,
-      "requires_human_review": false,
-      "entities": {
-        "time_window": "3 weeks",
-        "detected_issues": "Scholarship Delay"
-      },
-      "sources_retrieved_count": 1
-    },
-    {
-      "ticket_id": "TKT-SYN-2020",
       "intent": "ACADEMIC",
       "department": "Academic Affairs",
       "priority": "Medium",
+      "urgency": "NORMAL",
       "confidence": 0.93,
-      "requires_human_review": false,
+      "requires_human_review": true,
+      "needs_clarification": false,
       "entities": {
-        "course_code": "CSE 472",
-        "detected_issues": "Marks Discrepancy"
+        "course_code": "MTH 402",
+        "semester": "4"
+      },
+      "sources_retrieved_count": 2
+    },
+    {
+      "ticket_id": "TKT-SYN-2019",
+      "intent": "EXAMINATION",
+      "department": "Examination Branch",
+      "priority": "Critical",
+      "urgency": "IMMEDIATE",
+      "confidence": 0.96,
+      "requires_human_review": true,
+      "needs_clarification": false,
+      "entities": {
+        "course_code": [
+          "CSE 472",
+          "MTH 402"
+        ],
+        "detected_issues": "Admit Card Hold"
+      },
+      "sources_retrieved_count": 2
+    },
+    {
+      "ticket_id": "TKT-SYN-2020",
+      "intent": "SCHOLARSHIP",
+      "department": "Scholarship Section",
+      "priority": "High",
+      "urgency": "URGENT",
+      "confidence": 0.94,
+      "requires_human_review": false,
+      "needs_clarification": false,
+      "entities": {
+        "portal_type": "UMS",
+        "time_window": "2 weeks",
+        "detected_issues": "Scholarship Delay"
       },
       "sources_retrieved_count": 2
     }

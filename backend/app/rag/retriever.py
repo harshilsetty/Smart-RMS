@@ -8,8 +8,19 @@ class PolicyRetriever:
     def __init__(self, vector_store: Optional[VectorStore] = None):
         self.vector_store = vector_store or MockVectorStore()
 
-    def retrieve(self, query: str, department: Optional[str] = None, limit: int = 3) -> List[RAGSource]:
-        raw_results = self.vector_store.search(query, department=department, limit=limit)
+    def retrieve(
+        self,
+        query: str,
+        department: Optional[str] = None,
+        limit: int = 3,
+        min_threshold: float = 0.0
+    ) -> List[RAGSource]:
+        raw_results = self.vector_store.search(
+            query,
+            department=department,
+            limit=limit,
+            min_threshold=min_threshold
+        )
         sources: List[RAGSource] = []
         for r in raw_results:
             sources.append(
@@ -18,7 +29,10 @@ class PolicyRetriever:
                     title=r["title"],
                     clause=r["clause"],
                     excerpt=r["excerpt"],
-                    relevance_score=r["relevance_score"]
+                    relevance_score=r["relevance_score"],
+                    document_version=r.get("document_version", "1.0"),
+                    chunk_id=r.get("chunk_id", ""),
+                    department=r.get("department", "")
                 )
             )
         return sources

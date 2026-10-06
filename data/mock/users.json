@@ -12,7 +12,8 @@
       "ticket:assign",
       "ticket:approve",
       "ticket:escalate",
-      "ticket:respond"
+      "ticket:respond",
+      "ticket:resolve"
     ],
     "active_status": true,
     "workload_metadata": {
@@ -39,7 +40,8 @@
       "ticket:assign",
       "ticket:approve",
       "ticket:escalate",
-      "ticket:respond"
+      "ticket:respond",
+      "ticket:resolve"
     ],
     "active_status": true,
     "workload_metadata": {
@@ -65,7 +67,8 @@
       "ticket:read",
       "ticket:assign",
       "ticket:approve",
-      "ticket:respond"
+      "ticket:respond",
+      "ticket:resolve"
     ],
     "active_status": true,
     "workload_metadata": {
@@ -92,7 +95,8 @@
       "ticket:assign",
       "ticket:approve",
       "ticket:escalate",
-      "ticket:respond"
+      "ticket:respond",
+      "ticket:resolve"
     ],
     "active_status": true,
     "workload_metadata": {
@@ -105,6 +109,90 @@
       ]
     },
     "avatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop"
+  },
+  {
+    "user_id": "USR-STAFF-05",
+    "name": "Mr. Alok Mukherjee",
+    "display_name": "Mr. Alok Mukherjee",
+    "email": "alok.welfare@lpu.ac.in",
+    "role": "STAFF_OPERATOR",
+    "department_id": "DEPT-WELFARE",
+    "department": "Student Welfare",
+    "permissions": [
+      "ticket:read",
+      "ticket:assign",
+      "ticket:approve",
+      "ticket:escalate",
+      "ticket:respond",
+      "ticket:resolve"
+    ],
+    "active_status": true,
+    "workload_metadata": {
+      "assigned_tickets_count": 2,
+      "open_tickets_count": 1,
+      "max_capacity": 25,
+      "specialty_categories": [
+        "Medical Condonation",
+        "Disciplinary Review"
+      ]
+    },
+    "avatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&h=100&fit=crop"
+  },
+  {
+    "user_id": "USR-STAFF-06",
+    "name": "Ms. Pooja Nair",
+    "display_name": "Ms. Pooja Nair",
+    "email": "pooja.scholarships@lpu.ac.in",
+    "role": "STAFF_OPERATOR",
+    "department_id": "DEPT-SCHOLARSHIP",
+    "department": "Scholarship Section",
+    "permissions": [
+      "ticket:read",
+      "ticket:assign",
+      "ticket:approve",
+      "ticket:escalate",
+      "ticket:respond",
+      "ticket:resolve"
+    ],
+    "active_status": true,
+    "workload_metadata": {
+      "assigned_tickets_count": 3,
+      "open_tickets_count": 2,
+      "max_capacity": 25,
+      "specialty_categories": [
+        "National Scholarship Portal",
+        "State Schemes"
+      ]
+    },
+    "avatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop"
+  },
+  {
+    "user_id": "USR-STAFF-07",
+    "name": "Mr. Devendra Tiwari",
+    "display_name": "Mr. Devendra Tiwari",
+    "email": "devendra.it@lpu.ac.in",
+    "role": "STAFF_OPERATOR",
+    "department_id": "DEPT-IT",
+    "department": "IT Services",
+    "permissions": [
+      "ticket:read",
+      "ticket:assign",
+      "ticket:approve",
+      "ticket:escalate",
+      "ticket:respond",
+      "ticket:resolve"
+    ],
+    "active_status": true,
+    "workload_metadata": {
+      "assigned_tickets_count": 2,
+      "open_tickets_count": 1,
+      "max_capacity": 30,
+      "specialty_categories": [
+        "Wi-Fi MAC Binding",
+        "UMS Access"
+      ]
+    },
+    "avatar": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&h=100&fit=crop"
   },
   {
     "user_id": "USR-HOD-01",
@@ -121,6 +209,7 @@
       "ticket:escalate",
       "ticket:respond",
       "ticket:reopen",
+      "ticket:resolve",
       "department:admin"
     ],
     "active_status": true,
@@ -134,6 +223,136 @@
       ]
     },
     "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop"
+  },
+  {
+    "user_id": "USR-HOD-02",
+    "name": "Mr. Rajiv Mehra",
+    "display_name": "Mr. Rajiv Mehra",
+    "email": "finance.officer@lpu.ac.in",
+    "role": "DEPARTMENT_HOD",
+    "department_id": "DEPT-ACCOUNTS",
+    "department": "Accounts & Finance",
+    "permissions": [
+      "ticket:read",
+      "ticket:assign",
+      "ticket:approve",
+      "ticket:escalate",
+      "ticket:respond",
+      "ticket:resolve",
+      "department:admin"
+    ],
+    "active_status": true,
+    "workload_metadata": {
+      "assigned_tickets_count": 1,
+      "open_tickets_count": 1,
+      "max_capacity": 10,
+      "specialty_categories": ["Financial Policy", "Audit Clearances"]
+    },
+    "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop"
+  },
+  {
+    "user_id": "USR-HOD-03",
+    "name": "Prof. Harpreet Kaur",
+    "display_name": "Prof. Harpreet Kaur",
+    "email": "dean.academics@lpu.ac.in",
+    "role": "DEPARTMENT_HOD",
+    "department_id": "DEPT-ACADEMICS",
+    "department": "Academic Affairs",
+    "permissions": [
+      "ticket:read",
+      "ticket:assign",
+      "ticket:approve",
+      "ticket:escalate",
+      "ticket:respond",
+      "ticket:resolve",
+      "department:admin"
+    ],
+    "active_status": true,
+    "workload_metadata": {
+      "assigned_tickets_count": 1,
+      "open_tickets_count": 1,
+      "max_capacity": 10,
+      "specialty_categories": ["Academic Disputes", "Curriculum Approvals"]
+    },
+    "avatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop"
+  },
+  {
+    "user_id": "USR-HOD-04",
+    "name": "Dr. Manjit Singh",
+    "display_name": "Dr. Manjit Singh",
+    "email": "coe@lpu.ac.in",
+    "role": "DEPARTMENT_HOD",
+    "department_id": "DEPT-EXAM",
+    "department": "Examination Branch",
+    "permissions": [
+      "ticket:read",
+      "ticket:assign",
+      "ticket:approve",
+      "ticket:escalate",
+      "ticket:respond",
+      "ticket:resolve",
+      "department:admin"
+    ],
+    "active_status": true,
+    "workload_metadata": {
+      "assigned_tickets_count": 1,
+      "open_tickets_count": 1,
+      "max_capacity": 10,
+      "specialty_categories": ["Emergency Clearance", "Re-evaluation"]
+    },
+    "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop"
+  },
+  {
+    "user_id": "USR-HOD-05",
+    "name": "Dr. Priya Sengupta",
+    "display_name": "Dr. Priya Sengupta",
+    "email": "dean.dsw@lpu.ac.in",
+    "role": "DEPARTMENT_HOD",
+    "department_id": "DEPT-WELFARE",
+    "department": "Student Welfare",
+    "permissions": [
+      "ticket:read",
+      "ticket:assign",
+      "ticket:approve",
+      "ticket:escalate",
+      "ticket:respond",
+      "ticket:resolve",
+      "department:admin"
+    ],
+    "active_status": true,
+    "workload_metadata": {
+      "assigned_tickets_count": 1,
+      "open_tickets_count": 1,
+      "max_capacity": 10,
+      "specialty_categories": ["Student Grievances", "Medical Condonation"]
+    },
+    "avatar": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&h=100&fit=crop"
+  },
+  {
+    "user_id": "USR-HOD-06",
+    "name": "Mr. Vikramaditya Rathore",
+    "display_name": "Mr. Vikramaditya Rathore",
+    "email": "scholarships@lpu.ac.in",
+    "role": "DEPARTMENT_HOD",
+    "department_id": "DEPT-SCHOLARSHIP",
+    "department": "Scholarship Section",
+    "permissions": [
+      "ticket:read",
+      "ticket:assign",
+      "ticket:approve",
+      "ticket:escalate",
+      "ticket:respond",
+      "ticket:resolve",
+      "department:admin"
+    ],
+    "active_status": true,
+    "workload_metadata": {
+      "assigned_tickets_count": 1,
+      "open_tickets_count": 1,
+      "max_capacity": 10,
+      "specialty_categories": ["Government Portal Oversight"]
+    },
+    "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop"
   },
   {
     "user_id": "USR-ADMIN-01",
@@ -150,6 +369,8 @@
       "ticket:assign",
       "ticket:approve",
       "ticket:escalate",
+      "ticket:resolve",
+      "ticket:close",
       "system:manage",
       "analytics:export"
     ],

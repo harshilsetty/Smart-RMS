@@ -12,6 +12,8 @@ class IntentType(str, Enum):
     ACADEMIC = "ACADEMIC"
     STUDENT_SERVICES = "STUDENT_SERVICES"
     GENERAL_INQUIRY = "GENERAL_INQUIRY"
+    UNKNOWN = "UNKNOWN"
+    OTHER = "OTHER"
 
 class DepartmentType(str, Enum):
     HOSTEL_AFFAIRS = "Hostel Affairs"
@@ -34,6 +36,18 @@ class ConfidenceLevel(str, Enum):
     MEDIUM = "MEDIUM"
     LOW = "LOW"
 
+class UrgencyLevel(str, Enum):
+    LOW = "LOW"
+    NORMAL = "NORMAL"
+    URGENT = "URGENT"
+    IMMEDIATE = "IMMEDIATE"
+
+class StructuredEntity(BaseModel):
+    entity_type: str
+    value: str
+    confidence: float = 1.0
+    source_span: Optional[str] = None
+
 class ExtractedEntity(BaseModel):
     entity_type: str
     value: str
@@ -51,6 +65,8 @@ class IntentClassificationResult(BaseModel):
     secondary_intent: Optional[str] = None
     margin: float = 0.0
     matched_keywords: List[str] = Field(default_factory=list)
+    reason: Optional[str] = None
+    is_ambiguous: bool = False
 
 class DepartmentRoutingResult(BaseModel):
     department: str
@@ -64,6 +80,9 @@ class UrgencyClassificationResult(BaseModel):
     priority_score: int
     signals_detected: List[str] = Field(default_factory=list)
     reason: str
+    urgency: UrgencyLevel = UrgencyLevel.NORMAL
+    urgency_confidence: float = 0.85
+    temporal_expressions: List[str] = Field(default_factory=list)
 
 class NLPResult(BaseModel):
     intent: str
@@ -73,11 +92,19 @@ class NLPResult(BaseModel):
     priority: str
     priority_confidence: float
     priority_score: int
+    urgency: str = "NORMAL"
+    urgency_confidence: float = 0.85
     entities: Dict[str, Any] = Field(default_factory=dict)
+    structured_entities: List[StructuredEntity] = Field(default_factory=list)
     summary: str
     suggested_action: str
     semantic_matches: List[SemanticMatch] = Field(default_factory=list)
     requires_human_review: bool
     review_reasons: List[str] = Field(default_factory=list)
+    needs_clarification: bool = False
+    clarification_reason: Optional[str] = None
     confidence_level: ConfidenceLevel
+    overall_confidence: float = 0.85
+    explanation: Dict[str, str] = Field(default_factory=dict)
     classifier_mode: str = "deterministic_baseline"
+    processing_metadata: Dict[str, Any] = Field(default_factory=dict)

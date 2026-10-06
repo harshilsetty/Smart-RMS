@@ -1,0 +1,39 @@
+{
+  "random_seed": 42,
+  "test_size_ratio": 0.3,
+  "total_test_samples": 36,
+  "total_train_samples": 574,
+  "train_sources": {
+    "eval_120_train": 84,
+    "generated_500_filtered": 471,
+    "minority_synthetic_expansion": 19
+  },
+  "skipped_test_overlaps": 29,
+  "data_leakage_detected": false,
+  "test_class_distribution": {
+    "ACADEMIC": 5,
+    "ATTENDANCE": 4,
+    "EXAMINATION": 5,
+    "FEE_PAYMENT": 5,
+    "GENERAL_INQUIRY": 2,
+    "HOSTEL_MAINTENANCE": 4,
+    "IT_SUPPORT": 4,
+    "SCHOLARSHIP": 4,
+    "STUDENT_SERVICES": 2,
+    "UNKNOWN": 1
+  },
+  "train_class_distribution": {
+    "ACADEMIC": 88,
+    "ATTENDANCE": 82,
+    "EXAMINATION": 74,
+    "FEE_PAYMENT": 89,
+    "GENERAL_INQUIRY": 12,
+    "HOSTEL_MAINTENANCE": 75,
+    "IT_SUPPORT": 58,
+    "SCHOLARSHIP": 75,
+    "STUDENT_SERVICES": 13,
+    "UNKNOWN": 8
+  },
+  "all_classes_represented_in_test": true,
+  "all_classes_represented_in_train": true
+}

@@ -1,0 +1,126 @@
+{
+  "claim_evaluation": {
+    "verifier_provider": "deterministic",
+    "sample_count": 186,
+    "accuracy": 0.8441,
+    "macro_precision": 0.8483,
+    "macro_recall": 0.8527,
+    "macro_f1": 0.8434,
+    "per_class": {
+      "ENTAILMENT": {
+        "precision": 0.875,
+        "recall": 0.8235,
+        "f1": 0.8485,
+        "support": 51
+      },
+      "CONTRADICTION": {
+        "precision": 0.9412,
+        "recall": 0.7901,
+        "f1": 0.8591,
+        "support": 81
+      },
+      "NEUTRAL": {
+        "precision": 0.7286,
+        "recall": 0.9444,
+        "f1": 0.8226,
+        "support": 54
+      }
+    },
+    "confusion_matrix": {
+      "ENTAILMENT": {
+        "ENTAILMENT": 42,
+        "CONTRADICTION": 1,
+        "NEUTRAL": 8
+      },
+      "CONTRADICTION": {
+        "ENTAILMENT": 6,
+        "CONTRADICTION": 64,
+        "NEUTRAL": 11
+      },
+      "NEUTRAL": {
+        "ENTAILMENT": 0,
+        "CONTRADICTION": 3,
+        "NEUTRAL": 51
+      }
+    },
+    "contradiction_detection_rate": 0.7901,
+    "false_support_rate": 0.0444,
+    "claim_support_rate": 0.2581,
+    "unsupported_claim_rate": 0.3763,
+    "latency_metrics": {
+      "mean_ms": 0.024,
+      "p50_ms": 0.012,
+      "p95_ms": 0.074,
+      "p99_ms": 0.19
+    }
+  },
+  "draft_evaluation": {
+    "total_scenarios": 5,
+    "blocked_expected": 4,
+    "blocked_detected": 4,
+    "block_safety_rate": 1.0,
+    "scenario_status_accuracy": 0.8,
+    "scenarios": [
+      {
+        "id": "DFT-01",
+        "type": "FULLY_GROUNDED",
+        "actual_status": "CONTRADICTED",
+        "expected_status": "FULLY_GROUNDED",
+        "is_blocked": true,
+        "grounding_score": 0.0,
+        "total_claims": 4,
+        "supported": 1,
+        "contradicted": 1,
+        "block_reason": "Draft contains 1 contradicted claim(s). Violations: Claim 'A fee/amount of non-refundable applies.': Polarity contradiction: policy rule specifies 'non-refundable', but claim asserts 'refund'."
+      },
+      {
+        "id": "DFT-02",
+        "type": "CONTRADICTED",
+        "actual_status": "CONTRADICTED",
+        "expected_status": "CONTRADICTED",
+        "is_blocked": true,
+        "grounding_score": 0.0,
+        "total_claims": 2,
+        "supported": 0,
+        "contradicted": 1,
+        "block_reason": "Draft contains 1 contradicted claim(s). Violations: Claim 'The deadline is within 30 days.': Temporal conflict: claim states deadline of 30 days whereas authoritative policy specifies 7."
+      },
+      {
+        "id": "DFT-03",
+        "type": "CONTRADICTED",
+        "actual_status": "CONTRADICTED",
+        "expected_status": "CONTRADICTED",
+        "is_blocked": true,
+        "grounding_score": 0.0,
+        "total_claims": 2,
+        "supported": 1,
+        "contradicted": 1,
+        "block_reason": "Draft contains 1 contradicted claim(s). Violations: Claim 'A fee/amount of \u20b95,000 applies.': Financial conflict: claim quotes \u20b95,000 whereas policy specifies \u20b9500."
+      },
+      {
+        "id": "DFT-04",
+        "type": "REQUIRES_HUMAN_REVIEW",
+        "actual_status": "CONTRADICTED",
+        "expected_status": "REQUIRES_HUMAN_REVIEW",
+        "is_blocked": true,
+        "grounding_score": 0.0,
+        "total_claims": 2,
+        "supported": 0,
+        "contradicted": 1,
+        "block_reason": "Draft contains 1 contradicted claim(s). Violations: Claim 'Re-evaluation fees are 100% if your grade improves.': Financial conflict: claim quotes \u20b9100 whereas policy specifies \u20b97."
+      },
+      {
+        "id": "DFT-05",
+        "type": "UNSUPPORTED",
+        "actual_status": "UNSUPPORTED",
+        "expected_status": "UNSUPPORTED",
+        "is_blocked": true,
+        "grounding_score": 0.0,
+        "total_claims": 1,
+        "supported": 0,
+        "contradicted": 0,
+        "block_reason": "No claims in draft were substantiated by retrieved authoritative evidence."
+      }
+    ]
+  }
+}

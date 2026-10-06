@@ -33,8 +33,12 @@ from app.schemas.contracts import (
     ResolveRequest,
     CloseRequest,
     TicketPatchRequest,
-    OperationsAnalytics
+    OperationsAnalytics,
+    GroundingStatus,
+    KnowledgeSection,
+    KnowledgeChunk
 )
+from app.schemas.grounding import DraftGroundingVerification
 
 
 class RAGSource(BaseModel):
@@ -48,6 +52,10 @@ class RAGSource(BaseModel):
     source_id: Optional[str] = None
     document_name: Optional[str] = None
     section: Optional[str] = None
+    document_version: str = "1.0"
+    chunk_id: Optional[str] = None
+    department: Optional[str] = None
+    approval_status: str = "APPROVED"
 
     def model_post_init(self, __context: Any) -> None:
         if not self.source_id:
@@ -69,13 +77,20 @@ class AIAnalysis(BaseModel):
     intent_confidence: Optional[float] = None
     department_confidence: Optional[float] = None
     priority_confidence: Optional[float] = None
+    urgency: str = "NORMAL"
+    urgency_confidence: Optional[float] = None
     requires_human_review: bool = False
     review_reasons: List[str] = Field(default_factory=list)
+    needs_clarification: bool = False
+    clarification_reason: Optional[str] = None
     semantic_matches: List[Dict[str, Any]] = Field(default_factory=list)
     pii_detected: List[str] = Field(default_factory=list)
     entities: Dict[str, Any] = Field(default_factory=dict)
+    structured_entities: List[Dict[str, Any]] = Field(default_factory=list)
     summary: str
     suggested_action: str
+    explanation: Dict[str, str] = Field(default_factory=dict)
+    classifier_mode: str = "deterministic_baseline"
 
 
 class TicketBase(BaseModel):
@@ -163,9 +178,58 @@ class DraftResponse(BaseModel):
     draft_response: str
     sources: List[RAGSource] = Field(default_factory=list)
     confidence: float
+    relevance_score: Optional[float] = None
+    grounding_status: str = "GROUNDED"
+    needs_human_review: bool = False
+    refusal_reason: Optional[str] = None
     requires_staff_edit: bool = False
     policy_compliance_passed: bool = True
+    claim_verification: Optional[DraftGroundingVerification] = None
     disclaimer: str = "AI assists. Humans decide. Please review and verify before approving."
+
+
+class GroundedContext(BaseModel):
+    """Context packaged for AI response generation from retrieved policy evidence."""
+    model_config = ConfigDict(extra="ignore")
+
+    query: str
+    department: Optional[str] = None
+    grounding_status: str = "GROUNDED"
+    sources: List[RAGSource] = Field(default_factory=list)
+    context_text: str = ""
+    needs_human_review: bool = False
+    refusal_reason: Optional[str] = None
+
+
+class RAGQueryRequest(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+
+    query: str
+    department: Optional[str] = None
+    top_k: int = 5
+    min_threshold: float = 0.65
+    active_only: bool = True
+
+
+class RAGQueryResponse(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+
+    query: str
+    grounding_status: str
+    needs_human_review: bool
+    sources: List[RAGSource]
+    context_text: str
+    total_candidates: int = 0
+    refusal_reason: Optional[str] = None
+
+
+class KnowledgeSearchResponse(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+
+    query: str
+    total_results: int
+    results: List[RAGSource]
+
 
 
 class AnalyzeRequest(BaseModel):
@@ -235,6 +299,31 @@ class RedirectResponse(BaseModel):
     previous_department: str
     new_department: str
     status: str
+    message: str
+
+
+class HumanOverrideRequest(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+
+    staff_id: str
+    override_department: Optional[str] = None
+    override_priority: Optional[str] = None
+    override_urgency: Optional[str] = None
+    override_intent: Optional[str] = None
+    override_response: Optional[str] = None
+    reason: str = Field(..., description="Mandatory reason for overriding AI recommendation")
+
+
+class HumanOverrideResponse(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+
+    ticket_id: str
+    status: str
+    original_ai_prediction: Dict[str, Any]
+    applied_overrides: Dict[str, Any]
+    overridden_by: str
+    timestamp: str
+    audit_event_id: str
     message: str
 
 

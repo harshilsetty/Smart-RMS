@@ -1,0 +1,1676 @@
+[
+  {
+    "id": "SUP-01",
+    "category": "DEADLINE",
+    "variation": "supported",
+    "evidence": "Students seeking end-term re-evaluation must submit their application within 7 calendar days of result declaration.",
+    "claim": "Applications for end-term re-evaluation must be submitted within 7 calendar days.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "SUP-02",
+    "category": "FEE",
+    "variation": "supported",
+    "evidence": "The non-refundable re-evaluation processing fee is \u20b9500 per theory course.",
+    "claim": "A non-refundable fee of \u20b9500 per theory course is required for re-evaluation.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "SUP-03",
+    "category": "ELIGIBILITY",
+    "variation": "supported",
+    "evidence": "Students must maintain a minimum attendance of 75% across all registered courses to appear for final examinations.",
+    "claim": "A minimum of 75% attendance across all registered courses is mandatory to sit for final examinations.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "SUP-04",
+    "category": "PROCESS",
+    "variation": "supported",
+    "evidence": "Duplicate ID cards can be requested via the University Student Portal under the Student Services section.",
+    "claim": "Students can apply for duplicate ID cards through the University Student Portal under Student Services.",
+    "label": "ENTAILMENT",
+    "is_high_impact": false
+  },
+  {
+    "id": "SUP-05",
+    "category": "FEE",
+    "variation": "supported",
+    "evidence": "A replacement charge of \u20b9200 applies for reissuing a lost student RFID card.",
+    "claim": "Reissuing a lost RFID card incurs a replacement charge of \u20b9200.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "SUP-06",
+    "category": "DEADLINE",
+    "variation": "supported",
+    "evidence": "Late fee of \u20b9100 per day is levied for semester fee payments made after August 15th up to a maximum of 14 days.",
+    "claim": "Late fee of \u20b9100 per day is charged for tuition payments made after August 15th.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "SUP-07",
+    "category": "DOCUMENT_REQUIREMENT",
+    "variation": "supported",
+    "evidence": "An FIR copy or police missing report must be uploaded when requesting a replacement degree certificate.",
+    "claim": "Submitting a police report or FIR is required to obtain a replacement degree certificate.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "SUP-08",
+    "category": "ELIGIBILITY",
+    "variation": "supported",
+    "evidence": "Merit scholarships require a minimum cumulative grade point average (CGPA) of 8.0 with no backlogs.",
+    "claim": "Eligibility for merit scholarships requires a CGPA of at least 8.0 without any backlogs.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "SUP-09",
+    "category": "POLICY_RULE",
+    "variation": "supported",
+    "evidence": "Hostel room changes are permitted only during the first two weeks of the autumn semester.",
+    "claim": "Hostel room transfers are only allowed during the first two weeks of the autumn semester.",
+    "label": "ENTAILMENT",
+    "is_high_impact": false
+  },
+  {
+    "id": "SUP-10",
+    "category": "EXCEPTION",
+    "variation": "supported",
+    "evidence": "Medical exemptions for attendance shortage up to 10% may be granted by the Dean Academic upon submission of hospital records within 5 days.",
+    "claim": "Dean Academic may grant an attendance medical exemption up to 10% if hospital records are submitted within 5 days.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "SUP-11",
+    "category": "CONTACT",
+    "variation": "supported",
+    "evidence": "Inquiries regarding scholarship disbursements should be directed to the Financial Aid Helpdesk at Block 30 Room 102.",
+    "claim": "The Financial Aid Helpdesk is located at Block 30 Room 102 for scholarship disbursement inquiries.",
+    "label": "ENTAILMENT",
+    "is_high_impact": false
+  },
+  {
+    "id": "SUP-12",
+    "category": "PROCESS",
+    "variation": "supported",
+    "evidence": "Grade transcripts require 5 business days for official verification and stamp by the Registrar.",
+    "claim": "Official verification and stamping of grade transcripts takes 5 business days.",
+    "label": "ENTAILMENT",
+    "is_high_impact": false
+  },
+  {
+    "id": "SUP-13",
+    "category": "POLICY_RULE",
+    "variation": "supported",
+    "evidence": "Possession of electronic gadgets inside the examination hall constitutes an automatic Level 2 Unfair Means Case (UMC).",
+    "claim": "Carrying electronic gadgets into the exam hall leads to a Level 2 UMC charge.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "CON-01",
+    "category": "FEE",
+    "variation": "contradiction",
+    "evidence": "Examination re-evaluation and scrutiny fees are strictly non-refundable under any circumstances.",
+    "claim": "Re-evaluation fees will be refunded if the student's grade changes.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "CON-02",
+    "category": "POLICY_RULE",
+    "variation": "contradiction",
+    "evidence": "Students with less than 65% attendance are completely debarred and ineligible for any condonation.",
+    "claim": "Students with less than 65% attendance can still receive an attendance waiver from their HOD.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "CON-03",
+    "category": "ELIGIBILITY",
+    "variation": "contradiction",
+    "evidence": "Only undergraduate students in semester 4 and above are eligible to apply for industry internships.",
+    "claim": "All undergraduate students from semester 1 onwards are eligible for industry internships.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "CON-04",
+    "category": "POLICY_RULE",
+    "variation": "contradiction",
+    "evidence": "All campus hostel gates close promptly at 10:00 PM without exception.",
+    "claim": "Hostel gates remain open until midnight on weekends.",
+    "label": "CONTRADICTION",
+    "is_high_impact": false
+  },
+  {
+    "id": "CON-05",
+    "category": "PROCESS",
+    "variation": "contradiction",
+    "evidence": "No physical paper applications for re-evaluation are accepted; all submissions must be made through UMS online.",
+    "claim": "Students must submit hard copy re-evaluation forms to the examination counter.",
+    "label": "CONTRADICTION",
+    "is_high_impact": false
+  },
+  {
+    "id": "CON-06",
+    "category": "FEE",
+    "variation": "contradiction",
+    "evidence": "Late submission of semester course registration carries a mandatory penalty of \u20b9500.",
+    "claim": "There is no late fee or penalty for delayed semester course registration.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "CON-07",
+    "category": "ELIGIBILITY",
+    "variation": "contradiction",
+    "evidence": "Students with pending disciplinary inquiries are strictly barred from participating in campus placement drives.",
+    "claim": "Students under active disciplinary inquiry can freely register for campus placements.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "CON-08",
+    "category": "EXCEPTION",
+    "variation": "contradiction",
+    "evidence": "No grace marks shall be awarded for practical laboratory examinations.",
+    "claim": "Students can receive up to 5 grace marks in practical laboratory examinations.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "CON-09",
+    "category": "DEADLINE",
+    "variation": "contradiction",
+    "evidence": "Hostel mess rebate applications must be submitted 3 days prior to departure.",
+    "claim": "Mess rebate claims can be submitted after returning from leave.",
+    "label": "CONTRADICTION",
+    "is_high_impact": false
+  },
+  {
+    "id": "CON-10",
+    "category": "DOCUMENT_REQUIREMENT",
+    "variation": "contradiction",
+    "evidence": "Original medical certificates from a registered practitioner must be submitted in person.",
+    "claim": "Photocopies of medical slips sent via WhatsApp are officially accepted.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "NEU-01",
+    "category": "GENERAL_INFORMATION",
+    "variation": "neutral",
+    "evidence": "Students seeking end-term re-evaluation must submit their application within 7 calendar days of result declaration.",
+    "claim": "The university library is open 24 hours during end-term examinations.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "NEU-02",
+    "category": "PROCESS",
+    "variation": "neutral",
+    "evidence": "Tuition fees can be paid via credit card, net banking, or UPI on the student account portal.",
+    "claim": "The university plans to introduce cryptocurrency payments next academic year.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "NEU-03",
+    "category": "CONTACT",
+    "variation": "neutral",
+    "evidence": "The Chief Warden office is situated on the ground floor of Block 28.",
+    "claim": "The Chief Warden previously served as Dean of Mechanical Engineering.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "NEU-04",
+    "category": "ELIGIBILITY",
+    "variation": "neutral",
+    "evidence": "Minimum passing marks in each end-term theoretical examination is 40%.",
+    "claim": "Theoretical examinations are conducted in the central indoor stadium.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "NEU-05",
+    "category": "POLICY_RULE",
+    "variation": "neutral",
+    "evidence": "Smoking and consumption of alcohol anywhere on university campus grounds is strictly prohibited.",
+    "claim": "Campus cafeterias offer tea, coffee, and fruit juices until 11 PM.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "NEU-06",
+    "category": "DOCUMENT_REQUIREMENT",
+    "variation": "neutral",
+    "evidence": "Graduating students must submit a no-dues clearance certificate from their respective department head.",
+    "claim": "Graduation day robes must be rented from the alumni center.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "NEU-07",
+    "category": "FEE",
+    "variation": "neutral",
+    "evidence": "Hostel security deposit of \u20b95,000 is refundable upon final clearance at graduation.",
+    "claim": "Hostel rooms are repainted every two academic years.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "NEU-08",
+    "category": "DEADLINE",
+    "variation": "neutral",
+    "evidence": "Course drop requests must be submitted within the first 10 days of classes.",
+    "claim": "Class lectures will also be recorded and posted on the intranet.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "NEU-09",
+    "category": "EXCEPTION",
+    "variation": "neutral",
+    "evidence": "Sports council athletes representing the university in national games receive duty leave credits.",
+    "claim": "The university badminton team won three gold medals last semester.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "NEU-10",
+    "category": "PROCESS",
+    "variation": "neutral",
+    "evidence": "WiFi registration requires submitting the MAC address of student laptops to ICT cell.",
+    "claim": "The campus fiber network provides 1 Gbps internet speeds.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "PAR-01",
+    "category": "ELIGIBILITY",
+    "variation": "paraphrase",
+    "evidence": "To qualify for the Dean's Honor Roll, a candidate must secure a SGPA of 9.0 or higher.",
+    "claim": "Achieving a semester GPA of at least 9.0 is necessary to be placed on the Dean's Honor Roll.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "PAR-02",
+    "category": "DEADLINE",
+    "variation": "paraphrase",
+    "evidence": "All library books borrowed by students must be returned prior to the commencement of end-term exams.",
+    "claim": "Students are required to hand back borrowed library volumes before final exams begin.",
+    "label": "ENTAILMENT",
+    "is_high_impact": false
+  },
+  {
+    "id": "PAR-03",
+    "category": "FEE",
+    "variation": "paraphrase",
+    "evidence": "An administrative charge of \u20b91,000 is levied for issuing a duplicate degree certificate.",
+    "claim": "Obtaining a second copy of an official degree certificate requires payment of a \u20b91,000 fee.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "PAR-04",
+    "category": "POLICY_RULE",
+    "variation": "paraphrase",
+    "evidence": "Wearing student identification cards visibly around the neck is compulsory while on campus premises.",
+    "claim": "Displaying student ID cards is mandatory for everyone on university property.",
+    "label": "ENTAILMENT",
+    "is_high_impact": false
+  },
+  {
+    "id": "PAR-05",
+    "category": "PROCESS",
+    "variation": "paraphrase",
+    "evidence": "Bus pass applications are processed exclusively through the transport portal with digital fee payment.",
+    "claim": "Students must utilize the online transport system to submit applications and fees for university bus passes.",
+    "label": "ENTAILMENT",
+    "is_high_impact": false
+  },
+  {
+    "id": "PAR-06",
+    "category": "DOCUMENT_REQUIREMENT",
+    "variation": "paraphrase",
+    "evidence": "Students requesting medical leaves extending beyond 3 days must furnish a prescription along with a diagnosis certificate.",
+    "claim": "Medical absences exceeding 3 days require a doctor's diagnosis certificate and prescription.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "PAR-07",
+    "category": "EXCEPTION",
+    "variation": "paraphrase",
+    "evidence": "Special consideration for late submission of capstone projects is granted only under catastrophic medical distress.",
+    "claim": "Severe health emergencies are the sole accepted grounds for late submission of final capstone work.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "PAR-08",
+    "category": "CONTACT",
+    "variation": "paraphrase",
+    "evidence": "For grievance redressal, email the student ombudsman at ombudsman@university.edu.in.",
+    "claim": "Students may submit official grievances to the university ombudsman via ombudsman@university.edu.in.",
+    "label": "ENTAILMENT",
+    "is_high_impact": false
+  },
+  {
+    "id": "PAR-09",
+    "category": "POLICY_RULE",
+    "variation": "paraphrase",
+    "evidence": "Ragging in any form is a zero-tolerance criminal offense punishable by immediate rustication.",
+    "claim": "The university enforces zero tolerance for ragging and expels offenders immediately.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "PAR-10",
+    "category": "DEADLINE",
+    "variation": "paraphrase",
+    "evidence": "Semester registration without late fee closes at 5:00 PM on July 31st.",
+    "claim": "Students have until 5:00 PM on July 31st to complete regular semester registration without penalty.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "NUM-01",
+    "category": "ELIGIBILITY",
+    "variation": "numeric_change",
+    "evidence": "Students must achieve at least 75% attendance to qualify for writing end-term exams.",
+    "claim": "Students must achieve at least 85% attendance to qualify for writing end-term exams.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "NUM-02",
+    "category": "POLICY_RULE",
+    "variation": "numeric_change",
+    "evidence": "A student may carry forward a maximum of 2 backlogs into the final academic year.",
+    "claim": "Students are permitted to carry up to 5 backlogs into their final academic year.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "NUM-03",
+    "category": "ELIGIBILITY",
+    "variation": "numeric_change",
+    "evidence": "A minimum CGPA of 6.0 is required for graduation degree award.",
+    "claim": "A minimum CGPA of 5.0 is required for graduation degree award.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "NUM-04",
+    "category": "DEADLINE",
+    "variation": "numeric_change",
+    "evidence": "Students can borrow up to 4 books from the university library for 14 days.",
+    "claim": "Students can borrow up to 8 books from the university library for 14 days.",
+    "label": "CONTRADICTION",
+    "is_high_impact": false
+  },
+  {
+    "id": "NUM-05",
+    "category": "POLICY_RULE",
+    "variation": "numeric_change",
+    "evidence": "The pass percentage in internal continuous assessment is 30% of total assigned marks.",
+    "claim": "Internal continuous assessment requires a passing score of 50%.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "NUM-06",
+    "category": "ELIGIBILITY",
+    "variation": "numeric_change",
+    "evidence": "Students must complete 160 total academic credits to earn a Bachelor of Technology degree.",
+    "claim": "Earning a Bachelor of Technology degree requires 120 total academic credits.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "NUM-07",
+    "category": "DEADLINE",
+    "variation": "numeric_change",
+    "evidence": "Leave of absence without academic penalty cannot exceed 2 consecutive semesters.",
+    "claim": "Students may take up to 4 consecutive semesters of leave without penalty.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "NUM-08",
+    "category": "POLICY_RULE",
+    "variation": "numeric_change",
+    "evidence": "Mid-term examinations contribute 25% weightage toward the final course grade.",
+    "claim": "Mid-term examinations carry 40% weightage toward the final course grade.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "NUM-09",
+    "category": "DEADLINE",
+    "variation": "numeric_change",
+    "evidence": "Mess rebate applies for continuous absence of at least 7 days.",
+    "claim": "Mess rebate is granted for any absence of at least 3 days.",
+    "label": "CONTRADICTION",
+    "is_high_impact": false
+  },
+  {
+    "id": "NUM-10",
+    "category": "FEE",
+    "variation": "numeric_change",
+    "evidence": "Hostel room electric heater permits incur a seasonal surcharge of \u20b91,200.",
+    "claim": "Using an electric room heater requires a fee of \u20b93,000.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "DED-01",
+    "category": "DEADLINE",
+    "variation": "deadline_change",
+    "evidence": "Re-evaluation applications must be submitted within 7 calendar days of result announcement.",
+    "claim": "Applications for re-evaluation can be submitted within 30 days of result announcement.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "DED-02",
+    "category": "DEADLINE",
+    "variation": "deadline_change",
+    "evidence": "Hostel dues must be cleared within 10 days of semester commencement.",
+    "claim": "Hostel dues must be cleared within 45 days of semester commencement.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "DED-03",
+    "category": "DEADLINE",
+    "variation": "deadline_change",
+    "evidence": "Medical certificate submission deadline is within 3 working days of resumption of classes.",
+    "claim": "Students have 14 working days after returning to submit medical certificates.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "DED-04",
+    "category": "DEADLINE",
+    "variation": "deadline_change",
+    "evidence": "Grade dispute tickets must be registered within 48 hours of grade publication.",
+    "claim": "Grade disputes can be registered anytime within 15 days of publication.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "DED-05",
+    "category": "DEADLINE",
+    "variation": "deadline_change",
+    "evidence": "Course withdrawal without academic penalty is permitted up to 14 days before end-term exams.",
+    "claim": "Students can withdraw from a course up to 2 days before end-term exams.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "DED-06",
+    "category": "DEADLINE",
+    "variation": "deadline_change",
+    "evidence": "Refund claims for security deposits must be submitted within 6 months of program completion.",
+    "claim": "Security deposit refunds can be claimed up to 2 years after program completion.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "DED-07",
+    "category": "DEADLINE",
+    "variation": "deadline_change",
+    "evidence": "Hall ticket discrepancy corrections must be reported at least 24 hours prior to examination.",
+    "claim": "Corrections to hall tickets may be submitted up to 1 hour prior to examination.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "DED-08",
+    "category": "DEADLINE",
+    "variation": "deadline_change",
+    "evidence": "Late library return fines accrue after a grace period of 2 days.",
+    "claim": "Late library fines only start accumulating after a 10 day grace period.",
+    "label": "CONTRADICTION",
+    "is_high_impact": false
+  },
+  {
+    "id": "DED-09",
+    "category": "DEADLINE",
+    "variation": "deadline_change",
+    "evidence": "Appeals against UMC committee sanctions must be filed within 5 working days.",
+    "claim": "UMC sanction appeals can be submitted within 30 working days.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "DED-10",
+    "category": "DEADLINE",
+    "variation": "deadline_change",
+    "evidence": "Hostel room vacation notice must be provided 15 days in advance of departure.",
+    "claim": "Hostel rooms can be vacated immediately with only 24 hours prior notice.",
+    "label": "CONTRADICTION",
+    "is_high_impact": false
+  },
+  {
+    "id": "ELI-01",
+    "category": "ELIGIBILITY",
+    "variation": "eligibility_change",
+    "evidence": "Only students in semester 4 and above with no active backlogs are eligible for study abroad exchange.",
+    "claim": "All students from any semester are eligible to apply for study abroad exchange.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "ELI-02",
+    "category": "ELIGIBILITY",
+    "variation": "eligibility_change",
+    "evidence": "Honors degree option requires maintaining a minimum CGPA of 8.5 with zero course repetitions.",
+    "claim": "Any student with a CGPA above 6.5 can opt for an Honors degree.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "ELI-03",
+    "category": "ELIGIBILITY",
+    "variation": "eligibility_change",
+    "evidence": "Single occupancy hostel rooms are reserved exclusively for final year PhD and postgraduate scholars.",
+    "claim": "First year undergraduate students are eligible to book single occupancy hostel rooms.",
+    "label": "CONTRADICTION",
+    "is_high_impact": false
+  },
+  {
+    "id": "ELI-04",
+    "category": "ELIGIBILITY",
+    "variation": "eligibility_change",
+    "evidence": "Teaching assistantships are offered only to full-time master's students with first-class graduation.",
+    "claim": "Undergraduate sophomores can receive university teaching assistantships.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "ELI-05",
+    "category": "ELIGIBILITY",
+    "variation": "eligibility_change",
+    "evidence": "Fee concessions under sports quota are applicable only to athletes who won state or national medals.",
+    "claim": "All participants in inter-hostel friendly sports events receive sports fee concessions.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "ELI-06",
+    "category": "ELIGIBILITY",
+    "variation": "eligibility_change",
+    "evidence": "Remedial crash courses are mandatory for students scoring less than 35% in mid-term evaluations.",
+    "claim": "Remedial courses are optional and restricted to final-year students only.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "ELI-07",
+    "category": "ELIGIBILITY",
+    "variation": "eligibility_change",
+    "evidence": "Special re-appear examinations in the summer term are open only to graduating batch students with 1 backlog.",
+    "claim": "Summer re-appear examinations are open to students of all semesters regardless of backlog count.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "ELI-08",
+    "category": "ELIGIBILITY",
+    "variation": "eligibility_change",
+    "evidence": "University parking permits for four-wheelers are issued only to day-scholar commuters residing beyond 15 km.",
+    "claim": "All on-campus hostel residents are permitted to keep four-wheelers with parking permits.",
+    "label": "CONTRADICTION",
+    "is_high_impact": false
+  },
+  {
+    "id": "ELI-09",
+    "category": "ELIGIBILITY",
+    "variation": "eligibility_change",
+    "evidence": "Merit-cum-means financial aid is restricted to students with family annual income below \u20b95,00,000.",
+    "claim": "Merit-cum-means financial aid has no family income cap.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "ELI-10",
+    "category": "ELIGIBILITY",
+    "variation": "eligibility_change",
+    "evidence": "Only students without disciplinary warnings are eligible to run for Student Council executive posts.",
+    "claim": "Students with active disciplinary reprimands are permitted to contest Student Council elections.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "FEE-01",
+    "category": "FEE",
+    "variation": "fee_change",
+    "evidence": "End-term theory re-evaluation fee is \u20b9500 per subject.",
+    "claim": "The fee for end-term re-evaluation is \u20b95,000 per subject.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "FEE-02",
+    "category": "FEE",
+    "variation": "fee_change",
+    "evidence": "Late submission of hostel enrollment form incurs a fine of \u20b9200.",
+    "claim": "Hostel enrollment late submission carries a fine of \u20b92,000.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "FEE-03",
+    "category": "FEE",
+    "variation": "fee_change",
+    "evidence": "Official transcript fee is \u20b9250 for domestic delivery.",
+    "claim": "Official transcript fee is \u20b91,500 for domestic delivery.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "FEE-04",
+    "category": "FEE",
+    "variation": "fee_change",
+    "evidence": "Re-admission fee following temporary withdrawal is \u20b91,000.",
+    "claim": "Re-admission fee is \u20b910,000 following temporary withdrawal.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "FEE-05",
+    "category": "FEE",
+    "variation": "fee_change",
+    "evidence": "Replacement of damaged laboratory equipment is charged at actual component cost plus \u20b9150 handling fee.",
+    "claim": "Laboratory equipment damage carries a flat \u20b95,000 penalty regardless of cost.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "FEE-06",
+    "category": "FEE",
+    "variation": "fee_change",
+    "evidence": "University bus transportation fee is \u20b98,000 per semester for city routes.",
+    "claim": "University bus fee is \u20b925,000 per semester for city routes.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "FEE-07",
+    "category": "FEE",
+    "variation": "fee_change",
+    "evidence": "Course add-drop after standard deadline requires payment of \u20b9300 administrative fee.",
+    "claim": "Late course adjustments carry an administrative charge of \u20b93,000.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "FEE-08",
+    "category": "FEE",
+    "variation": "fee_change",
+    "evidence": "Lost library book replacement fee is the book price plus \u20b9100 cataloging surcharge.",
+    "claim": "Losing a library book requires paying double the price plus a \u20b91,000 penalty.",
+    "label": "CONTRADICTION",
+    "is_high_impact": false
+  },
+  {
+    "id": "FEE-09",
+    "category": "FEE",
+    "variation": "fee_change",
+    "evidence": "Migration certificate issuance charge is \u20b9400.",
+    "claim": "Issuance of migration certificate costs \u20b94,000.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "FEE-10",
+    "category": "FEE",
+    "variation": "fee_change",
+    "evidence": "Convocation registration fee including ceremonial robe deposit is \u20b91,500.",
+    "claim": "Convocation registration requires a payment of \u20b96,500.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXC-01",
+    "category": "EXCEPTION",
+    "variation": "exception_change",
+    "evidence": "No exceptions to the 75% attendance rule are permitted except for documented medical hospitalization.",
+    "claim": "Family vacations and personal travel are approved reasons for attendance exemption.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXC-02",
+    "category": "EXCEPTION",
+    "variation": "exception_change",
+    "evidence": "Late fee waivers are exclusively sanctioned by the Finance Officer in cases of banking system outages.",
+    "claim": "Hostel wardens can arbitrarily waive tuition late fees.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXC-03",
+    "category": "EXCEPTION",
+    "variation": "exception_change",
+    "evidence": "Exemption from compulsory on-campus hostel residency is granted only to students residing with parents within 25 km.",
+    "claim": "Any student can move out to private flats without parental residency verification.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXC-04",
+    "category": "EXCEPTION",
+    "variation": "exception_change",
+    "evidence": "Special examination arrangements for differently-abled students include 20 minutes extra time per hour.",
+    "claim": "Differently-abled students receive 2 hours extra time per exam paper.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXC-05",
+    "category": "EXCEPTION",
+    "variation": "exception_change",
+    "evidence": "Prerequisite course waivers may only be authorized by the Academic Council.",
+    "claim": "Course prerequisites can be waived by student course peers.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXC-06",
+    "category": "EXCEPTION",
+    "variation": "exception_change",
+    "evidence": "Exemption from sports curriculum is granted solely to students with permanent physical disability certificates.",
+    "claim": "Students feeling tired can claim permanent sports curriculum exemption.",
+    "label": "CONTRADICTION",
+    "is_high_impact": false
+  },
+  {
+    "id": "EXC-07",
+    "category": "EXCEPTION",
+    "variation": "exception_change",
+    "evidence": "Postponement of final project viva is allowed only in case of direct bereavement in the immediate family.",
+    "claim": "Project viva can be postponed for attending friends' social celebrations.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXC-08",
+    "category": "EXCEPTION",
+    "variation": "exception_change",
+    "evidence": "Late course registration without penalty is allowed if admission was offered in the final mop-up counseling round.",
+    "claim": "All students can register late without penalty regardless of admission round.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXC-09",
+    "category": "EXCEPTION",
+    "variation": "exception_change",
+    "evidence": "Hostel room transfer exemptions are strictly prohibited after the initial two-week adjustment window.",
+    "claim": "Students can swap hostel rooms anytime throughout the academic semester.",
+    "label": "CONTRADICTION",
+    "is_high_impact": false
+  },
+  {
+    "id": "EXC-10",
+    "category": "EXCEPTION",
+    "variation": "exception_change",
+    "evidence": "Overload course credits beyond 28 credits per semester are allowed only for students with CGPA above 9.0.",
+    "claim": "Any student regardless of CGPA can register for up to 36 credits.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "IRR-01",
+    "category": "DEADLINE",
+    "variation": "irrelevant_evidence",
+    "evidence": "Hostel laundry services are open Monday to Friday between 8:00 AM and 6:00 PM.",
+    "claim": "Re-evaluation applications must be submitted within 7 calendar days of result declaration.",
+    "label": "NEUTRAL",
+    "is_high_impact": true
+  },
+  {
+    "id": "IRR-02",
+    "category": "FEE",
+    "variation": "irrelevant_evidence",
+    "evidence": "The campus central cafeteria accepts digital payment cards and campus wallet.",
+    "claim": "End-term re-evaluation fee is \u20b9500 per theory subject.",
+    "label": "NEUTRAL",
+    "is_high_impact": true
+  },
+  {
+    "id": "IRR-03",
+    "category": "ELIGIBILITY",
+    "variation": "irrelevant_evidence",
+    "evidence": "Visitor parking is allocated near Gate 1 upon security gate pass registration.",
+    "claim": "A minimum of 75% attendance is required to be eligible for final examinations.",
+    "label": "NEUTRAL",
+    "is_high_impact": true
+  },
+  {
+    "id": "IRR-04",
+    "category": "PROCESS",
+    "variation": "irrelevant_evidence",
+    "evidence": "University gym equipment must be wiped down after use by each member.",
+    "claim": "Students can apply for duplicate ID cards through the student portal.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "IRR-05",
+    "category": "DOCUMENT_REQUIREMENT",
+    "variation": "irrelevant_evidence",
+    "evidence": "Hostel mess menus are revised bi-monthly by the Student Mess Committee.",
+    "claim": "A police FIR copy is required when applying for a duplicate degree.",
+    "label": "NEUTRAL",
+    "is_high_impact": true
+  },
+  {
+    "id": "IRR-06",
+    "category": "CONTACT",
+    "variation": "irrelevant_evidence",
+    "evidence": "Campus shuttle buses operate on a 15-minute frequency between residential blocks and academic wings.",
+    "claim": "Contact the Chief Warden office at Block 28 Room 101 for room reallocation.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "IRR-07",
+    "category": "POLICY_RULE",
+    "variation": "irrelevant_evidence",
+    "evidence": "Bicycles must be locked in designated stands outside academic buildings.",
+    "claim": "Possession of electronic gadgets in exam halls leads to Level 2 UMC charges.",
+    "label": "NEUTRAL",
+    "is_high_impact": true
+  },
+  {
+    "id": "IRR-08",
+    "category": "EXCEPTION",
+    "variation": "irrelevant_evidence",
+    "evidence": "The university botanical garden is reserved for forestry research scholars on weekends.",
+    "claim": "Medical attendance exemptions up to 10% may be granted by Dean Academic.",
+    "label": "NEUTRAL",
+    "is_high_impact": true
+  },
+  {
+    "id": "IRR-09",
+    "category": "FEE",
+    "variation": "irrelevant_evidence",
+    "evidence": "Swimming pool lockers require a refundable key deposit of \u20b950.",
+    "claim": "Semester tuition late fees accrue at \u20b9100 per day after the due date.",
+    "label": "NEUTRAL",
+    "is_high_impact": true
+  },
+  {
+    "id": "IRR-10",
+    "category": "ELIGIBILITY",
+    "variation": "irrelevant_evidence",
+    "evidence": "Recycling bins for paper and plastic are stationed on every departmental corridor.",
+    "claim": "Merit scholarships require a minimum CGPA of 8.0 without any backlogs.",
+    "label": "NEUTRAL",
+    "is_high_impact": true
+  },
+  {
+    "id": "MIS-01",
+    "category": "POLICY_RULE",
+    "variation": "missing_evidence",
+    "evidence": "",
+    "claim": "Students are entitled to a full refund of tuition fees if they drop out within 15 days.",
+    "label": "NEUTRAL",
+    "is_high_impact": true
+  },
+  {
+    "id": "MIS-02",
+    "category": "DEADLINE",
+    "variation": "missing_evidence",
+    "evidence": "",
+    "claim": "Hostel room changes must be submitted before Friday 5 PM.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "MIS-03",
+    "category": "FEE",
+    "variation": "missing_evidence",
+    "evidence": "",
+    "claim": "A special sports equipment rental fee of \u20b9500 per month applies.",
+    "label": "NEUTRAL",
+    "is_high_impact": true
+  },
+  {
+    "id": "MIS-04",
+    "category": "ELIGIBILITY",
+    "variation": "missing_evidence",
+    "evidence": "",
+    "claim": "All international exchange students receive a free monthly stipend of \u20b910,000.",
+    "label": "NEUTRAL",
+    "is_high_impact": true
+  },
+  {
+    "id": "MIS-05",
+    "category": "PROCESS",
+    "variation": "missing_evidence",
+    "evidence": "",
+    "claim": "Submit your passport to counter 4 for visa endorsement.",
+    "label": "NEUTRAL",
+    "is_high_impact": true
+  },
+  {
+    "id": "MIS-06",
+    "category": "DOCUMENT_REQUIREMENT",
+    "variation": "missing_evidence",
+    "evidence": "",
+    "claim": "Students must submit an affidavit signed by a first-class magistrate for name correction.",
+    "label": "NEUTRAL",
+    "is_high_impact": true
+  },
+  {
+    "id": "MIS-07",
+    "category": "EXCEPTION",
+    "variation": "missing_evidence",
+    "evidence": "",
+    "claim": "Students living in off-campus apartments can claim free university mess dining.",
+    "label": "NEUTRAL",
+    "is_high_impact": true
+  },
+  {
+    "id": "MIS-08",
+    "category": "CONTACT",
+    "variation": "missing_evidence",
+    "evidence": "",
+    "claim": "The university counseling helpline is available at 1800-999-000.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "MIS-09",
+    "category": "POLICY_RULE",
+    "variation": "missing_evidence",
+    "evidence": "",
+    "claim": "Graduating with distinction requires completing two foreign language electives.",
+    "label": "NEUTRAL",
+    "is_high_impact": true
+  },
+  {
+    "id": "MIS-10",
+    "category": "FEE",
+    "variation": "missing_evidence",
+    "evidence": "",
+    "claim": "Convocation guest entry tickets cost \u20b9200 per attendee.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "AMB-01",
+    "category": "FEE",
+    "variation": "ambiguous_evidence",
+    "evidence": "Examination processing and review fees are determined periodically by the competent university authority.",
+    "claim": "The exact fee for end-term paper re-evaluation is \u20b9500 per course.",
+    "label": "NEUTRAL",
+    "is_high_impact": true
+  },
+  {
+    "id": "AMB-02",
+    "category": "DEADLINE",
+    "variation": "ambiguous_evidence",
+    "evidence": "All student applications should be submitted in a timely manner as notified from time to time.",
+    "claim": "Re-evaluation applications must strictly be submitted within 7 calendar days.",
+    "label": "NEUTRAL",
+    "is_high_impact": true
+  },
+  {
+    "id": "AMB-03",
+    "category": "ELIGIBILITY",
+    "variation": "ambiguous_evidence",
+    "evidence": "Students are expected to attend classes regularly and meet established academic criteria.",
+    "claim": "A minimum of 75% attendance across all courses is mandatory.",
+    "label": "NEUTRAL",
+    "is_high_impact": true
+  },
+  {
+    "id": "AMB-04",
+    "category": "POLICY_RULE",
+    "variation": "ambiguous_evidence",
+    "evidence": "Hostel rules regarding night curfews are enforced by wardens according to seasonal advisories.",
+    "claim": "Hostel gates are locked every night at exactly 10:00 PM without exception.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "AMB-05",
+    "category": "EXCEPTION",
+    "variation": "ambiguous_evidence",
+    "evidence": "Appropriate relaxations may be considered by university authorities under special circumstances.",
+    "claim": "The Dean Academic may grant an attendance medical waiver up to 10%.",
+    "label": "NEUTRAL",
+    "is_high_impact": true
+  },
+  {
+    "id": "AMB-06",
+    "category": "DOCUMENT_REQUIREMENT",
+    "variation": "ambiguous_evidence",
+    "evidence": "Relevant identification proofs must be presented whenever requested by campus security.",
+    "claim": "Displaying student RFID cards around the neck is compulsory on campus.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "AMB-07",
+    "category": "PROCESS",
+    "variation": "ambiguous_evidence",
+    "evidence": "Students should use designated digital channels for administrative transactions.",
+    "claim": "Bus pass applications are processed exclusively through the transport portal.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "AMB-08",
+    "category": "FEE",
+    "variation": "ambiguous_evidence",
+    "evidence": "Administrative charges apply for the replacement of damaged or lost university property.",
+    "claim": "Reissuing a lost RFID card incurs a replacement charge of \u20b9200.",
+    "label": "NEUTRAL",
+    "is_high_impact": true
+  },
+  {
+    "id": "AMB-09",
+    "category": "DEADLINE",
+    "variation": "ambiguous_evidence",
+    "evidence": "Late payments are discouraged and may attract penal interest as decided by finance.",
+    "claim": "Tuition late fees accrue at \u20b9100 per day after August 15th.",
+    "label": "NEUTRAL",
+    "is_high_impact": true
+  },
+  {
+    "id": "AMB-10",
+    "category": "ELIGIBILITY",
+    "variation": "ambiguous_evidence",
+    "evidence": "Merit scholarships are granted to high-performing students based on semester standing.",
+    "claim": "Merit scholarship requires a minimum CGPA of 8.0 with no backlogs.",
+    "label": "NEUTRAL",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-SUP-001",
+    "category": "CONTACT",
+    "variation": "supported_department",
+    "evidence": "The Examination office operates Monday through Friday from 9:00 AM to 5:00 PM.",
+    "claim": "The Examination office is open on weekdays between 9:00 AM and 5:00 PM.",
+    "label": "ENTAILMENT",
+    "is_high_impact": false
+  },
+  {
+    "id": "EXP-SUP-002",
+    "category": "DEADLINE",
+    "variation": "supported_department",
+    "evidence": "Official Examination certificates are issued within 3 working days after submission.",
+    "claim": "Students receive their Examination certificates within 3 working days.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-SUP-003",
+    "category": "FEE",
+    "variation": "supported_department",
+    "evidence": "A processing fee of \u20b9350 is charged for Examination record verification.",
+    "claim": "Verification of Examination records requires a processing fee of \u20b9350.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-SUP-004",
+    "category": "ELIGIBILITY",
+    "variation": "supported_department",
+    "evidence": "Only students enrolled in Examination programs with CGPA above 8.0 are eligible for department honors.",
+    "claim": "Eligibility for Examination honors requires a CGPA exceeding 8.0.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-SUP-005",
+    "category": "CONTACT",
+    "variation": "supported_department",
+    "evidence": "The Finance office operates Monday through Friday from 9:00 AM to 5:00 PM.",
+    "claim": "The Finance office is open on weekdays between 9:00 AM and 5:00 PM.",
+    "label": "ENTAILMENT",
+    "is_high_impact": false
+  },
+  {
+    "id": "EXP-SUP-006",
+    "category": "DEADLINE",
+    "variation": "supported_department",
+    "evidence": "Official Finance certificates are issued within 3 working days after submission.",
+    "claim": "Students receive their Finance certificates within 3 working days.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-SUP-007",
+    "category": "FEE",
+    "variation": "supported_department",
+    "evidence": "A processing fee of \u20b9200 is charged for Finance record verification.",
+    "claim": "Verification of Finance records requires a processing fee of \u20b9200.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-SUP-008",
+    "category": "ELIGIBILITY",
+    "variation": "supported_department",
+    "evidence": "Only students enrolled in Finance programs with CGPA above 8.0 are eligible for department honors.",
+    "claim": "Eligibility for Finance honors requires a CGPA exceeding 8.0.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-SUP-009",
+    "category": "CONTACT",
+    "variation": "supported_department",
+    "evidence": "The Hostel office operates Monday through Friday from 9:00 AM to 5:00 PM.",
+    "claim": "The Hostel office is open on weekdays between 9:00 AM and 5:00 PM.",
+    "label": "ENTAILMENT",
+    "is_high_impact": false
+  },
+  {
+    "id": "EXP-SUP-010",
+    "category": "DEADLINE",
+    "variation": "supported_department",
+    "evidence": "Official Hostel certificates are issued within 5 working days after submission.",
+    "claim": "Students receive their Hostel certificates within 5 working days.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-SUP-011",
+    "category": "FEE",
+    "variation": "supported_department",
+    "evidence": "A processing fee of \u20b9200 is charged for Hostel record verification.",
+    "claim": "Verification of Hostel records requires a processing fee of \u20b9200.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-SUP-012",
+    "category": "ELIGIBILITY",
+    "variation": "supported_department",
+    "evidence": "Only students enrolled in Hostel programs with CGPA above 8.0 are eligible for department honors.",
+    "claim": "Eligibility for Hostel honors requires a CGPA exceeding 8.0.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-SUP-013",
+    "category": "CONTACT",
+    "variation": "supported_department",
+    "evidence": "The Academic Affairs office operates Monday through Friday from 9:00 AM to 5:00 PM.",
+    "claim": "The Academic Affairs office is open on weekdays between 9:00 AM and 5:00 PM.",
+    "label": "ENTAILMENT",
+    "is_high_impact": false
+  },
+  {
+    "id": "EXP-SUP-014",
+    "category": "DEADLINE",
+    "variation": "supported_department",
+    "evidence": "Official Academic Affairs certificates are issued within 5 working days after submission.",
+    "claim": "Students receive their Academic Affairs certificates within 5 working days.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-SUP-015",
+    "category": "FEE",
+    "variation": "supported_department",
+    "evidence": "A processing fee of \u20b9200 is charged for Academic Affairs record verification.",
+    "claim": "Verification of Academic Affairs records requires a processing fee of \u20b9200.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-SUP-016",
+    "category": "ELIGIBILITY",
+    "variation": "supported_department",
+    "evidence": "Only students enrolled in Academic Affairs programs with CGPA above 8.5 are eligible for department honors.",
+    "claim": "Eligibility for Academic Affairs honors requires a CGPA exceeding 8.5.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-SUP-017",
+    "category": "CONTACT",
+    "variation": "supported_department",
+    "evidence": "The Student Welfare office operates Monday through Friday from 9:00 AM to 5:00 PM.",
+    "claim": "The Student Welfare office is open on weekdays between 9:00 AM and 5:00 PM.",
+    "label": "ENTAILMENT",
+    "is_high_impact": false
+  },
+  {
+    "id": "EXP-SUP-018",
+    "category": "DEADLINE",
+    "variation": "supported_department",
+    "evidence": "Official Student Welfare certificates are issued within 5 working days after submission.",
+    "claim": "Students receive their Student Welfare certificates within 5 working days.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-SUP-019",
+    "category": "FEE",
+    "variation": "supported_department",
+    "evidence": "A processing fee of \u20b9200 is charged for Student Welfare record verification.",
+    "claim": "Verification of Student Welfare records requires a processing fee of \u20b9200.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-SUP-020",
+    "category": "ELIGIBILITY",
+    "variation": "supported_department",
+    "evidence": "Only students enrolled in Student Welfare programs with CGPA above 8.0 are eligible for department honors.",
+    "claim": "Eligibility for Student Welfare honors requires a CGPA exceeding 8.0.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-SUP-021",
+    "category": "CONTACT",
+    "variation": "supported_department",
+    "evidence": "The Transportation office operates Monday through Friday from 9:00 AM to 5:00 PM.",
+    "claim": "The Transportation office is open on weekdays between 9:00 AM and 5:00 PM.",
+    "label": "ENTAILMENT",
+    "is_high_impact": false
+  },
+  {
+    "id": "EXP-SUP-022",
+    "category": "DEADLINE",
+    "variation": "supported_department",
+    "evidence": "Official Transportation certificates are issued within 5 working days after submission.",
+    "claim": "Students receive their Transportation certificates within 5 working days.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-SUP-023",
+    "category": "FEE",
+    "variation": "supported_department",
+    "evidence": "A processing fee of \u20b9200 is charged for Transportation record verification.",
+    "claim": "Verification of Transportation records requires a processing fee of \u20b9200.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-SUP-024",
+    "category": "ELIGIBILITY",
+    "variation": "supported_department",
+    "evidence": "Only students enrolled in Transportation programs with CGPA above 8.0 are eligible for department honors.",
+    "claim": "Eligibility for Transportation honors requires a CGPA exceeding 8.0.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-SUP-025",
+    "category": "CONTACT",
+    "variation": "supported_department",
+    "evidence": "The Security office operates Monday through Friday from 9:00 AM to 5:00 PM.",
+    "claim": "The Security office is open on weekdays between 9:00 AM and 5:00 PM.",
+    "label": "ENTAILMENT",
+    "is_high_impact": false
+  },
+  {
+    "id": "EXP-SUP-026",
+    "category": "DEADLINE",
+    "variation": "supported_department",
+    "evidence": "Official Security certificates are issued within 5 working days after submission.",
+    "claim": "Students receive their Security certificates within 5 working days.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-SUP-027",
+    "category": "FEE",
+    "variation": "supported_department",
+    "evidence": "A processing fee of \u20b9200 is charged for Security record verification.",
+    "claim": "Verification of Security records requires a processing fee of \u20b9200.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-SUP-028",
+    "category": "ELIGIBILITY",
+    "variation": "supported_department",
+    "evidence": "Only students enrolled in Security programs with CGPA above 8.0 are eligible for department honors.",
+    "claim": "Eligibility for Security honors requires a CGPA exceeding 8.0.",
+    "label": "ENTAILMENT",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-CON-001",
+    "category": "DEADLINE",
+    "variation": "contradiction_department",
+    "evidence": "Students must clear Examination clearance within 7 days of semester conclusion.",
+    "claim": "Students can clear Examination clearance within 30 days of semester conclusion.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-CON-002",
+    "category": "FEE",
+    "variation": "contradiction_department",
+    "evidence": "The fine for damaged Examination equipment is \u20b9450.",
+    "claim": "The fine for damaged Examination equipment is \u20b94500.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-CON-003",
+    "category": "ELIGIBILITY",
+    "variation": "contradiction_department",
+    "evidence": "Minimum Examination workshop attendance is 80% to obtain a certificate.",
+    "claim": "Minimum Examination workshop attendance is 95% to obtain a certificate.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-CON-004",
+    "category": "DEADLINE",
+    "variation": "contradiction_department",
+    "evidence": "Students must clear Finance clearance within 7 days of semester conclusion.",
+    "claim": "Students can clear Finance clearance within 30 days of semester conclusion.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-CON-005",
+    "category": "FEE",
+    "variation": "contradiction_department",
+    "evidence": "The fine for damaged Finance equipment is \u20b9450.",
+    "claim": "The fine for damaged Finance equipment is \u20b94500.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-CON-006",
+    "category": "ELIGIBILITY",
+    "variation": "contradiction_department",
+    "evidence": "Minimum Finance workshop attendance is 80% to obtain a certificate.",
+    "claim": "Minimum Finance workshop attendance is 95% to obtain a certificate.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-CON-007",
+    "category": "DEADLINE",
+    "variation": "contradiction_department",
+    "evidence": "Students must clear Hostel clearance within 7 days of semester conclusion.",
+    "claim": "Students can clear Hostel clearance within 30 days of semester conclusion.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-CON-008",
+    "category": "FEE",
+    "variation": "contradiction_department",
+    "evidence": "The fine for damaged Hostel equipment is \u20b9450.",
+    "claim": "The fine for damaged Hostel equipment is \u20b94500.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-CON-009",
+    "category": "ELIGIBILITY",
+    "variation": "contradiction_department",
+    "evidence": "Minimum Hostel workshop attendance is 80% to obtain a certificate.",
+    "claim": "Minimum Hostel workshop attendance is 95% to obtain a certificate.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-CON-010",
+    "category": "DEADLINE",
+    "variation": "contradiction_department",
+    "evidence": "Students must clear Academic Affairs clearance within 7 days of semester conclusion.",
+    "claim": "Students can clear Academic Affairs clearance within 30 days of semester conclusion.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-CON-011",
+    "category": "FEE",
+    "variation": "contradiction_department",
+    "evidence": "The fine for damaged Academic Affairs equipment is \u20b9450.",
+    "claim": "The fine for damaged Academic Affairs equipment is \u20b94500.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-CON-012",
+    "category": "ELIGIBILITY",
+    "variation": "contradiction_department",
+    "evidence": "Minimum Academic Affairs workshop attendance is 80% to obtain a certificate.",
+    "claim": "Minimum Academic Affairs workshop attendance is 95% to obtain a certificate.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-CON-013",
+    "category": "DEADLINE",
+    "variation": "contradiction_department",
+    "evidence": "Students must clear Student Welfare clearance within 7 days of semester conclusion.",
+    "claim": "Students can clear Student Welfare clearance within 30 days of semester conclusion.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-CON-014",
+    "category": "FEE",
+    "variation": "contradiction_department",
+    "evidence": "The fine for damaged Student Welfare equipment is \u20b9450.",
+    "claim": "The fine for damaged Student Welfare equipment is \u20b94500.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-CON-015",
+    "category": "ELIGIBILITY",
+    "variation": "contradiction_department",
+    "evidence": "Minimum Student Welfare workshop attendance is 80% to obtain a certificate.",
+    "claim": "Minimum Student Welfare workshop attendance is 95% to obtain a certificate.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-CON-016",
+    "category": "DEADLINE",
+    "variation": "contradiction_department",
+    "evidence": "Students must clear Transportation clearance within 7 days of semester conclusion.",
+    "claim": "Students can clear Transportation clearance within 30 days of semester conclusion.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-CON-017",
+    "category": "FEE",
+    "variation": "contradiction_department",
+    "evidence": "The fine for damaged Transportation equipment is \u20b9450.",
+    "claim": "The fine for damaged Transportation equipment is \u20b94500.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-CON-018",
+    "category": "ELIGIBILITY",
+    "variation": "contradiction_department",
+    "evidence": "Minimum Transportation workshop attendance is 80% to obtain a certificate.",
+    "claim": "Minimum Transportation workshop attendance is 95% to obtain a certificate.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-CON-019",
+    "category": "DEADLINE",
+    "variation": "contradiction_department",
+    "evidence": "Students must clear Security clearance within 7 days of semester conclusion.",
+    "claim": "Students can clear Security clearance within 30 days of semester conclusion.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-CON-020",
+    "category": "FEE",
+    "variation": "contradiction_department",
+    "evidence": "The fine for damaged Security equipment is \u20b9450.",
+    "claim": "The fine for damaged Security equipment is \u20b94500.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-CON-021",
+    "category": "ELIGIBILITY",
+    "variation": "contradiction_department",
+    "evidence": "Minimum Security workshop attendance is 80% to obtain a certificate.",
+    "claim": "Minimum Security workshop attendance is 95% to obtain a certificate.",
+    "label": "CONTRADICTION",
+    "is_high_impact": true
+  },
+  {
+    "id": "EXP-NEU-001",
+    "category": "POLICY_RULE",
+    "variation": "neutral_department",
+    "evidence": "The Examination annual conference will take place in the auditorium.",
+    "claim": "Students must submit paper re-evaluation forms within 7 days.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "EXP-NEU-002",
+    "category": "FEE",
+    "variation": "neutral_department",
+    "evidence": "The Examination student club meets every Wednesday evening.",
+    "claim": "Late fee of \u20b9500 is charged on tuition payments.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "EXP-NEU-003",
+    "category": "POLICY_RULE",
+    "variation": "neutral_department",
+    "evidence": "The Finance annual conference will take place in the auditorium.",
+    "claim": "Students must submit paper re-evaluation forms within 7 days.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "EXP-NEU-004",
+    "category": "FEE",
+    "variation": "neutral_department",
+    "evidence": "The Finance student club meets every Wednesday evening.",
+    "claim": "Late fee of \u20b9500 is charged on tuition payments.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "EXP-NEU-005",
+    "category": "POLICY_RULE",
+    "variation": "neutral_department",
+    "evidence": "The Hostel annual conference will take place in the auditorium.",
+    "claim": "Students must submit paper re-evaluation forms within 7 days.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "EXP-NEU-006",
+    "category": "FEE",
+    "variation": "neutral_department",
+    "evidence": "The Hostel student club meets every Wednesday evening.",
+    "claim": "Late fee of \u20b9500 is charged on tuition payments.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "EXP-NEU-007",
+    "category": "POLICY_RULE",
+    "variation": "neutral_department",
+    "evidence": "The Academic Affairs annual conference will take place in the auditorium.",
+    "claim": "Students must submit paper re-evaluation forms within 7 days.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "EXP-NEU-008",
+    "category": "FEE",
+    "variation": "neutral_department",
+    "evidence": "The Academic Affairs student club meets every Wednesday evening.",
+    "claim": "Late fee of \u20b9500 is charged on tuition payments.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "EXP-NEU-009",
+    "category": "POLICY_RULE",
+    "variation": "neutral_department",
+    "evidence": "The Student Welfare annual conference will take place in the auditorium.",
+    "claim": "Students must submit paper re-evaluation forms within 7 days.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "EXP-NEU-010",
+    "category": "FEE",
+    "variation": "neutral_department",
+    "evidence": "The Student Welfare student club meets every Wednesday evening.",
+    "claim": "Late fee of \u20b9500 is charged on tuition payments.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "EXP-NEU-011",
+    "category": "POLICY_RULE",
+    "variation": "neutral_department",
+    "evidence": "The Transportation annual conference will take place in the auditorium.",
+    "claim": "Students must submit paper re-evaluation forms within 7 days.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "EXP-NEU-012",
+    "category": "FEE",
+    "variation": "neutral_department",
+    "evidence": "The Transportation student club meets every Wednesday evening.",
+    "claim": "Late fee of \u20b9500 is charged on tuition payments.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "EXP-NEU-013",
+    "category": "POLICY_RULE",
+    "variation": "neutral_department",
+    "evidence": "The Security annual conference will take place in the auditorium.",
+    "claim": "Students must submit paper re-evaluation forms within 7 days.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  },
+  {
+    "id": "EXP-NEU-014",
+    "category": "FEE",
+    "variation": "neutral_department",
+    "evidence": "The Security student club meets every Wednesday evening.",
+    "claim": "Late fee of \u20b9500 is charged on tuition payments.",
+    "label": "NEUTRAL",
+    "is_high_impact": false
+  }
+]

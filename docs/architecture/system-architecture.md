@@ -56,12 +56,27 @@ flowchart TD
   - Redaction of phone numbers, student registration numbers, email addresses, and personal identification tokens.
   - Reversible token mapping stored securely in the local session for staff re-hydration if authorized.
 
-### 3.6. NLP Analysis
-- **Role:** Deep semantic extraction of incoming text.
-- **Outputs:**
-  - Primary Intent (e.g., `REQUEST_REFUND`, `GRADE_RECHECK_APPLICATION`, `ROOM_MAINTENANCE`).
-  - Target Department (e.g., `ACCOUNTS`, `EXAMINATION`, `HOSTEL_AFFAIRS`).
-  - Priority & Urgency Score (1 to 5) determined by keyword triggers, SLA proximity, and emotional distress markers.
+### 3.6. NLP Intelligence Pipeline (Milestones 4 & 5)
+- **Role:** Modular semantic extraction and structured understanding of incoming RMS tickets using classical machine learning and neural embeddings.
+- **Pipeline Components:**
+  - `Preprocessor`: Normalizes text, canonicalizes domain synonyms, and cleans whitespace/punctuation.
+  - `IntentClassifier`: Pluggable model provider interface (`get_intent_classifier`):
+    - `deterministic`: Rule-based pattern matcher (Milestone 4 baseline, 0 params).
+    - `tfidf_logistic`: TF-IDF n-grams $(1, 2)$ + Multinomial Logistic Regression.
+    - `tfidf_svm`: TF-IDF n-grams $(1, 2)$ + Calibrated Linear SVM via Platt scaling (Recommended).
+    - `sentence_transformer`: Dense 384-d contextual embeddings (`all-MiniLM-L6-v2`) + Linear Head.
+  - `DepartmentRouter`: Deterministic mapping to 7 university departments with entity-level overrides.
+  - `PriorityClassifier`: Assesses operational severity (`LOW`, `MEDIUM`, `HIGH`, `CRITICAL`) based on hazards, financial duplicate debits, and exam disruptions.
+  - `UrgencyClassifier`: Assesses temporal deadline proximity (`LOW`, `NORMAL`, `URGENT`, `IMMEDIATE`) based on extracted temporal expressions.
+  - `EntityExtractor`: Extracts structured domain entities (`course_code`, `hostel_block`, `room_number`, `currency_amount`, `bank_name`, `portal_type`, `semester`) with character spans and confidence.
+  - `ConfidenceEngine`: Evaluates separated heuristic confidences (`intent_confidence`, `department_confidence`, `priority_confidence`, `urgency_confidence`) and enforces human-in-the-loop review thresholds.
+  - `AmbiguityDetector`: Flags low-information or terse queries (`needs_clarification = True`).
+- **Core Rule:** Prediction $\neq$ Decision. NLP predictions recommend; human staff decide. Operational ticket state is never modified autonomously by NLP.
+
+### 3.6.1. Human Override Engine (Milestone 5)
+- **Role:** Non-destructive staff correction mechanism for department routing, priority, urgency, and intent.
+- **Contract:** Original AI predictions are permanently archived under `metadata["ai_original_prediction"]`. Every override appends a formal `HUMAN_OVERRIDE` audit event recording staff ID, timestamp, and mandatory rationale.
+
 
 ### 3.7. RAG (Retrieval-Augmented Generation) Engine
 - **Role:** Grounded knowledge retrieval restricted strictly to official university documents.
@@ -71,10 +86,11 @@ flowchart TD
   - Relevance ranking and citation packaging (Article, Clause, Document Name).
 
 ### 3.8. Routing / Workflow Engine
-- **Role:** State machine managing ticket transitions.
+- **Role:** Deterministic state machine managing ticket operational progression.
 - **States:**
-  - `INGESTED` → `ANALYZED` → `DRAFTED` → `STAFF_REVIEW` → `APPROVED` / `ESCALATED` / `REDIRECTED` → `RESOLVED`.
-- **Integrity:** Enforces that no ticket can transition to `RESOLVED` without a verified staff approval signature.
+  - `NEW` → `INGESTED` → `ANALYZED` → `ROUTED` → `STAFF_REVIEW` → `IN_PROGRESS` → `WAITING_FOR_STUDENT` / `WAITING_FOR_DEPARTMENT` / `ESCALATED` → `RESOLVED` → `CLOSED`.
+- **Integrity:** Enforces strict transition validation (`can_transition()`). Invalid transitions reject with `InvalidStateTransitionError` (HTTP 400). All transitions log append-only `AuditEvent` records. No ticket can transition to `RESOLVED` or `CLOSED` without human staff authority.
+- **SLA Engine:** Dynamically calculates due dates and evaluates deterministic risk states (`ON_TRACK`, `AT_RISK`, `BREACHED`).
 
 ### 3.9. Response Draft Generator
 - **Role:** Generates an official, polite, and policy-aligned draft response.

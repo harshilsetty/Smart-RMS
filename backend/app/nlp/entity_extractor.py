@@ -17,6 +17,8 @@ class EntityExtractor:
         "portal_type": r"\b(NSP|National Scholarship Portal|UMS(?:\sPortal)?|Fortinet(?:\sWi[\-\s]?Fi)?|Payment Gateway|Grade Management System)\b",
         "certificate_type": r"\b(Bonafide(?:\sCertificate)?|Medium of Instruction(?:\sLetter)?|MOI|Migration(?:\sCertificate)?|Character(?:\sCertificate)?)\b",
         "date_reference": r"\b(\d{1,2}(?:st|nd|rd|th)?\s+(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)(?:\s+\d{4})?)\b",
+        "semester": r"\b(?:Semester|Sem|Term)\s*([0-9]{1,2}|I{1,3}|IV|V|VI|VII|VIII)\b",
+        "examination_type": r"\b(End Term(?: Exam(?:ination)?)?|Mid Term(?: Exam(?:ination)?)?|Special Supplementary|Arrear Exam|Re-evaluation)\b",
         "time_window": r"\b(\d{1,2}\s*(?:hours?|hrs?|days?|weeks?))\b"
     }
 
@@ -30,6 +32,26 @@ class EntityExtractor:
         "Scholarship Delay": ["scholarship pending", "institute verification", "nsp verification", "post-matric"],
         "Network Connectivity": ["wi-fi", "mac address", "radius", "device limit", "registration failure"]
     }
+
+    def extract_structured(self, text: str) -> List[Any]:
+        """Extracts entities with source spans and confidence values."""
+        from app.nlp.schemas import StructuredEntity
+        cleaned = clean_text(text)
+        structured: List[StructuredEntity] = []
+
+        for key, pattern in self.PATTERNS.items():
+            for m in re.finditer(pattern, cleaned, re.IGNORECASE):
+                val = m.group(1) if m.groups() else m.group(0)
+                span = m.group(0)
+                structured.append(
+                    StructuredEntity(
+                        entity_type=key,
+                        value=val.strip(),
+                        confidence=0.92,
+                        source_span=span.strip()
+                    )
+                )
+        return structured
 
     def extract(self, text: str) -> Dict[str, Any]:
         """Extracts domain entities and returns a structured dictionary."""

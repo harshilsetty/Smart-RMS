@@ -12,6 +12,9 @@ class Settings(BaseSettings):
 
     # AI Configuration
     AI_PROVIDER: str = "mock"  # "mock" or "gemini"
+    NLP_MODEL_PROVIDER: str = "deterministic"  # "deterministic", "tfidf_logistic", "tfidf_svm", "sentence_transformer"
+    CLAIM_VERIFIER_PROVIDER: str = "deterministic"  # "deterministic" or "nli"
+    NLI_MODEL_NAME: str = "cross-encoder/nli-deberta-v3-xsmall"
     GEMINI_API_KEY: str = ""
     LLM_MODEL: str = "gemini-1.5-flash"
     AI_CONFIDENCE_THRESHOLD: float = 0.75

@@ -1,0 +1,44 @@
+[
+  {
+    "event_id": "TEL-20261005125545101699",
+    "ticket_id": "TKT-RMS-1002",
+    "event_type": "DRAFT_GENERATED",
+    "ai_intent": null,
+    "selected_department": "Accounts & Finance",
+    "ai_priority": null,
+    "ai_urgency": null,
+    "human_override": false,
+    "rag_source_ids": [
+      "DOC-FIN-001",
+      "DOC-FIN-001",
+      "DOC-FIN-001"
+    ],
+    "grounding_status": "CONTRADICTED",
+    "draft_action": null,
+    "escalated": false,
+    "redirected": false,
+    "actor_id": "SYSTEM_AI",
+    "timestamp": "2026-10-05T12:55:45.101742+00:00"
+  },
+  {
+    "event_id": "TEL-20261005125545341385",
+    "ticket_id": "TKT-RMS-1001",
+    "event_type": "DRAFT_GENERATED",
+    "ai_intent": null,
+    "selected_department": "Hostel Affairs",
+    "ai_priority": null,
+    "ai_urgency": null,
+    "human_override": false,
+    "rag_source_ids": [
+      "DOC-2024-HOSTEL-01",
+      "DOC-2024-HOSTEL-01",
+      "DOC-2024-HOSTEL-01"
+    ],
+    "grounding_status": "INSUFFICIENT_EVIDENCE",
+    "draft_action": null,
+    "escalated": false,
+    "redirected": false,
+    "actor_id": "SYSTEM_AI",
+    "timestamp": "2026-10-05T12:55:45.341422+00:00"
+  }
+]

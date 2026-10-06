@@ -1,0 +1,11 @@
+[
+  {
+    "ticket_id": "TKT-RMS-1001",
+    "original_ai_department": "Hostel Affairs",
+    "human_corrected_department": "Student Welfare",
+    "context_summary": "Water leakage and noisy AC unit in BH-4 Room 312",
+    "actor_id": "USR-STAFF-99",
+    "reason": "Student requires immediate grievance cell intervention",
+    "timestamp": "2026-10-05T12:55:44.628711+00:00"
+  }
+]

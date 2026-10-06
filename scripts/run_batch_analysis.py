@@ -34,13 +34,17 @@ def run_batch_analysis(input_path: Path, output_path: Path) -> Dict[str, Any]:
     dept_counts = defaultdict(int)
     intent_counts = defaultdict(int)
     priority_counts = defaultdict(int)
+    urgency_counts = defaultdict(int)
 
     pii_detected_count = 0
     human_review_count = 0
+    clarification_count = 0
+    unknown_count = 0
     confidence_sum = 0.0
 
     start_time = time.time()
     processed_results: List[Dict[str, Any]] = []
+    latencies: List[float] = []
 
     candidate_docs = getattr(retriever.vector_store, "documents", [])
 
@@ -54,12 +58,14 @@ def run_batch_analysis(input_path: Path, output_path: Path) -> Dict[str, Any]:
         if vault:
             pii_detected_count += 1
 
-        # 2. NLP Pipeline
+        # 2. NLP Pipeline (measure latency)
+        t0 = time.time()
         nlp_res = nlp_pipeline.process(
             subject=subject,
             description=redacted_desc,
             candidate_docs=candidate_docs
         )
+        latencies.append((time.time() - t0) * 1000)
 
         # 3. RAG Retrieval
         sources = retriever.retrieve(
@@ -72,6 +78,12 @@ def run_batch_analysis(input_path: Path, output_path: Path) -> Dict[str, Any]:
         dept_counts[nlp_res.department] += 1
         intent_counts[nlp_res.intent] += 1
         priority_counts[nlp_res.priority] += 1
+        urgency_counts[nlp_res.urgency] += 1
+
+        if nlp_res.intent in ["UNKNOWN", "OTHER"]:
+            unknown_count += 1
+        if nlp_res.needs_clarification:
+            clarification_count += 1
 
         avg_conf = (nlp_res.intent_confidence + nlp_res.department_confidence + nlp_res.priority_confidence) / 3.0
         confidence_sum += avg_conf
@@ -84,8 +96,10 @@ def run_batch_analysis(input_path: Path, output_path: Path) -> Dict[str, Any]:
             "intent": nlp_res.intent,
             "department": nlp_res.department,
             "priority": nlp_res.priority,
+            "urgency": nlp_res.urgency,
             "confidence": round(avg_conf, 2),
             "requires_human_review": nlp_res.requires_human_review,
+            "needs_clarification": nlp_res.needs_clarification,
             "entities": nlp_res.entities,
             "sources_retrieved_count": len(sources)
         })
@@ -94,18 +108,27 @@ def run_batch_analysis(input_path: Path, output_path: Path) -> Dict[str, Any]:
     throughput = round(total_records / elapsed_time, 2) if elapsed_time > 0 else 0.0
     avg_confidence = round(confidence_sum / total_records, 4) if total_records > 0 else 0.0
     human_review_pct = round((human_review_count / total_records) * 100, 2) if total_records > 0 else 0.0
+    latencies.sort()
+    avg_lat = round(sum(latencies) / len(latencies), 3) if latencies else 0.0
+    p95_lat = round(latencies[int(0.95 * len(latencies))], 3) if latencies else 0.0
 
     summary = {
         "total_processed": total_records,
         "elapsed_seconds": round(elapsed_time, 3),
         "throughput_tickets_per_sec": throughput,
+        "latency_average_ms": avg_lat,
+        "latency_p95_ms": p95_lat,
         "average_confidence": avg_confidence,
         "human_review_required_count": human_review_count,
         "human_review_required_percentage": human_review_pct,
+        "clarification_required_count": clarification_count,
+        "clarification_required_percentage": round((clarification_count / total_records) * 100, 2),
+        "unknown_intent_count": unknown_count,
         "pii_redacted_count": pii_detected_count,
         "department_distribution": dict(dept_counts),
         "intent_distribution": dict(intent_counts),
-        "priority_distribution": dict(priority_counts)
+        "priority_distribution": dict(priority_counts),
+        "urgency_distribution": dict(urgency_counts)
     }
 
     full_output = {

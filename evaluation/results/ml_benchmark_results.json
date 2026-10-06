@@ -1,0 +1,1214 @@
+{
+  "deterministic_baseline": {
+    "model_name": "Deterministic Baseline (Rule-based)",
+    "sample_count": 36,
+    "accuracy": 0.9167,
+    "macro_precision": 0.7625,
+    "macro_recall": 0.8,
+    "macro_f1": 0.7769,
+    "weighted_f1": 0.8846,
+    "average_latency_ms": 0.077,
+    "median_latency_ms": 0.078,
+    "p95_latency_ms": 0.105,
+    "ece": 0.1187,
+    "brier_score": 0.1591,
+    "per_class": {
+      "HOSTEL_MAINTENANCE": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 4
+      },
+      "FEE_PAYMENT": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      },
+      "EXAMINATION": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      },
+      "ACADEMIC": {
+        "precision": 0.625,
+        "recall": 1.0,
+        "f1": 0.7692,
+        "support": 5
+      },
+      "ATTENDANCE": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 4
+      },
+      "SCHOLARSHIP": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 4
+      },
+      "IT_SUPPORT": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 4
+      },
+      "STUDENT_SERVICES": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 2
+      },
+      "GENERAL_INQUIRY": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 2
+      },
+      "UNKNOWN": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 1
+      }
+    },
+    "confusion_matrix": [
+      [
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "classes": [
+      "HOSTEL_MAINTENANCE",
+      "FEE_PAYMENT",
+      "EXAMINATION",
+      "ACADEMIC",
+      "ATTENDANCE",
+      "SCHOLARSHIP",
+      "IT_SUPPORT",
+      "STUDENT_SERVICES",
+      "GENERAL_INQUIRY",
+      "UNKNOWN"
+    ],
+    "failures_count": 3,
+    "failures": [
+      {
+        "ticket_id": "EVAL-RMS-060",
+        "subject": "General question regarding campus cafeteria lunch hours on public holidays",
+        "expected": "GENERAL_INQUIRY",
+        "predicted": "ACADEMIC",
+        "confidence": 0.82,
+        "secondary": null,
+        "is_ambiguous": false,
+        "reason": "Matched ACADEMIC keywords: ca."
+      },
+      {
+        "ticket_id": "EVAL-NLP-119",
+        "subject": "Campus stationery shop printing binding charges",
+        "expected": "GENERAL_INQUIRY",
+        "predicted": "ACADEMIC",
+        "confidence": 0.82,
+        "secondary": null,
+        "is_ambiguous": false,
+        "reason": "Matched ACADEMIC keywords: ca."
+      },
+      {
+        "ticket_id": "EVAL-NLP-103",
+        "subject": "My issue is not solved",
+        "expected": "UNKNOWN",
+        "predicted": "ACADEMIC",
+        "confidence": 0.65,
+        "secondary": null,
+        "is_ambiguous": true,
+        "reason": "Matched ACADEMIC keywords: ca. Request query is terse/ambiguous; requires student clarification or staff verification."
+      }
+    ]
+  },
+  "deterministic_baseline_full_120": {
+    "model_name": "Deterministic Baseline (Full 120)",
+    "sample_count": 120,
+    "accuracy": 0.9,
+    "macro_precision": 0.7986,
+    "macro_recall": 0.8361,
+    "macro_f1": 0.8117,
+    "weighted_f1": 0.8784,
+    "average_latency_ms": 0.072,
+    "median_latency_ms": 0.07,
+    "p95_latency_ms": 0.091,
+    "ece": 0.1243,
+    "brier_score": 0.1832,
+    "per_class": {
+      "HOSTEL_MAINTENANCE": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 15
+      },
+      "FEE_PAYMENT": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 16
+      },
+      "EXAMINATION": {
+        "precision": 1.0,
+        "recall": 0.9375,
+        "f1": 0.9677,
+        "support": 16
+      },
+      "ACADEMIC": {
+        "precision": 0.6522,
+        "recall": 1.0,
+        "f1": 0.7895,
+        "support": 15
+      },
+      "ATTENDANCE": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 13
+      },
+      "SCHOLARSHIP": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 13
+      },
+      "IT_SUPPORT": {
+        "precision": 1.0,
+        "recall": 0.9231,
+        "f1": 0.96,
+        "support": 13
+      },
+      "STUDENT_SERVICES": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 7
+      },
+      "GENERAL_INQUIRY": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 8
+      },
+      "UNKNOWN": {
+        "precision": 0.3333,
+        "recall": 0.5,
+        "f1": 0.4,
+        "support": 4
+      }
+    },
+    "confusion_matrix": [
+      [
+        15,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        16,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        15,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        15,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        13,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        13,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        12,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        7,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4
+      ],
+      [
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2
+      ]
+    ],
+    "classes": [
+      "HOSTEL_MAINTENANCE",
+      "FEE_PAYMENT",
+      "EXAMINATION",
+      "ACADEMIC",
+      "ATTENDANCE",
+      "SCHOLARSHIP",
+      "IT_SUPPORT",
+      "STUDENT_SERVICES",
+      "GENERAL_INQUIRY",
+      "UNKNOWN"
+    ],
+    "failures_count": 12,
+    "failures": [
+      {
+        "ticket_id": "EVAL-RMS-018",
+        "subject": "Re-evaluation grade result not updated in official marksheet transcript",
+        "expected": "EXAMINATION",
+        "predicted": "ACADEMIC",
+        "confidence": 0.78,
+        "secondary": "EXAMINATION",
+        "is_ambiguous": false,
+        "reason": "Matched ACADEMIC keywords: grade."
+      },
+      {
+        "ticket_id": "EVAL-RMS-057",
+        "subject": "Lost sports equipment in university gym facility",
+        "expected": "GENERAL_INQUIRY",
+        "predicted": "UNKNOWN",
+        "confidence": 0.3,
+        "secondary": null,
+        "is_ambiguous": true,
+        "reason": "No recognizable domain signals detected; classified as UNKNOWN intent."
+      },
+      {
+        "ticket_id": "EVAL-RMS-058",
+        "subject": "Campus bookstore inquiry about availability of novel books",
+        "expected": "GENERAL_INQUIRY",
+        "predicted": "ACADEMIC",
+        "confidence": 0.82,
+        "secondary": null,
+        "is_ambiguous": false,
+        "reason": "Matched ACADEMIC keywords: ca."
+      },
+      {
+        "ticket_id": "EVAL-RMS-059",
+        "subject": "Inquiry regarding public bus timings from university main gate to railway station",
+        "expected": "GENERAL_INQUIRY",
+        "predicted": "ACADEMIC",
+        "confidence": 0.78,
+        "secondary": "HOSTEL_MAINTENANCE",
+        "is_ambiguous": false,
+        "reason": "Matched ACADEMIC keywords: ca."
+      },
+      {
+        "ticket_id": "EVAL-RMS-060",
+        "subject": "General question regarding campus cafeteria lunch hours on public holidays",
+        "expected": "GENERAL_INQUIRY",
+        "predicted": "ACADEMIC",
+        "confidence": 0.82,
+        "secondary": null,
+        "is_ambiguous": false,
+        "reason": "Matched ACADEMIC keywords: ca."
+      },
+      {
+        "ticket_id": "EVAL-NLP-090",
+        "subject": "Student portal LMS login authentication failure",
+        "expected": "IT_SUPPORT",
+        "predicted": "ACADEMIC",
+        "confidence": 0.82,
+        "secondary": null,
+        "is_ambiguous": false,
+        "reason": "Matched ACADEMIC keywords: ca."
+      },
+      {
+        "ticket_id": "EVAL-NLP-103",
+        "subject": "My issue is not solved",
+        "expected": "UNKNOWN",
+        "predicted": "ACADEMIC",
+        "confidence": 0.65,
+        "secondary": null,
+        "is_ambiguous": true,
+        "reason": "Matched ACADEMIC keywords: ca. Request query is terse/ambiguous; requires student clarification or staff verification."
+      },
+      {
+        "ticket_id": "EVAL-NLP-108",
+        "subject": "Query regarding university matter",
+        "expected": "UNKNOWN",
+        "predicted": "ACADEMIC",
+        "confidence": 0.65,
+        "secondary": null,
+        "is_ambiguous": true,
+        "reason": "Matched ACADEMIC keywords: ca. Request query is terse/ambiguous; requires student clarification or staff verification."
+      },
+      {
+        "ticket_id": "EVAL-NLP-117",
+        "subject": "Weather inquiry for cricket ground match",
+        "expected": "GENERAL_INQUIRY",
+        "predicted": "UNKNOWN",
+        "confidence": 0.3,
+        "secondary": null,
+        "is_ambiguous": true,
+        "reason": "No recognizable domain signals detected; classified as UNKNOWN intent."
+      },
+      {
+        "ticket_id": "EVAL-NLP-118",
+        "subject": "Lost laptop charger in central library Block 34",
+        "expected": "GENERAL_INQUIRY",
+        "predicted": "UNKNOWN",
+        "confidence": 0.3,
+        "secondary": null,
+        "is_ambiguous": true,
+        "reason": "No recognizable domain signals detected; classified as UNKNOWN intent."
+      },
+      {
+        "ticket_id": "EVAL-NLP-119",
+        "subject": "Campus stationery shop printing binding charges",
+        "expected": "GENERAL_INQUIRY",
+        "predicted": "ACADEMIC",
+        "confidence": 0.82,
+        "secondary": null,
+        "is_ambiguous": false,
+        "reason": "Matched ACADEMIC keywords: ca."
+      },
+      {
+        "ticket_id": "EVAL-NLP-120",
+        "subject": "City bus frequency on university road",
+        "expected": "GENERAL_INQUIRY",
+        "predicted": "UNKNOWN",
+        "confidence": 0.3,
+        "secondary": null,
+        "is_ambiguous": true,
+        "reason": "No recognizable domain signals detected; classified as UNKNOWN intent."
+      }
+    ]
+  },
+  "tfidf_logistic": {
+    "model_name": "TF-IDF + Logistic Regression",
+    "sample_count": 36,
+    "accuracy": 1.0,
+    "macro_precision": 1.0,
+    "macro_recall": 1.0,
+    "macro_f1": 1.0,
+    "weighted_f1": 1.0,
+    "average_latency_ms": 1.323,
+    "median_latency_ms": 1.28,
+    "p95_latency_ms": 1.527,
+    "ece": 0.4194,
+    "brier_score": 0.2528,
+    "per_class": {
+      "HOSTEL_MAINTENANCE": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 4
+      },
+      "FEE_PAYMENT": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      },
+      "EXAMINATION": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      },
+      "ACADEMIC": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      },
+      "ATTENDANCE": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 4
+      },
+      "SCHOLARSHIP": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 4
+      },
+      "IT_SUPPORT": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 4
+      },
+      "STUDENT_SERVICES": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 2
+      },
+      "GENERAL_INQUIRY": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 2
+      },
+      "UNKNOWN": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 1
+      }
+    },
+    "confusion_matrix": [
+      [
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "classes": [
+      "HOSTEL_MAINTENANCE",
+      "FEE_PAYMENT",
+      "EXAMINATION",
+      "ACADEMIC",
+      "ATTENDANCE",
+      "SCHOLARSHIP",
+      "IT_SUPPORT",
+      "STUDENT_SERVICES",
+      "GENERAL_INQUIRY",
+      "UNKNOWN"
+    ],
+    "failures_count": 0,
+    "failures": []
+  },
+  "tfidf_svm": {
+    "model_name": "TF-IDF + Calibrated Linear SVM",
+    "sample_count": 36,
+    "accuracy": 1.0,
+    "macro_precision": 1.0,
+    "macro_recall": 1.0,
+    "macro_f1": 1.0,
+    "weighted_f1": 1.0,
+    "average_latency_ms": 1.34,
+    "median_latency_ms": 1.265,
+    "p95_latency_ms": 1.813,
+    "ece": 0.1634,
+    "brier_score": 0.0632,
+    "per_class": {
+      "HOSTEL_MAINTENANCE": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 4
+      },
+      "FEE_PAYMENT": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      },
+      "EXAMINATION": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      },
+      "ACADEMIC": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      },
+      "ATTENDANCE": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 4
+      },
+      "SCHOLARSHIP": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 4
+      },
+      "IT_SUPPORT": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 4
+      },
+      "STUDENT_SERVICES": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 2
+      },
+      "GENERAL_INQUIRY": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 2
+      },
+      "UNKNOWN": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 1
+      }
+    },
+    "confusion_matrix": [
+      [
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "classes": [
+      "HOSTEL_MAINTENANCE",
+      "FEE_PAYMENT",
+      "EXAMINATION",
+      "ACADEMIC",
+      "ATTENDANCE",
+      "SCHOLARSHIP",
+      "IT_SUPPORT",
+      "STUDENT_SERVICES",
+      "GENERAL_INQUIRY",
+      "UNKNOWN"
+    ],
+    "failures_count": 0,
+    "failures": []
+  },
+  "sentence_transformer": {
+    "model_name": "Dense Embeddings (sentence_transformer_all_MiniLM_L6_v2) + Classifier",
+    "sample_count": 36,
+    "accuracy": 1.0,
+    "macro_precision": 1.0,
+    "macro_recall": 1.0,
+    "macro_f1": 1.0,
+    "weighted_f1": 1.0,
+    "average_latency_ms": 8.777,
+    "median_latency_ms": 7.648,
+    "p95_latency_ms": 14.247,
+    "ece": 0.277,
+    "brier_score": 0.1102,
+    "per_class": {
+      "HOSTEL_MAINTENANCE": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 4
+      },
+      "FEE_PAYMENT": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      },
+      "EXAMINATION": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      },
+      "ACADEMIC": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 5
+      },
+      "ATTENDANCE": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 4
+      },
+      "SCHOLARSHIP": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 4
+      },
+      "IT_SUPPORT": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 4
+      },
+      "STUDENT_SERVICES": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 2
+      },
+      "GENERAL_INQUIRY": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 2
+      },
+      "UNKNOWN": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 1
+      }
+    },
+    "confusion_matrix": [
+      [
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "classes": [
+      "HOSTEL_MAINTENANCE",
+      "FEE_PAYMENT",
+      "EXAMINATION",
+      "ACADEMIC",
+      "ATTENDANCE",
+      "SCHOLARSHIP",
+      "IT_SUPPORT",
+      "STUDENT_SERVICES",
+      "GENERAL_INQUIRY",
+      "UNKNOWN"
+    ],
+    "failures_count": 0,
+    "failures": []
+  }
+}

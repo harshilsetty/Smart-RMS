@@ -1,0 +1,6 @@
+CONFUSION MATRIX (Ground Truth rows, Predicted columns)
+                | ENTAILMENT   | CONTRADICTION | NEUTRAL   
+----------------------------------------------------------
+ENTAILMENT      | 42           | 1             | 8         
+CONTRADICTION   | 6            | 64            | 11        
+NEUTRAL         | 0            | 3             | 51        

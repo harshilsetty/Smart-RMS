@@ -107,6 +107,11 @@ class UniversitySystemAdapter(ABC):
         pass
 
     @abstractmethod
+    def add_audit_event(self, ticket_id: str, event: Dict[str, Any]) -> bool:
+        """Appends an audit event to the ticket history."""
+        pass
+
+    @abstractmethod
     def list_departments(self) -> List[Dict[str, Any]]:
         """Lists all university departments and their SLA policies."""
         pass

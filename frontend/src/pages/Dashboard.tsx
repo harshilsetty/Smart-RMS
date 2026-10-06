@@ -5,15 +5,18 @@ import { TicketDetail } from '../components/TicketDetail';
 import { AIAnalysisCard } from '../components/AIAnalysisCard';
 import { RAGSourcesCard } from '../components/RAGSourcesCard';
 import { ResponseDraftCard } from '../components/ResponseDraftCard';
-import { Ticket, DraftResponse, AnalyticsOverview } from '../types';
+import { Ticket, DraftResponse, AnalyticsOverview, OperationsAnalytics } from '../types';
 import {
   fetchTickets,
   fetchDraftResponse,
+  regenerateDraftResponse,
+  overrideGroundingStatus,
   triggerAIAnalysis,
   approveTicket,
   escalateTicket,
   redirectTicket,
-  fetchAnalytics
+  fetchAnalytics,
+  fetchOperationsAnalytics
 } from '../services/api';
 
 export const Dashboard: React.FC = () => {
@@ -21,10 +24,12 @@ export const Dashboard: React.FC = () => {
   const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null);
   const [draft, setDraft] = useState<DraftResponse | null>(null);
   const [analytics, setAnalytics] = useState<AnalyticsOverview | null>(null);
+  const [operationsAnalytics, setOperationsAnalytics] = useState<OperationsAnalytics | null>(null);
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDepartment, setSelectedDepartment] = useState('All Departments');
   const [selectedPriority, setSelectedPriority] = useState('All Priorities');
+  const [selectedStatus, setSelectedStatus] = useState('All Statuses');
 
   const [isLoadingDraft, setIsLoadingDraft] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -39,12 +44,13 @@ export const Dashboard: React.FC = () => {
   useEffect(() => {
     loadTickets();
     loadAnalytics();
-  }, [selectedDepartment, selectedPriority, searchQuery]);
+  }, [selectedDepartment, selectedPriority, selectedStatus, searchQuery]);
 
   const loadTickets = async () => {
     const filters: any = {};
     if (selectedDepartment !== 'All Departments') filters.department = selectedDepartment;
     if (selectedPriority !== 'All Priorities') filters.priority = selectedPriority;
+    if (selectedStatus !== 'All Statuses') filters.status = selectedStatus;
     if (searchQuery.trim()) filters.search = searchQuery.trim();
 
     const data = await fetchTickets(filters);
@@ -58,8 +64,16 @@ export const Dashboard: React.FC = () => {
   };
 
   const loadAnalytics = async () => {
-    const data = await fetchAnalytics();
-    setAnalytics(data);
+    try {
+      const [ovData, opData] = await Promise.all([
+        fetchAnalytics(),
+        fetchOperationsAnalytics().catch(() => null)
+      ]);
+      setAnalytics(ovData);
+      if (opData) setOperationsAnalytics(opData);
+    } catch (err) {
+      console.error('Failed to load operational analytics:', err);
+    }
   };
 
   const handleSelectTicket = async (ticket: Ticket) => {
@@ -142,7 +156,7 @@ export const Dashboard: React.FC = () => {
       )}
 
       {/* Top Operations KPI Metrics */}
-      <MetricsBar analytics={analytics} />
+      <MetricsBar analytics={analytics} operationsAnalytics={operationsAnalytics} />
 
       {/* Workstation 2-Column Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 h-[calc(100vh-230px)] min-h-[680px]">
@@ -158,6 +172,8 @@ export const Dashboard: React.FC = () => {
             setSelectedDepartment={setSelectedDepartment}
             selectedPriority={selectedPriority}
             setSelectedPriority={setSelectedPriority}
+            selectedStatus={selectedStatus}
+            setSelectedStatus={setSelectedStatus}
           />
         </div>
 
@@ -169,8 +185,10 @@ export const Dashboard: React.FC = () => {
               <TicketDetail
                 ticket={selectedTicket}
                 onAnalyze={handleRunAnalysis}
-                onEscalate={handleEscalate}
-                onRedirect={handleRedirect}
+                onRefresh={async () => {
+                  await loadTickets();
+                  await loadAnalytics();
+                }}
                 isAnalyzing={isAnalyzing}
               />
 

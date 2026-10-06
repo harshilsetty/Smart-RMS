@@ -1,0 +1,96 @@
+{
+  "benchmark_name": "500-Ticket End-to-End Staff Copilot Benchmark (Milestone 6)",
+  "total_tickets_processed": 500,
+  "model_provider_used": "tfidf_svm",
+  "elapsed_seconds": 2.775,
+  "throughput_tickets_per_sec": 180.18,
+  "latency_metrics": {
+    "nlp_triage_mean_ms": 3.525,
+    "nlp_triage_p95_ms": 6.264,
+    "rag_retrieval_mean_ms": 0.788,
+    "rag_retrieval_p95_ms": 1.618,
+    "claim_grounding_mean_ms": 1.17,
+    "claim_grounding_p95_ms": 2.866,
+    "total_copilot_pipeline_mean_ms": 5.543,
+    "total_copilot_pipeline_p95_ms": 9.648
+  },
+  "grounding_and_draft_verification": {
+    "fully_grounded_drafts": 0,
+    "fully_grounded_rate_pct": 0.0,
+    "partially_grounded_drafts": 0,
+    "partially_grounded_rate_pct": 0.0,
+    "contradicted_drafts": 255,
+    "contradicted_rate_pct": 51.0,
+    "unsupported_drafts": 230,
+    "unsupported_rate_pct": 46.0,
+    "no_source_refusal_count": 230,
+    "no_source_refusal_rate_pct": 46.0,
+    "human_review_required_count": 500,
+    "human_review_required_rate_pct": 100.0,
+    "pii_redacted_tickets_count": 208,
+    "pii_redaction_rate_pct": 41.6
+  },
+  "claim_level_telemetry": {
+    "total_claims_extracted": 3513,
+    "supported_claims": 436,
+    "supported_claims_rate_pct": 12.41,
+    "contradicted_claims": 288,
+    "contradicted_claims_rate_pct": 8.2,
+    "unsupported_claims": 2789,
+    "unsupported_claims_rate_pct": 79.39,
+    "high_impact_violations": 1228
+  },
+  "milestone_comparison": {
+    "m5_throughput": 253.2,
+    "m6_throughput": 180.18,
+    "m5_mean_latency_ms": 3.89,
+    "m6_mean_latency_ms": 5.543,
+    "m5_p95_latency_ms": 7.75,
+    "m6_p95_latency_ms": 9.648,
+    "m5_grounded_draft_rate_pct": 54.0,
+    "m6_fully_grounded_draft_rate_pct": 0.0,
+    "m5_no_source_refusal_rate_pct": 46.0,
+    "m6_no_source_refusal_rate_pct": 46.0,
+    "m5_human_review_rate_pct": 70.4,
+    "m6_human_review_rate_pct": 100.0,
+    "verification_overhead_ms": 1.17
+  },
+  "distributions": {
+    "intent": {
+      "ACADEMIC": 81,
+      "FEE_PAYMENT": 79,
+      "SCHOLARSHIP": 74,
+      "ATTENDANCE": 74,
+      "EXAMINATION": 72,
+      "HOSTEL_MAINTENANCE": 64,
+      "IT_SUPPORT": 56
+    },
+    "department": {
+      "Academic Affairs": 81,
+      "Accounts & Finance": 79,
+      "Scholarship Section": 74,
+      "Student Welfare": 74,
+      "Examination Branch": 72,
+      "Hostel Affairs": 64,
+      "IT Services": 56
+    },
+    "priority": {
+      "High": 196,
+      "Medium": 155,
+      "Critical": 93,
+      "Low": 56
+    },
+    "urgency": {
+      "URGENT": 228,
+      "NORMAL": 123,
+      "IMMEDIATE": 93,
+      "LOW": 56
+    },
+    "confidence_histogram": {
+      "0.00-0.50": 0,
+      "0.50-0.70": 0,
+      "0.70-0.85": 0,
+      "0.85-1.00": 500
+    }
+  }
+}

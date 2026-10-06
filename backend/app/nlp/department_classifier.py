@@ -30,6 +30,7 @@ class RuleBasedDepartmentRouter(BaseDepartmentClassifier):
         IntentType.ATTENDANCE.value: DepartmentType.STUDENT_WELFARE.value,
         IntentType.SCHOLARSHIP.value: DepartmentType.SCHOLARSHIP_SECTION.value,
         IntentType.IT_SUPPORT.value: DepartmentType.IT_SERVICES.value,
+        "IT_SERVICES": DepartmentType.IT_SERVICES.value,
         IntentType.STUDENT_SERVICES.value: DepartmentType.ACADEMIC_AFFAIRS.value,
         # Backward-compatible mappings with mock aliases
         "FEE_PAYMENT_RECONCILIATION": DepartmentType.ACCOUNTS_FINANCE.value,

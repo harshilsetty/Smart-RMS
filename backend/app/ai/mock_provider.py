@@ -31,13 +31,20 @@ class MockAIProvider(AIProvider):
             intent_confidence=nlp_res.intent_confidence,
             department_confidence=nlp_res.department_confidence,
             priority_confidence=nlp_res.priority_confidence,
+            urgency=nlp_res.urgency,
+            urgency_confidence=nlp_res.urgency_confidence,
             requires_human_review=nlp_res.requires_human_review,
             review_reasons=nlp_res.review_reasons,
+            needs_clarification=nlp_res.needs_clarification,
+            clarification_reason=nlp_res.clarification_reason,
             semantic_matches=[m.model_dump() for m in nlp_res.semantic_matches],
             pii_detected=pii_tokens,
             entities=entities,
+            structured_entities=[e.model_dump() for e in nlp_res.structured_entities],
             summary=nlp_res.summary,
-            suggested_action=nlp_res.suggested_action
+            suggested_action=nlp_res.suggested_action,
+            explanation=nlp_res.explanation,
+            classifier_mode=nlp_res.classifier_mode
         )
 
     async def generate_draft(
@@ -70,11 +77,14 @@ class MockAIProvider(AIProvider):
                 draft_response=body,
                 sources=valid_sources,
                 confidence=primary_source.relevance_score,
+                relevance_score=primary_source.relevance_score,
+                grounding_status="GROUNDED",
+                needs_human_review=False,
                 requires_staff_edit=False,
                 policy_compliance_passed=True
             )
 
-        # Strict No-Source-No-Answer Fallback
+        # Strict No-Source-No-Answer Fallback: Preserve any candidate sources for staff reference if available
         no_source_body = (
             f"Dear Student,\n\n"
             f"Regarding your inquiry on '{ticket_subject}', our system determined that there is insufficient "
@@ -88,8 +98,12 @@ class MockAIProvider(AIProvider):
         return DraftResponse(
             ticket_id="",
             draft_response=no_source_body,
-            sources=[],
+            sources=sources,
             confidence=0.0,
+            relevance_score=sources[0].relevance_score if sources else 0.0,
+            grounding_status="INSUFFICIENT_EVIDENCE",
+            needs_human_review=True,
+            refusal_reason="Insufficient approved policy evidence was found. Staff review is required.",
             requires_staff_edit=True,
             policy_compliance_passed=True
         )

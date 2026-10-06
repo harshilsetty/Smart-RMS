@@ -3,8 +3,11 @@ export interface RAGSource {
   source_id?: string;
   title: string;
   document_name?: string;
+  document_version?: string;
   clause: string;
   section?: string;
+  chunk_id?: string;
+  department?: string;
   excerpt: string;
   relevance_score: number;
 }
@@ -16,20 +19,33 @@ export interface SemanticMatch {
   excerpt: string;
 }
 
+export interface StructuredEntity {
+  entity_type: string;
+  value: string;
+  confidence?: number;
+  source_span?: string;
+}
+
 export interface AIAnalysis {
   intent: string;
   suggested_department: string;
   priority_score: number;
   urgency_level: 'Low' | 'Medium' | 'High' | 'Critical';
+  urgency?: 'LOW' | 'NORMAL' | 'URGENT' | 'IMMEDIATE' | string;
+  urgency_confidence?: number;
   confidence: number;
   intent_confidence?: number;
   department_confidence?: number;
   priority_confidence?: number;
   requires_human_review?: boolean;
   review_reasons?: string[];
+  needs_clarification?: boolean;
+  clarification_reason?: string;
   semantic_matches?: SemanticMatch[];
   pii_detected: string[];
   entities: Record<string, any>;
+  structured_entities?: StructuredEntity[];
+  explanation?: Record<string, string>;
   summary: string;
   suggested_action: string;
 }
@@ -174,14 +190,78 @@ export interface Ticket {
   is_synthetic?: boolean;
 }
 
+export interface ExtractedClaim {
+  claim_id: string;
+  text: string;
+  category: string;
+  source_sentence: string;
+  confidence: number;
+  is_high_impact: boolean;
+  entities_detected?: Record<string, any>;
+}
+
+export interface EvidenceMatch {
+  document_id: string;
+  title: string;
+  clause: string;
+  excerpt: string;
+  relevance_score: number;
+  lexical_similarity?: number;
+  semantic_similarity?: number;
+}
+
+export interface ClaimVerificationResult {
+  claim: ExtractedClaim;
+  status: 'SUPPORTED' | 'CONTRADICTED' | 'INSUFFICIENT_EVIDENCE' | 'UNVERIFIED';
+  entailment_label: 'ENTAILMENT' | 'CONTRADICTION' | 'NEUTRAL';
+  entailment_score: number;
+  matched_evidence?: EvidenceMatch;
+  verification_reason: string;
+  is_high_impact: boolean;
+}
+
+export interface DraftGroundingVerification {
+  overall_status: 'FULLY_GROUNDED' | 'PARTIALLY_GROUNDED' | 'UNSUPPORTED' | 'CONTRADICTED' | 'REQUIRES_HUMAN_REVIEW';
+  grounding_score: number;
+  total_claims: number;
+  supported_claims_count: number;
+  contradicted_claims_count: number;
+  unsupported_claims_count: number;
+  high_impact_violations_count: number;
+  claim_verifications: ClaimVerificationResult[];
+  is_blocked: boolean;
+  block_reason?: string;
+  verifier_provider: string;
+  latency_ms: number;
+}
+
 export interface DraftResponse {
   ticket_id: string;
   draft_response: string;
   sources: RAGSource[];
   confidence: number;
+  relevance_score?: number;
+  grounding_status?: string;
+  needs_human_review?: boolean;
+  refusal_reason?: string;
   requires_staff_edit: boolean;
   policy_compliance_passed: boolean;
+  claim_verification?: DraftGroundingVerification;
   disclaimer: string;
+}
+
+export interface OperationsAnalytics {
+  total_tickets: number;
+  open_backlog: number;
+  resolved_count: number;
+  closed_count: number;
+  escalation_count: number;
+  tickets_by_status: Record<string, number>;
+  tickets_by_department: Record<string, number>;
+  tickets_by_priority: Record<string, number>;
+  tickets_by_sla_status: Record<string, number>;
+  avg_resolution_time_hours: number;
+  avg_closure_time_hours: number;
 }
 
 export interface AnalyticsOverview {

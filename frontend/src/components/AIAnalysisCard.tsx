@@ -97,7 +97,7 @@ export const AIAnalysisCard: React.FC<AIAnalysisCardProps> = ({ analysis, confid
           </span>
         </div>
 
-        {/* Urgency */}
+        {/* Priority Level */}
         <div className="bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/80">
           <div className="flex items-center justify-between mb-0.5">
             <span className="text-[10px] text-slate-400 font-semibold">PRIORITY LEVEL</span>
@@ -110,17 +110,62 @@ export const AIAnalysisCard: React.FC<AIAnalysisCardProps> = ({ analysis, confid
           </span>
         </div>
 
-        {/* Action Directive */}
+        {/* Urgency Level */}
         <div className="bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/80">
-          <span className="text-[10px] text-slate-400 block mb-0.5 font-semibold">ACTION DIRECTIVE</span>
-          <span className="text-teal-300 font-medium text-[11px] truncate block">
-            {analysis.suggested_action}
+          <div className="flex items-center justify-between mb-0.5">
+            <span className="text-[10px] text-slate-400 font-semibold">URGENCY (TIME HORIZON)</span>
+            {analysis.urgency_confidence && (
+              <span className="text-[9px] text-purple-400 font-mono">{Math.round(analysis.urgency_confidence * 100)}%</span>
+            )}
+          </div>
+          <span className={`font-bold text-xs ${analysis.urgency === 'IMMEDIATE' ? 'text-rose-400' : analysis.urgency === 'URGENT' ? 'text-amber-400' : 'text-teal-300'}`}>
+            {analysis.urgency || analysis.urgency_level || 'NORMAL'}
           </span>
         </div>
       </div>
 
-      {/* Extracted Domain Entities Chips */}
-      {analysis.entities && Object.keys(analysis.entities).length > 0 && (
+      {/* Clarification Alert if Ambiguity Detected */}
+      {analysis.needs_clarification && (
+        <div className="bg-indigo-950/30 border border-indigo-700/50 rounded-lg p-2.5 text-xs text-indigo-300 space-y-1">
+          <div className="flex items-center space-x-1.5 font-bold text-indigo-400">
+            <AlertTriangle className="w-3.5 h-3.5" />
+            <span>Clarification Required (Ambiguous Query)</span>
+          </div>
+          <p className="text-[11px] text-indigo-200/90 leading-relaxed">
+            {analysis.clarification_reason || 'Query lacks specific domain identifiers. Staff confirmation or student clarification needed.'}
+          </p>
+        </div>
+      )}
+
+      {/* Action Directive */}
+      <div className="bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/80">
+        <span className="text-[10px] text-slate-400 block mb-0.5 font-semibold">ACTION DIRECTIVE</span>
+        <span className="text-teal-300 font-medium text-[11px] truncate block">
+          {analysis.suggested_action}
+        </span>
+      </div>
+
+      {/* Structured Domain Entities Chips */}
+      {analysis.structured_entities && analysis.structured_entities.length > 0 ? (
+        <div className="bg-slate-950/50 border border-slate-800/80 rounded-lg p-2.5 space-y-1.5">
+          <div className="flex items-center space-x-1.5 text-[10px] text-slate-400 font-semibold uppercase tracking-wider">
+            <Tag className="w-3 h-3 text-teal-400" />
+            <span>Structured Entities ({analysis.structured_entities.length})</span>
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {analysis.structured_entities.map((se, idx) => (
+              <span
+                key={idx}
+                className="inline-flex items-center px-2 py-0.5 rounded text-[10px] bg-slate-900 border border-slate-700/80 text-slate-300 font-mono"
+                title={`Confidence: ${Math.round((se.confidence || 0.9) * 100)}% | Span: ${se.source_span || se.value}`}
+              >
+                <span className="text-slate-400 font-sans mr-1">{se.entity_type}:</span>
+                <span className="text-emerald-300 font-semibold">{se.value}</span>
+              </span>
+            ))}
+          </div>
+        </div>
+      ) : analysis.entities && Object.keys(analysis.entities).length > 0 ? (
         <div className="bg-slate-950/50 border border-slate-800/80 rounded-lg p-2.5 space-y-1.5">
           <div className="flex items-center space-x-1.5 text-[10px] text-slate-400 font-semibold uppercase tracking-wider">
             <Tag className="w-3 h-3 text-teal-400" />
@@ -139,6 +184,23 @@ export const AIAnalysisCard: React.FC<AIAnalysisCardProps> = ({ analysis, confid
                 </span>
               );
             })}
+          </div>
+        </div>
+      ) : null}
+
+      {/* Machine-readable Explanations */}
+      {analysis.explanation && Object.keys(analysis.explanation).length > 0 && (
+        <div className="bg-slate-950/50 border border-slate-800/80 rounded-lg p-2.5 space-y-1 text-xs">
+          <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block mb-1">
+            Explainability & Decision Evidence
+          </span>
+          <div className="space-y-1 text-[11px] text-slate-300">
+            {Object.entries(analysis.explanation).map(([key, val]) => (
+              <div key={key} className="flex items-start space-x-1.5">
+                <span className="text-slate-400 font-mono text-[10px] uppercase font-bold min-w-[70px] pt-0.5">{key}:</span>
+                <span className="text-slate-200 leading-snug">{val}</span>
+              </div>
+            ))}
           </div>
         </div>
       )}

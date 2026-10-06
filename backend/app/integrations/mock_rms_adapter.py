@@ -209,6 +209,20 @@ class MockRMSAdapter(UniversitySystemAdapter):
 
     def get_ticket_by_id(self, ticket_id: str) -> Optional[Dict[str, Any]]:
         t = self._tickets.get(ticket_id)
+        if not t:
+            # Fallback check in generated synthetic batch dataset
+            gen_path = settings.MOCK_DATA_DIR / "generated_rms_requests.json"
+            if gen_path.exists():
+                try:
+                    with open(gen_path, "r", encoding="utf-8") as f:
+                        for item in json.load(f):
+                            if item.get("ticket_id") == ticket_id:
+                                self._enrich_ticket_defaults(item)
+                                self._tickets[ticket_id] = item
+                                t = item
+                                break
+                except Exception:
+                    pass
         if t:
             self._calculate_sla(t)
         return t
@@ -608,7 +622,7 @@ class MockRMSAdapter(UniversitySystemAdapter):
             raise ValueError(f"Ticket {ticket_id} not found")
 
         current_state = ticket.get("status")
-        if current_state not in ["RESOLVED", "WAITING_FOR_STUDENT", "APPROVED"]:
+        if current_state not in ["RESOLVED", "WAITING_FOR_STUDENT", "APPROVED", "CLOSED"]:
             raise ValueError(f"Cannot close ticket in state '{current_state}'. Ticket must be resolved first.")
 
         now_iso = datetime.now(timezone.utc).isoformat()
@@ -642,6 +656,13 @@ class MockRMSAdapter(UniversitySystemAdapter):
         # Ensure deterministic chronological ordering
         history.sort(key=lambda x: x.get("timestamp", ""))
         return history
+
+    def add_audit_event(self, ticket_id: str, event: Dict[str, Any]) -> bool:
+        ticket = self._tickets.get(ticket_id)
+        if not ticket:
+            return False
+        ticket.setdefault("history", []).append(event)
+        return True
 
     def list_departments(self) -> List[Dict[str, Any]]:
         seen = set()

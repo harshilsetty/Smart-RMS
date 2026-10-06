@@ -1,74 +1,357 @@
 [
   {
-    "document_id": "DOC-2024-HOSTEL-01",
-    "title": "Hostel Code of Conduct & Maintenance Regulations 2024",
-    "department": "Hostel Affairs",
-    "effective_date": "2024-01-01",
-    "clause": "Section 4, Clause 4.2 (Appliance & Electrical Maintenance)",
-    "content": "Maintenance requests for electrical and air cooling issues must be inspected by the maintenance supervisor within 24 hours of ticket submission. If replacement of parts is required, the resolution window is 48 hours. Emergency issues involving water leakage near electrical fixtures must be treated as priority hazard cases and attended within 4 hours.",
-    "keywords": ["hostel", "leakage", "ac unit", "electrical", "maintenance", "warden", "repair"]
-  },
-  {
-    "document_id": "DOC-2024-FIN-02",
-    "title": "University Fee Payment & Refund Policy 2024-25",
-    "department": "Accounts & Finance",
-    "effective_date": "2024-04-01",
-    "clause": "Clause 8.3 (Duplicate Online Payment Settlement)",
-    "content": "In cases where a student's bank account is debited multiple times for a single semester fee installment due to payment gateway timeout, the excess amount is reconciled within 3 working days with the payment aggregator. Refunds for confirmed duplicate debits are credited back to the source bank account within 7 to 10 working days upon submission of the bank debit advice.",
-    "keywords": ["fee", "duplicate", "deducted twice", "refund", "accounts", "bank", "payment gateway", "tuition"]
-  },
-  {
-    "document_id": "DOC-2024-ACAD-03",
-    "title": "Continuous Assessment & Grade Evaluation By-Laws",
+    "document_id": "DOC-ACAD-001",
+    "title": "Academic Regulations & Continuous Assessment Policy",
+    "document_type": "REGULATION",
+    "department_id": "DEPT-ACAD",
     "department": "Academic Affairs",
-    "effective_date": "2023-08-01",
-    "clause": "Clause 5.4 (Discrepancy in Continuous Assessment Records)",
-    "content": "A student identifying an inconsistency between evaluated continuous assessment (CA) marks and the marks uploaded on the Grade Management System may register a grievance within 7 days of grade publication. The course instructor and Head of Department must verify the physical or digital evaluation rubric and rectify any clerical data-entry error within 5 working days.",
-    "keywords": ["ca marks", "continuous assessment", "marks discrepancy", "grade", "rubric", "course coordinator"]
+    "version": "2.0",
+    "effective_date": "2024-01-01",
+    "expiry_date": null,
+    "approval_status": "APPROVED",
+    "source": "SYNTHETIC_ACADEMIC_COUNCIL",
+    "is_active": true,
+    "is_synthetic": true,
+    "keywords": ["academics", "ca marks", "continuous assessment", "attendance", "appeals", "credits", "registration"],
+    "sections": [
+      {
+        "section_id": "SEC-ACAD-01",
+        "heading": "Continuous Assessment & Grade Discrepancy",
+        "clause": "Clause 4.1 (Continuous Assessment Discrepancy Redressal)",
+        "content": "A student identifying an inconsistency between evaluated continuous assessment (CA) marks and the marks uploaded on the University Grade Management System may register an official grievance within 7 working days of marks publication. The course instructor and Head of Department must verify the physical and digital evaluation rubric and rectify any clerical data-entry error within 5 working days.",
+        "keywords": ["ca marks", "continuous assessment", "grade discrepancy", "rubric", "marks upload"]
+      },
+      {
+        "section_id": "SEC-ACAD-02",
+        "heading": "Course Registration & Credit Overload",
+        "clause": "Clause 6.3 (Semester Credit Limit & Pre-Requisite Waivers)",
+        "content": "The standard semester registration limit is 26 academic credits. Under exceptional circumstances, students with a cumulative grade point average (CGPA) of 8.00 or higher may apply for an overload of up to 4 additional credits, subject to approval by the School Dean and confirmation of timetable clash-free scheduling.",
+        "keywords": ["course registration", "credit overload", "cgpa threshold", "pre-requisite", "dean approval"]
+      },
+      {
+        "section_id": "SEC-ACAD-03",
+        "heading": "Academic Appeals & Attendance Condonation",
+        "clause": "Clause 9.2 (Attendance Condonation on Duty Leave)",
+        "content": "Official duty leaves sanctioned for representing the university in recognized national competitions, academic conferences, or authorized sports meets are credited toward attendance calculations up to a maximum ceiling of 10% total lecture hours, provided formal documentation is lodged within 3 days of return.",
+        "keywords": ["attendance", "duty leave", "condonation", "sports meet", "conference", "lecture hours"]
+      }
+    ]
   },
   {
-    "document_id": "DOC-2024-EXAM-04",
-    "title": "Examination Conduct & Hall Ticket Release Rules",
+    "document_id": "DOC-ACAD-001",
+    "title": "Academic Regulations & Continuous Assessment Policy",
+    "document_type": "REGULATION",
+    "department_id": "DEPT-ACAD",
+    "department": "Academic Affairs",
+    "version": "1.0",
+    "effective_date": "2022-01-01",
+    "expiry_date": "2023-12-31",
+    "approval_status": "SUPERSEDED",
+    "source": "SYNTHETIC_ACADEMIC_COUNCIL",
+    "is_active": false,
+    "is_synthetic": true,
+    "keywords": ["academics", "ca marks", "legacy", "superseded"],
+    "sections": [
+      {
+        "section_id": "SEC-ACAD-OLD-01",
+        "heading": "Legacy Continuous Assessment Timeline (Superseded)",
+        "clause": "Clause 3.2 (Legacy 14-Day CA Grievance Window)",
+        "content": "Under legacy regulations, CA grievances were permitted within 14 calendar days. Note: This clause is superseded by Version 2.0 which mandates a 7-day reporting window.",
+        "keywords": ["legacy", "superseded", "14 days"]
+      }
+    ]
+  },
+  {
+    "document_id": "DOC-ACAD-002",
+    "title": "Course Withdrawal & Semester Deferment SOP",
+    "document_type": "SOP",
+    "department_id": "DEPT-ACAD",
+    "department": "Academic Affairs",
+    "version": "1.0",
+    "effective_date": "2024-01-15",
+    "expiry_date": null,
+    "approval_status": "APPROVED",
+    "source": "SYNTHETIC_ACADEMIC_COUNCIL",
+    "is_active": true,
+    "is_synthetic": true,
+    "keywords": ["withdrawal", "course drop", "deferment", "semester leave", "academic probation"],
+    "sections": [
+      {
+        "section_id": "SEC-ACAD-04",
+        "heading": "Course Drop & Withdrawal Deadlines",
+        "clause": "SOP-11.2 (Course Withdrawal Window)",
+        "content": "Students may officially withdraw from an elective course without academic penalty up to the end of the 4th teaching week of the semester. Withdrawn courses are designated with a 'W' grade on the provisional transcript and carry no credit or grade penalty.",
+        "keywords": ["course withdrawal", "drop course", "w grade", "penalty", "elective"]
+      },
+      {
+        "section_id": "SEC-ACAD-05",
+        "heading": "Temporary Semester Deferment (Break in Studies)",
+        "clause": "SOP-14.1 (Formal Break in Studies Approval)",
+        "content": "Students requesting a formal break in studies for certified personal or entrepreneurial reasons must submit an application endorsed by the Academic Advisor and Dean. Deferment is granted for a maximum continuous duration of two regular semesters without forfeiture of registration.",
+        "keywords": ["deferment", "break in studies", "leave of absence", "semester break"]
+      }
+    ]
+  },
+  {
+    "document_id": "DOC-EXAM-001",
+    "title": "Comprehensive Examination Rules & Re-evaluation Regulations",
+    "document_type": "REGULATION",
+    "department_id": "DEPT-EXAM",
     "department": "Examination Branch",
-    "effective_date": "2024-02-15",
-    "clause": "Regulation 12.1 (Hall Ticket / Admit Card Clearance Hold)",
-    "content": "Admit cards are generated 7 days prior to the commencement of End Term Examinations. In the event of an erroneous administrative hold (e.g. library or laboratory clearance), the student may present an official return counter receipt. The Examination Branch is authorized to execute an emergency temporary clearance override within 4 hours to guarantee the student's right to appear in the scheduled examination.",
-    "keywords": ["admit card", "hall ticket", "examination", "blocked", "clearance", "library", "end term"]
+    "version": "2.0",
+    "effective_date": "2024-02-01",
+    "expiry_date": null,
+    "approval_status": "APPROVED",
+    "source": "SYNTHETIC_EXAMINATION_BOARD",
+    "is_active": true,
+    "is_synthetic": true,
+    "keywords": ["examination", "re-evaluation", "admit card", "hall ticket", "absence", "grade recheck"],
+    "sections": [
+      {
+        "section_id": "SEC-EXAM-01",
+        "heading": "Hall Ticket / Admit Card Clearance Holds",
+        "clause": "Regulation 12.1 (Emergency Hall Ticket Clearance Override)",
+        "content": "Admit cards are generated 7 days prior to End Term Examinations. In the event of an erroneous administrative hold (such as library return delay or laboratory dues), the student may present an official clearance counter receipt. The Examination Branch is authorized to execute an emergency temporary clearance override within 4 hours to guarantee the student's right to appear in the examination.",
+        "keywords": ["admit card", "hall ticket", "clearance hold", "library dues", "emergency override"]
+      },
+      {
+        "section_id": "SEC-EXAM-02",
+        "heading": "Answer Script Re-evaluation Procedure & Timeline",
+        "clause": "Regulation 15.3 (Official Re-evaluation Application)",
+        "content": "Applications for formal answer script re-evaluation must be submitted via the student portal within 10 calendar days of end-term result declaration. A prescribed fee of Rs. 500 per theoretical course applies. If the revised score varies by more than 15% from the original evaluation, a third external evaluator assesses the paper and the median score is finalized.",
+        "keywords": ["re-evaluation", "re-checking", "answer script", "fee", "third evaluator", "results"]
+      },
+      {
+        "section_id": "SEC-EXAM-03",
+        "heading": "Examination Absence on Medical Grounds & Special Exam",
+        "clause": "Regulation 18.2 (Special Supplementary for Certified Hospitalization)",
+        "content": "Students absent from an end-term exam due to certified acute medical emergency or hospitalization must submit certified medical documents endorsed by the University Health Center within 48 hours of the missed exam. Eligible students are permitted to take the Special Supplementary Examination without paying arrear examination fees.",
+        "keywords": ["exam absence", "medical emergency", "hospitalization", "special exam", "supplementary", "health center"]
+      },
+      {
+        "section_id": "SEC-EXAM-04",
+        "heading": "Examination Timetable Clashes",
+        "clause": "Regulation 8.4 (Concurrent Course Timetable Clash Resolution)",
+        "content": "When a student has two examinations scheduled concurrently in the same session due to backlog or re-registered courses, the Examination Branch will arrange a consecutive examination seating slot in the secure examination control center with monitored quarantine between shifts.",
+        "keywords": ["exam clash", "timetable clash", "concurrent exam", "session overlap", "quarantine"]
+      }
+    ]
   },
   {
-    "document_id": "DOC-2024-WELFARE-05",
-    "title": "Student Attendance & Medical Leave Regulations",
-    "department": "Student Welfare",
-    "effective_date": "2023-07-01",
-    "clause": "Section 7, Clause 7.2 (Medical Leave Attendance Condonation)",
-    "content": "Students with severe illness or hospitalization may apply for medical leave duty adjustment. The application must be supported by a certified discharge summary from a registered medical practitioner and endorsed by the University Health Center. If approved, attendance credit of up to a maximum of 10% (adjusting threshold to 65%) will be granted.",
-    "keywords": ["attendance", "medical leave", "hospitalization", "dengue", "condonation", "health center"]
-  },
-  {
-    "document_id": "DOC-2024-SCHOL-06",
-    "title": "Government & External Scholarship Verification Guidelines",
-    "department": "Scholarship Section",
-    "effective_date": "2024-03-01",
-    "clause": "Section 3, Clause 3.1 (Institutional Verification Timeline)",
-    "content": "Institutional verification for state and national scholarship schemes (including NSP and PMS) must be completed by the designated Nodal Officer at least 5 days before the statutory portal closing date. Students must ensure their Aadhaar linkage and enrolled status are verified in the central registry prior to final portal submission.",
-    "keywords": ["scholarship", "nsp", "national scholarship", "post-matric", "institutional verification"]
-  },
-  {
-    "document_id": "DOC-2024-IT-07",
-    "title": "Campus IT Infrastructure & Wi-Fi Access Policy",
-    "department": "IT Services",
-    "effective_date": "2024-01-10",
-    "clause": "Clause 2.4 (Device Quota and MAC Address Re-binding)",
-    "content": "Each registered student is allotted two active device MAC registrations on the campus secure wireless network. When an existing device is deleted, RADIUS synchronization takes up to 60 minutes to flush stale leases. In case of persistent allocation lockouts, IT helpdesk personnel can execute a manual RADIUS session reset.",
-    "keywords": ["wi-fi", "mac address", "fortinet", "radius", "network", "portal login", "device limit"]
-  },
-  {
-    "document_id": "DOC-2024-REG-08",
-    "title": "Official Student Certificate & Academic Document Issuance SOP",
-    "department": "Academic Affairs",
+    "document_id": "DOC-HOSTEL-001",
+    "title": "Hostel Code of Conduct & Maintenance Regulations",
+    "document_type": "REGULATION",
+    "department_id": "DEPT-HOSTEL",
+    "department": "Hostel Affairs",
+    "version": "2.0",
     "effective_date": "2024-01-01",
-    "clause": "SOP-14 (Bonafide & Medium of Instruction Issuance)",
-    "content": "Bonafide Student Certificates and English Medium of Instruction (MOI) verification letters for official purposes (such as visa, passport, or exchange programs) are issued as digitally signed e-certificates within 3 working days through the student portal, provided all semester fee dues are cleared.",
-    "keywords": ["bonafide", "certificate", "medium of instruction", "visa", "exchange program"]
+    "expiry_date": null,
+    "approval_status": "APPROVED",
+    "source": "SYNTHETIC_CHIEF_WARDEN_OFFICE",
+    "is_active": true,
+    "is_synthetic": true,
+    "keywords": ["hostel", "maintenance", "electrical", "leakage", "ac unit", "warden", "room change"],
+    "sections": [
+      {
+        "section_id": "SEC-HOSTEL-01",
+        "heading": "Appliance & Electrical Fixture Maintenance",
+        "clause": "Section 4, Clause 4.2 (Appliance & Electrical Maintenance SLA)",
+        "content": "Maintenance requests for electrical and air conditioning issues must be inspected by the maintenance supervisor within 24 hours of ticket submission. If replacement of parts is required, the standard resolution window is 48 hours. Emergency issues involving water leakage near electrical fixtures must be treated as priority hazard cases and attended within 4 hours.",
+        "keywords": ["hostel maintenance", "air conditioning", "leakage", "electrical hazard", "repair window"]
+      },
+      {
+        "section_id": "SEC-HOSTEL-02",
+        "heading": "Plumbing, Sanitation & Hygiene Protocol",
+        "clause": "Section 5, Clause 5.1 (Washroom & Water Supply Repair)",
+        "content": "Sanitary complaints, including washroom blockages, water purifier malfunctions, and hot water geyser defects, require immediate inspection by the block facility executive within 12 hours. Water purifier filters undergo mandatory preventative servicing on the 1st of every calendar month.",
+        "keywords": ["plumbing", "sanitation", "geyser", "water purifier", "washroom", "blockage"]
+      },
+      {
+        "section_id": "SEC-HOSTEL-03",
+        "heading": "Room Mutual Transfer & Allocation Guidelines",
+        "clause": "Section 8, Clause 8.3 (Mutual Room Exchange Protocol)",
+        "content": "Mutual room change requests between registered hostellers of the same accommodation tier and gender are permitted during the official window from Day 7 to Day 21 of each semester. Both students must submit written mutual consent endorsed by their respective block wardens.",
+        "keywords": ["room change", "mutual exchange", "hostel allocation", "warden consent", "transfer window"]
+      }
+    ]
+  },
+  {
+    "document_id": "DOC-FIN-001",
+    "title": "University Fee Payment, Gateway Settlement & Refund Regulations",
+    "document_type": "REGULATION",
+    "department_id": "DEPT-FIN",
+    "department": "Accounts & Finance",
+    "version": "2.0",
+    "effective_date": "2024-04-01",
+    "expiry_date": null,
+    "approval_status": "APPROVED",
+    "source": "SYNTHETIC_FINANCE_COMMITTEE",
+    "is_active": true,
+    "is_synthetic": true,
+    "keywords": ["fee", "payment", "duplicate", "refund", "accounts", "bank deduction", "late fine"],
+    "sections": [
+      {
+        "section_id": "SEC-FIN-01",
+        "heading": "Duplicate Online Payment Settlement",
+        "clause": "Clause 8.3 (Duplicate Payment Gateway Reconciliation)",
+        "content": "In cases where a student's bank account is debited multiple times for a single semester fee installment due to payment gateway timeout, the excess amount is reconciled within 3 working days with the payment aggregator. Refunds for confirmed duplicate debits are credited back to the source bank account within 7 to 10 working days upon submission of the bank debit advice.",
+        "keywords": ["duplicate fee", "deducted twice", "reconciliation", "payment gateway", "refund timeline", "bank advice"]
+      },
+      {
+        "section_id": "SEC-FIN-02",
+        "heading": "Semester Withdrawal Fee Refund Schedule",
+        "clause": "Clause 11.2 (Pro-Rata Tuition Fee Refund on Formal Cancellation)",
+        "content": "When a student cancels admission or withdraws prior to the official commencement of orientation, a 100% refund is processed with a deduction of Rs. 1,000 as processing charges. Withdrawals within 15 days of commencement yield 80% tuition refund; within 30 days yields 50%; withdrawals exceeding 30 days carry no tuition refund entitlement.",
+        "keywords": ["admission cancellation", "fee refund", "pro-rata", "withdrawal refund", "deduction"]
+      },
+      {
+        "section_id": "SEC-FIN-03",
+        "heading": "Fee Payment Extension & Late Fine Waiver",
+        "clause": "Clause 14.1 (Late Fee Waiver on Certified Educational Loan Delay)",
+        "content": "Students awaiting disbursement of bank educational loans may seek late fee fine condonation by presenting an official sanction letter from a scheduled commercial bank. The Comptroller of Finance is empowered to grant an extension of up to 30 days without penalty.",
+        "keywords": ["late fine", "fee extension", "educational loan", "bank sanction", "waiver", "comptroller"]
+      }
+    ]
+  },
+  {
+    "document_id": "DOC-SCHOL-001",
+    "title": "Government & External Scholarship Verification Guidelines",
+    "document_type": "GUIDELINE",
+    "department_id": "DEPT-SCHOL",
+    "department": "Scholarship Section",
+    "version": "2.0",
+    "effective_date": "2024-03-01",
+    "expiry_date": null,
+    "approval_status": "APPROVED",
+    "source": "SYNTHETIC_SCHOLARSHIP_CELL",
+    "is_active": true,
+    "is_synthetic": true,
+    "keywords": ["scholarship", "nsp", "pms", "verification", "merit", "aadhaar", "renewal"],
+    "sections": [
+      {
+        "section_id": "SEC-SCHOL-01",
+        "heading": "Institutional Verification Deadlines (NSP & State Schemes)",
+        "clause": "Section 3, Clause 3.1 (Statutory Institutional Verification Timelines)",
+        "content": "Institutional verification for state and national scholarship portals (including NSP, PMS, and State Welfare Portals) must be completed by the designated Nodal Officer at least 5 days prior to the statutory portal closing date. Students must ensure their Aadhaar linkage, fee receipt, and enrolled status are verified in the central registry.",
+        "keywords": ["nsp verification", "nodal officer", "state scholarship", "aadhaar linkage", "closing deadline"]
+      },
+      {
+        "section_id": "SEC-SCHOL-02",
+        "heading": "Merit-cum-Means Renewal CGPA Thresholds",
+        "clause": "Section 5, Clause 5.2 (Academic Renewal Criterion)",
+        "content": "To maintain continuity of institutional merit-cum-means scholarship waivers, recipients must maintain a minimum CGPA of 7.50 without any standing backlog or disciplinary sanctions. Failure to meet the academic threshold results in temporary suspension of tuition fee concession for the subsequent term.",
+        "keywords": ["scholarship renewal", "cgpa requirement", "backlog", "concession", "merit-cum-means"]
+      }
+    ]
+  },
+  {
+    "document_id": "DOC-IT-001",
+    "title": "Campus Digital Infrastructure, Wi-Fi & Account Access Policy",
+    "document_type": "POLICY",
+    "department_id": "DEPT-IT",
+    "department": "IT Services",
+    "version": "2.0",
+    "effective_date": "2024-01-10",
+    "expiry_date": null,
+    "approval_status": "APPROVED",
+    "source": "SYNTHETIC_CENTRAL_IT_DEPT",
+    "is_active": true,
+    "is_synthetic": true,
+    "keywords": ["wi-fi", "mac address", "radius", "portal lockout", "password reset", "network", "device limit"],
+    "sections": [
+      {
+        "section_id": "SEC-IT-01",
+        "heading": "Device Quota and MAC Address Re-binding",
+        "clause": "Clause 2.4 (Device Quota and MAC Address Re-binding)",
+        "content": "Each registered student is allotted two active device MAC registrations on the campus secure wireless network. When an existing device is deleted, RADIUS synchronization takes up to 60 minutes to flush stale leases. In case of persistent allocation lockouts, IT helpdesk personnel can execute a manual RADIUS session reset.",
+        "keywords": ["wi-fi", "mac address", "radius", "device limit", "flush leases", "session reset"]
+      },
+      {
+        "section_id": "SEC-IT-02",
+        "heading": "Student Portal Password & Security Lockout Recovery",
+        "clause": "Clause 4.3 (Automated Account Lockout & Self-Service Unlock)",
+        "content": "Five consecutive unsuccessful login attempts on the student portal trigger a 30-minute security lockout. Students may unlock their account immediately via OTP authentication delivered to their registered mobile number. For compromised credentials, IT security operations will force an immediate credential reset.",
+        "keywords": ["portal lockout", "password reset", "otp authentication", "account locked", "login failure"]
+      }
+    ]
+  },
+  {
+    "document_id": "DOC-SW-001",
+    "title": "Student Welfare, Medical Condonation & Grievance By-Laws",
+    "document_type": "REGULATION",
+    "department_id": "DEPT-SW",
+    "department": "Student Welfare",
+    "version": "2.0",
+    "effective_date": "2024-01-01",
+    "expiry_date": null,
+    "approval_status": "APPROVED",
+    "source": "SYNTHETIC_DEAN_STUDENT_WELFARE",
+    "is_active": true,
+    "is_synthetic": true,
+    "keywords": ["attendance", "medical leave", "hospitalization", "health center", "grievance", "welfare", "emergency"],
+    "sections": [
+      {
+        "section_id": "SEC-SW-01",
+        "heading": "Medical Leave Attendance Condonation",
+        "clause": "Section 7, Clause 7.2 (Medical Leave Attendance Condonation Protocol)",
+        "content": "Students experiencing severe illness or hospitalization may apply for medical leave duty adjustment. The application must be supported by a certified discharge summary from a registered medical hospital and endorsed by the University Health Center within 5 days of recovery. If approved, attendance credit of up to a maximum of 10% (reducing minimum eligibility threshold from 75% to 65%) is granted.",
+        "keywords": ["medical leave", "hospitalization", "attendance condonation", "health center", "discharge summary", "65 percent threshold"]
+      },
+      {
+        "section_id": "SEC-SW-02",
+        "heading": "Student Emergency Financial Assistance",
+        "clause": "Section 10, Clause 10.1 (Dean Emergency Relief Grant)",
+        "content": "The Student Welfare Directorate maintains an emergency relief grant for students facing sudden personal distress or loss of sole earning parent during the academic term. Grants up to Rs. 25,000 for immediate living subsistence are sanctioned upon recommendation of the Student Welfare Committee.",
+        "keywords": ["emergency fund", "welfare grant", "student relief", "distress support"]
+      }
+    ]
+  },
+  {
+    "document_id": "DOC-TEST-EXP-099",
+    "title": "Temporary Pandemic Hybrid Instruction Policy (Expired)",
+    "document_type": "POLICY",
+    "department_id": "DEPT-ACAD",
+    "department": "Academic Affairs",
+    "version": "1.0",
+    "effective_date": "2020-04-01",
+    "expiry_date": "2022-06-30",
+    "approval_status": "EXPIRED",
+    "source": "SYNTHETIC_ACADEMIC_COUNCIL",
+    "is_active": false,
+    "is_synthetic": true,
+    "keywords": ["pandemic", "hybrid", "remote attendance", "expired"],
+    "sections": [
+      {
+        "section_id": "SEC-EXP-01",
+        "heading": "Remote Attendance Mandate (Expired)",
+        "clause": "Emergency Clause 1.1 (Expired Remote Attendance)",
+        "content": "All physical classroom attendance requirements are waived for remote zoom sessions during pandemic lockdown. Notice: This policy is permanently expired and invalid for current academic operations.",
+        "keywords": ["pandemic", "remote attendance", "expired"]
+      }
+    ]
+  },
+  {
+    "document_id": "DOC-TEST-DFT-098",
+    "title": "Campus Aerial Drone Operations (Unapproved Draft)",
+    "document_type": "GUIDELINE",
+    "department_id": "DEPT-IT",
+    "department": "IT Services",
+    "version": "0.1",
+    "effective_date": "2026-01-01",
+    "expiry_date": null,
+    "approval_status": "DRAFT",
+    "source": "SYNTHETIC_TEST_DRAFT",
+    "is_active": false,
+    "is_synthetic": true,
+    "keywords": ["drone", "unapproved", "draft"],
+    "sections": [
+      {
+        "section_id": "SEC-DFT-01",
+        "heading": "Drone Flying Guidelines (Draft)",
+        "clause": "Draft Section 2.1 (Non-Approved Drone Use)",
+        "content": "This draft policy on campus drone usage is pending approval by university aviation safety committee. It must not be cited for student grievance resolution.",
+        "keywords": ["drone", "draft", "unapproved"]
+      }
+    ]
   }
 ]

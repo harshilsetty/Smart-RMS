@@ -1,29 +1,25 @@
 import math
+import numpy as np
 from typing import List, Dict, Any, Tuple, Optional
-from app.nlp.preprocessing import tokenize, clean_text
+from app.nlp.preprocessing import tokenize, clean_text, DOMAIN_SYNONYMS
 
 class SemanticSimilarityEngine:
     """
     Modular semantic similarity engine.
-    Computes text-to-text similarity and ranks candidate documents using a hybrid
-    token-weighted cosine & character 3-gram similarity metric with university domain
-    synonym canonicalization.
-    Designed to be easily subclassed or swapped with dense neural embedding models.
+    Reuses the canonical EmbeddingProvider abstraction from Milestone 3 for dense
+    vector similarity while retaining character 3-gram and token-weighted lexical matching.
     """
 
-    SYNONYM_MAP = {
-        "hall ticket": "admit card",
-        "hallticket": "admit card",
-        "examination": "exam",
-        "tuition fee": "fee",
-        "tuition": "fee",
-        "fees": "fee",
-        "re-evaluation": "reevaluation",
-        "wi-fi": "wifi",
-        "continuous assessment": "ca marks",
-        "marks discrepancy": "grade discrepancy",
-        "marks": "grade"
-    }
+    def __init__(self, embedding_provider: Optional[Any] = None):
+        if embedding_provider is None:
+            try:
+                from app.rag.embeddings import get_embedding_provider
+                self.embedding_provider = get_embedding_provider()
+            except ImportError:
+                self.embedding_provider = None
+        else:
+            self.embedding_provider = embedding_provider
+        self.SYNONYM_MAP = DOMAIN_SYNONYMS
 
     def _normalize_text(self, text: str) -> str:
         norm = clean_text(text).lower()

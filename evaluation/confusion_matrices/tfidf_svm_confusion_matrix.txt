@@ -1,0 +1,12 @@
+True \ Pred  | HOSTEL | FEE_PA | EXAMIN | ACADEM | ATTEND | SCHOLA | IT_SUP | STUDEN | GENERA | UNKNOW | Total
+--------------------------------------------------------------------------------------------------------------
+HOSTEL_MAINT |      4 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |     4
+FEE_PAYMENT  |      0 |      5 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |     5
+EXAMINATION  |      0 |      0 |      5 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |     5
+ACADEMIC     |      0 |      0 |      0 |      5 |      0 |      0 |      0 |      0 |      0 |      0 |     5
+ATTENDANCE   |      0 |      0 |      0 |      0 |      4 |      0 |      0 |      0 |      0 |      0 |     4
+SCHOLARSHIP  |      0 |      0 |      0 |      0 |      0 |      4 |      0 |      0 |      0 |      0 |     4
+IT_SUPPORT   |      0 |      0 |      0 |      0 |      0 |      0 |      4 |      0 |      0 |      0 |     4
+STUDENT_SERV |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      2 |      0 |      0 |     2
+GENERAL_INQU |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      2 |      0 |     2
+UNKNOWN      |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      1 |     1
