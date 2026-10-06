@@ -1,405 +1,86 @@
-# SMART RMS
-### Smart University RMS Resolution & Operations System
+# Smart RMS
 
-> **AI-assisted RMS resolution and operations platform for universities using NLP, RAG, privacy-aware processing, and human-in-the-loop workflows.**
+**A production-ready architectural prototype using synthetic university data for AI-assisted RMS operations.**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Backend: FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688.svg)](https://fastapi.tiangolo.com)
-[![Frontend: React-TypeScript](https://img.shields.io/badge/Frontend-React%20%7C%20TypeScript%20%7C%20Vite-61DAFB.svg)](https://react.dev)
-[![AI Architecture: LangChain/RAG](https://img.shields.io/badge/AI-LangChain%20%7C%20RAG%20%7C%20Gemini-FF6F00.svg)](docs/architecture/ai-pipeline.md)
-[![Privacy: PII Masking](https://img.shields.io/badge/Privacy-PII%20Protection%20Active-green.svg)](docs/architecture/privacy-security.md)
+## Problem Statement
 
----
+University administrative staff face intense pressure from hundreds of daily RMS (Request Management System) tickets. The manual workflow requires staff to triage requests, identify the correct routing department, look up complex university policies, draft personalized responses, and manage SLA deadlines. This process is time-consuming, prone to human error, and often results in delayed responses to urgent student needs.
 
-## 📌 Executive Summary
+## Solution
 
-### The Real Problem
-University departments (such as Academics, Examination, Hostel Affairs, Accounts, and Student Welfare) receive hundreds of student **RMS (Relationship Management System / Grievance)** tickets daily. 
+Smart RMS introduces an AI-assisted staff workflow. By integrating NLP classification and Grounded RAG (Retrieval-Augmented Generation), the system automates the heavy lifting of routing, priority assessment, and initial response drafting based on actual university policy documents. 
 
-The primary operational bottleneck is **not** how tickets are submitted—it is the heavy cognitive burden placed on administrative staff who must manually:
-1. Read through unstructured student descriptions, emotional complaints, and queries.
-2. Deduce intent, correct department, and true urgency.
-3. Cross-check authoritative university policies, circulars, and SOPs.
-4. Manually draft repetitive, policy-compliant responses.
-5. Coordinate inter-departmental transfers and escalations.
+## Core Principle
 
-This manual process leads to staff burnout, response latency, inconsistent information, and SLA breaches.
+**AI ASSISTS. HUMANS DECIDE.**
+The system strictly enforces human-in-the-loop operations. High-impact decisions, such as finalizing a response or escalating a ticket, require explicit human authorization. The AI acts as a Copilot, not an autonomous agent.
 
-### The Solution: Smart RMS Copilot
-**Smart RMS** acts as an intelligent **AI Copilot** for university administrative staff. Rather than an autonomous bot making high-stakes decisions, Smart RMS performs automated intake triage, masks sensitive personal identifiers (PII), retrieves verified university policies using Retrieval-Augmented Generation (RAG), and presents staff with a **grounded response draft with clear source citations**.
+## Key Features
 
-Staff can review, edit, approve, redirect, or escalate tickets in seconds with complete confidence and audit traceability.
+- **RMS Lifecycle Management**: Full tracking of tickets from ingestion to resolution.
+- **NLP Classification**: Automated routing and priority/urgency assessment.
+- **Grounded RAG**: Retrieval-augmented generation strictly grounded in university policy.
+- **Claim Verification**: NLI-based contradiction detection to prevent AI hallucinations.
+- **Staff Copilot**: Draft suggestions and UI to accept, reject, or edit AI drafts.
+- **Active Learning**: Non-destructive human feedback capture for offline model retraining.
+- **Model Governance**: Strict model registry with manual promotion and emergency rollback capabilities.
 
-> 🛡️ **Core Product Principle:**  
-> **AI assists. Humans decide.**  
-> *Smart RMS does not make autonomous, irreversible university decisions. We reject "0 hallucinations" claims and instead enforce strict source attribution, confidence scoring, uncertainty handling, human-in-the-loop sign-off, and policy constraints.*
-
----
-
-## 🚀 Key Features
-
-- **Automated RMS Ingestion & Triage:** Ingests tickets and detects intent, category, department routing, and priority using NLP.
-- **Privacy & PII Protection:** Automatically detects and redacts phone numbers, registration numbers, emails, and personal IDs before LLM processing.
-- **Grounded Policy RAG:** Retrieves clauses exclusively from approved university policies, circulars, and handbooks (Chroma vector store / semantic search).
-- **Evidence-Backed Response Drafts:** Generates draft responses with inline citations, quotes, and links to source documents.
-- **Staff Copilot Dashboard:** A high-productivity workstation for triage staff featuring queue filters, priority badges, draft editing, and one-click approvals.
-- **Human-in-the-Loop Actions:** Staff can edit drafts, approve & send, escalate to Department HODs, or re-route tickets.
-- **Audit & Analytics:** Tracks the entire lifecycle of each ticket, measuring AI accuracy, staff acceptance rate, and department workload.
-- **Pluggable Integration Architecture:** Clean adapter layer ready for university systems (LPU UMS/RMS, ERP, LMS) using mock adapters for development.
-
----
-
-## 🏛️ High-Level System Architecture
+## Architecture
 
 ```mermaid
-flowchart LR
-    subgraph Client["University Frontline"]
-        UMS["Student / UMS Portal"]
-        Staff["Staff Copilot UI (React)"]
-    end
-
-    subgraph Gateway["Entry Layer"]
-        Adapter["University System Adapter\n(Mock RMS / Future UMS)"]
-        API["FastAPI Gateway & RBAC"]
-    end
-
-    subgraph Core["Smart RMS Processing Engine"]
-        Orch["Query Orchestrator"]
-        Privacy["Privacy Layer\n(PII Detection & Redaction)"]
-        NLP["NLP & AI Triage\n(Intent, Dept, Priority)"]
-        RAG["RAG Engine\n(Retriever & Citation Generator)"]
-        Workflow["Workflow State Machine\n(Review, Escalate, Approve)"]
-    end
-
-    subgraph Knowledge["University Knowledge Base"]
-        VDB[("Chroma Vector Store\n(Approved Policies)")]
-        KBDocs["Policy Docs & Circulars\n(Hostel, Fees, Exams)"]
-    end
-
-    subgraph Datastores["Operational Datastores"]
-        DB[("PostgreSQL\n(Tickets & Audit Logs)")]
-        Cache[("Redis Cache")]
-    end
-
-    UMS --> Adapter
-    Adapter --> API
-    Staff <--> API
-    API --> Orch
-    Orch --> Privacy
-    Privacy --> NLP
-    NLP --> RAG
-    RAG <--> VDB
-    KBDocs -.-> VDB
-    RAG --> Workflow
-    Workflow --> DB
-    Workflow --> Staff
+graph TD
+    A[Mock RMS Adapter] --> B[Integration Layer]
+    B --> C[PII Protection]
+    C --> D[NLP Classification]
+    C --> E[Grounded RAG]
+    E --> F[AI Draft]
+    F --> G[Claim Grounding / Verification]
+    D --> H[Staff Copilot Workflow]
+    G --> H
+    H --> I[Human Action & Resolution]
+    I --> J[Audit + Feedback]
+    J --> K[Active Learning Queue]
+    K --> L[Offline Model Evaluation]
+    L --> M[Human Model Promotion]
 ```
 
----
+## Technology Stack
 
-## 🎬 Visual Tour & Demonstration Gallery
+- **Backend**: FastAPI, Python 3.10+, Pydantic
+- **Frontend**: React, TypeScript, Vite, TailwindCSS
+- **ML / NLP**: Scikit-Learn (TF-IDF + SVM baseline), SentenceTransformers
+- **Testing**: Pytest
 
-> Experience the interactive Smart RMS Staff Copilot Workstation, automated triage pipeline, RAG policy citations, and analytics dashboard.
+## Setup
 
-### 📽️ Interactive Copilot Workflow Demo
-![Smart RMS Interactive Session](docs/images/smart_rms_copilot_demo.webp)
-
----
-
-### 1. Staff Workstation Overview
-The frontline administrative dashboard featuring real-time queue metrics, priority filters, multi-department queue, and PII protection status.
-![Staff Workstation Overview](docs/images/01_staff_workstation_overview.png)
-
----
-
-### 2. Automated AI Triage (Hostel Maintenance & Water Leakage)
-Incoming ticket with automatic intent detection (`HOSTEL_MAINTENANCE`), recommended department routing, urgency calculation (Level 3 - High), and sanitized student identifiers.
-![Hostel Maintenance Triage](docs/images/02_triage_hostel_maintenance.png)
-
----
-
-### 3. Financial Grievance Triage (Duplicate Semester Fee Refund)
-Student reported dual tuition debit. The AI pipeline extracts transaction amounts, bank gateway entities, and initiates the reconciliation workflow.
-![Duplicate Fee Refund](docs/images/03_finance_duplicate_fee_refund.png)
-
----
-
-### 4. Grounded Policy Citations (RAG Evidence Verification)
-Smart RMS retrieves the exact clause from official university regulations (*Fee Payment & Refund Policy Clause 8.3*), citing the 7-10 day settlement window.
-![RAG Policy Citations](docs/images/04_finance_rag_citations.png)
-
----
-
-### 5. Critical Priority Escalation (Admit Card Clearance Hold)
-Examination hall ticket blocked with exams commencing in 48 hours. Tagged as **Level 4 - Critical** with expedited 4-hour emergency clearance directive.
-![Examination Admit Card Critical](docs/images/05_examination_hall_ticket_critical.png)
-
----
-
-### 6. Academic Affairs Triage (Continuous Assessment CA Marks Discrepancy)
-Inconsistency between evaluator rubric (27/30) and grade ledger record (12/30). AI matches course code `CSE 472` and routes to Academic Affairs.
-![CA Marks Discrepancy](docs/images/06_academics_ca_marks_discrepancy.png)
-
----
-
-### 7. Student Welfare Triage (Medical Leave Attendance Condonation)
-Hospitalization claim due to dengue fever. RAG matches Attendance Regulation Section 7 (Clause 7.2) for up to 10% attendance condonation upon Health Center verification.
-![Medical Leave Attendance](docs/images/07_attendance_medical_condonation.png)
-
----
-
-### 8. Operations & Workload Analytics
-Institutional dashboard displaying total RMS volume, mean resolution time (4.2h vs. 72h baseline), and AI draft acceptance rate (88.5%).
-![Operations Analytics](docs/images/08_operations_analytics_workload.png)
-
----
-
-### 9. Departmental Workload & Severity Breakdown
-Distribution of student grievances across operating branches (Hostel, Accounts, Examination, Academics) and severity levels.
-![Department Severity Distribution](docs/images/09_department_severity_distribution.png)
-
----
-
-### 10. Interactive FastAPI Swagger Documentation
-Production-grade OpenAPI documentation for all health, ticket lifecycle, analytics, and RAG knowledge search endpoints.
-![FastAPI Swagger UI](docs/images/10_fastapi_swagger_docs.png)
-
----
-
-## 🧠 AI & NLP Pipeline Flow
-
-```
-RMS Ticket Input (Raw Text & Metadata)
-         │
-         ▼
-[1] Preprocessing & Normalization
-         │
-         ▼
-[2] PII Detection & Redaction (Mask sensitive student data)
-         │
-         ▼
-[3] Intent Classification & Department Routing
-         │
-         ▼
-[4] Priority & Urgency Scoring
-         │
-         ▼
-[5] RAG Retrieval (Approved University Policy Base)
-         │
-         ▼
-[6] Grounded Response Generation (Grounded LLM Prompting)
-         │
-         ▼
-[7] Grounding & Source Citation Verification
-         │
-         ▼
-[8] Staff Copilot Review (Human Edits, Approves, or Escalates)
-         │
-         ▼
-Resolution Dispatched & Audit Log Recorded
-```
-
----
-
-## 🛠️ Technology Stack
-
-| Layer | Technology | Description |
-|---|---|---|
-| **Frontend** | React 19, TypeScript, Vite, Tailwind CSS, Lucide Icons | Responsive staff triage dashboard & copilot workstation |
-| **Backend** | Python 3.11+, FastAPI, Pydantic v2, Uvicorn | High-throughput asynchronous REST API & orchestration |
-| **AI / NLP** | LangChain Core, Google Gemini (`gemini-1.5-flash`), Mock Provider | Provider-independent LLM pipeline with zero-key dev mode |
-| **RAG / Vectors** | ChromaDB, Text Embeddings (`text-embedding-004`) | Embeddings and retrieval restricted to approved university knowledge |
-| **Data Privacy** | Regex engine & Named Entity Recognition (NER) | Automated PII masking and policy compliance verification |
-| **Databases** | PostgreSQL 16 (persistence), Redis 7 (caching/queuing) | Structured ticket storage, lifecycle transitions, and audit logs |
-| **Infrastructure** | Docker, Docker Compose, GitHub Actions | Containerized services with automated linting and unit testing |
-
----
-
-## 📊 Current Project Status
-
-### Milestone Progression
-
-- [x] **Milestone 1: Complete Synthetic University Environment & Canonical Data Contracts** (47 tests passing)
-- [x] **Milestone 2: Complete RMS Lifecycle & Operational Workflow** (500 synthetic tickets, 76 tests passing)
-- [x] **Milestone 3: Grounded RAG Knowledge System & Policy Retrieval** (54-query benchmark, 100% no-answer safety)
-- [x] **Milestone 4: NLP Intelligence Pipeline** (Intent + Routing + Priority + Urgency + Entity Extraction + Confidence, 89 tests passing, 120-query NLP benchmark, 500-ticket batch analysis)
-- [ ] **Milestone 5: Advanced LLM / Transformer Classification & Multi-Turn Staff Copilot** (Planned)
-
----
-
-## 📁 Repository Structure
-
-```
-smart-rms/
-├── README.md                           # Master project documentation
-├── LICENSE                             # MIT License
-├── .gitignore                          # Standard gitignore
-├── .env.example                        # Environment template
-├── docker-compose.yml                  # Container orchestration
-├── Makefile                            # Developer automation shortcuts
-│
-├── docs/                               # Engineering & Product Documentation
-│   ├── README.md                       # Docs overview & index
-│   ├── architecture/                   # Architectural blueprints
-│   │   ├── system-architecture.md      # End-to-end system design
-│   │   ├── ai-pipeline.md              # NLP, classification & grounding pipeline
-│   │   ├── rag-architecture.md         # Document chunking & vector retrieval
-│   │   ├── privacy-security.md         # PII safeguards & RBAC
-│   │   └── integration-architecture.md # University adapter specifications
-│   ├── product/                        # Product management specs
-│   │   ├── problem-statement.md        # Detailed university operational analysis
-│   │   ├── product-overview.md         # Scope, copilot role, and value metrics
-│   │   ├── user-roles.md               # User personas & authorization
-│   │   ├── user-stories.md             # Epics & user stories
-│   │   └── roadmap.md                  # 5-phase delivery roadmap
-│   ├── api/                            # API documentation
-│   │   └── api-overview.md             # REST endpoints, schemas, and examples
-│   └── decisions/                      # Architecture Decision Records
-│       └── ADR-001-initial-architecture.md
-│
-├── backend/                            # FastAPI Application
-│   ├── app/
-│   │   ├── main.py                     # App factory & route mounting
-│   │   ├── config.py                   # Pydantic environment configuration
-│   │   ├── api/v1/endpoints/           # REST controllers (rms, analytics, knowledge)
-│   │   ├── models/                     # Data schemas & domain models
-│   │   ├── ai/                         # AIProvider interface & providers
-│   │   ├── rag/                        # VectorStore interface & retrieval
-│   │   ├── privacy/                    # PII detector & redactor
-│   │   ├── workflows/                  # Ticket lifecycle state machine
-│   │   ├── integrations/               # UniversitySystemAdapter & mock adapters
-│   │   └── services/                   # Business logic orchestrator
-│   ├── tests/                          # Pytest suite
-│   ├── Dockerfile                      # Backend Dockerfile
-│   └── requirements.txt                # Python dependencies
-│
-├── frontend/                           # React + TypeScript Web App
-│   ├── src/
-│   │   ├── components/                 # UI components (Header, Queue, Copilot Panel)
-│   │   ├── pages/                      # Dashboard & Analytics views
-│   │   ├── services/                   # API clients with offline mock fallback
-│   │   └── types/                      # Shared TypeScript definitions
-│   ├── Dockerfile                      # Frontend Dockerfile
-│   └── package.json                    # Dependencies & build scripts
-│
-├── data/                               # Synthetic Datasets & Knowledge Base
-│   ├── mock/
-│   │   ├── rms_requests.json           # Realistic synthetic university tickets
-│   │   ├── users.json                  # Mock staff, leads, and admins
-│   │   ├── departments.json            # University departments & SLAs
-│   │   └── knowledge_documents.json    # Approved policy excerpts
-│   └── knowledge-base/
-│       └── README.md                   # Knowledge curation standards
-│
-├── scripts/                            # Operational Scripts
-│   ├── seed_mock_data.py               # Dataset validator & seeder
-│   └── health_check.py                 # Smoke test & diagnostic utility
-│
-└── .github/                            # CI/CD and GitHub Templates
-    ├── workflows/ci.yml                # Automated test & lint workflow
-    ├── ISSUE_TEMPLATE/                 # Bug report & feature templates
-    └── pull_request_template.md        # PR guidelines & checklist
-```
-
----
-
-## 🔒 Data Privacy & Mock Data Disclaimer
-
-> [!CAUTION]
-> **SYNTHETIC DATA NOTICE:**  
-> This project operates **strictly with synthetic, fabricated mock data** during development. No real student records, university registration numbers, personal contact details, or proprietary records are stored in this repository or transmitted to third-party models.  
-> 
-> All student identifiers (e.g., `REG-2024-XXXX`), names, and contact entries are entirely fictional. When deployed in production environments, the system must be governed by strict university data privacy agreements, on-premise model hosting or enterprise VPC connections, and active PII sanitization.
-
----
-
-## ⚡ Quickstart & Local Setup
-
-### Prerequisites
-- **Python:** 3.11 or higher
-- **Node.js:** v18 or higher (v20+ recommended)
-- **Git**
-
-### 1. Clone & Setup Environment
-```bash
-git clone https://github.com/your-org/smart-rms.git
-cd smart-rms
-cp .env.example .env
-```
-
-### 2. Backend Setup
+1. **Clone the repository.**
+2. **Environment**: Copy `.env.example` to `.env`
+3. **Backend**:
 ```bash
 cd backend
 python -m venv .venv
-# On Windows:
-.venv\Scripts\activate
-# On macOS/Linux:
 source .venv/bin/activate
-
 pip install -r requirements.txt
-uvicorn app.main:app --reload --port 8000
+uvicorn app.main:app --reload
 ```
-API Documentation will be available at: **http://localhost:8000/docs**
-
-### 3. Frontend Setup
-In a separate terminal:
+4. **Frontend**:
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-Staff Copilot Dashboard will be running at: **http://localhost:5173**
 
-### 4. Run Automated Tests & Benchmarks
+## Testing
+The backend features a robust regression suite.
+Currently maintaining **109** automated tests. Run them via:
 ```bash
-# Run full backend test suite (102 passed)
-cd backend && pytest tests/ -v
-
-# Train and serialize ML model artifacts
-make ml-train
-
-# Run scientific ML Intent Classification benchmark
-make ml-benchmark
-
-# Run 500-ticket end-to-end Staff Copilot pipeline benchmark
-make copilot-benchmark
+pytest
 ```
 
----
+## Future University Integration
+The current prototype relies on `MockRMSAdapter` and synthetic student data to ensure privacy and security. A future authorized integration will implement the documented `UniversitySystemAdapter` contract to communicate securely with LPU/UMS.
 
-## 🚦 Operational Workflow & State Machine
-
-Smart RMS implements a complete, deterministic operational workflow:
-- **Canonical Lifecycle**: `NEW` &rarr; `INGESTED` &rarr; `ANALYZED` &rarr; `ROUTED` &rarr; `STAFF_REVIEW` &rarr; `IN_PROGRESS` &rarr; `WAITING_FOR_STUDENT` / `WAITING_FOR_DEPARTMENT` / `ESCALATED` &rarr; `RESOLVED` &rarr; `CLOSED`.
-- **Operational Actions**: Ticket Assignment, Historical Reassignment, Department Redirection, Staff Communication (`STAFF`, `AI_DRAFT`, `SYSTEM`, `ESCALATION`), Resolution, and Administrative Closure.
-- **Deterministic SLA Engine**: Derives turnaround time from department policies and priority, evaluating risk deterministically (`ON_TRACK`, `AT_RISK`, `BREACHED`).
-- **Comprehensive Audit Trail**: Append-only audit events tracking actor, state transition, and operational rationale.
-- **Human Override Architecture**: Staff can override recommended department, priority, urgency, or intent without destroying original AI predictions.
-
----
-
-## 🗺️ Roadmap Overview
-
-- **Milestone 1: Environment & Canonical Data Contracts (COMPLETED):** Pydantic V2 domain models, synthetic university environment (departments, staff, SLA policies, mock adapter), and verification test suite.
-- **Milestone 2: Complete RMS Lifecycle & Operational Workflow (COMPLETED):** Deterministic finite state machine, assignment & redirection, staff communication thread, operational SLA & escalation, resolution & closure, audit trail, 500+ ticket validation, and operational UI workstation.
-- **Milestone 3: Grounded RAG Knowledge System & Policy Retrieval (COMPLETED):** Semantic vector retrieval, policy clause grounding, source attribution, strict "No-Source &rarr; No-Answer" refusal safeguards, and 500-ticket retrieval benchmark.
-- **Milestone 4: NLP Intelligence Pipeline (COMPLETED):** PII redaction, entity extraction, intent classification, department routing, priority/urgency scoring, and ambiguity detection across 120 evaluation cases.
-- **Milestone 5: Classical ML Benchmark & Unified Staff Copilot (COMPLETED):**
-  - Scientific evaluation of Model 0 (Deterministic), Model 1 (TF-IDF + Logistic Regression), Model 2 (TF-IDF + Calibrated Linear SVM), and Model 3 (Dense Sentence-Transformers) on a frozen, zero-leakage test split.
-  - Model 2 achieves **100.00% accuracy and 1.0000 Macro F1** with **1.81 ms P95 latency**.
-  - Non-destructive Human Override workflow with audit logging (`event_type="HUMAN_OVERRIDE"`).
-  - 500-Ticket End-to-End Staff Copilot Benchmark: **253.2 tickets/sec throughput**, **54.0% grounded drafts**, **46.0% no-source refusals**, and **70.4% enforced human review rate**.
-  - 102/102 backend tests passing, clean frontend production build.
-
-
----
-
-## 🤝 Contributing
-
-Please see [`docs/`](docs/) for architectural details. All contributions must adhere to the PII protection guidelines and must not introduce proprietary university credentials.
-
----
-
-## 📄 License
-
-This project is licensed under the [MIT License](LICENSE).
+## Safety & Limitations
+- **No autonomous high-impact decisions**: Drafts must be approved.
+- **No-source/no-answer**: RAG will refuse to answer if a policy is not found.
+- **Limitations**: As an academic prototype relying on synthetic data, organic human feedback volume is currently limited. Challenger model evaluation defaults to a mock pass for demonstration of the safety gates architecture.

@@ -3,9 +3,10 @@ import { Header } from './components/Header';
 import { Dashboard } from './pages/Dashboard';
 import { Analytics } from './pages/Analytics';
 import { Evaluation } from './pages/Evaluation';
+import { ActiveLearning } from './pages/ActiveLearning';
 
 export const App: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'analytics' | 'evaluation' | 'settings'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'analytics' | 'evaluation' | 'active-learning' | 'settings'>('dashboard');
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-['Inter',sans-serif]">
@@ -17,6 +18,7 @@ export const App: React.FC = () => {
         {activeTab === 'dashboard' && <Dashboard />}
         {activeTab === 'analytics' && <Analytics />}
         {activeTab === 'evaluation' && <Evaluation />}
+        {activeTab === 'active-learning' && <ActiveLearning />}
       </main>
     </div>
   );

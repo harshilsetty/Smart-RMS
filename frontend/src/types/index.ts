@@ -303,3 +303,30 @@ export interface EvaluationSummary {
   intent_per_class?: Record<string, any>;
   department_per_class?: Record<string, any>;
 }
+
+export interface FeedbackEvent {
+  feedback_id: string;
+  ticket_id: string;
+  timestamp: string;
+  feedback_type: string;
+  original_prediction?: string;
+  corrected_value?: string;
+  model_provider?: string;
+  model_version?: string;
+  confidence?: number;
+  grounding_status?: string;
+  human_action: string;
+  reason?: string;
+  status: 'CANDIDATE' | 'VALIDATED' | 'REJECTED' | 'USED_FOR_TRAINING';
+  al_priority_score: number;
+}
+
+export interface ModelVersion {
+  model_name: string;
+  version: string;
+  provider: string;
+  training_dataset?: string;
+  metrics: Record<string, any>;
+  status: 'PRODUCTION' | 'CHALLENGER' | 'ARCHIVED' | 'REJECTED';
+  creation_timestamp: string;
+}

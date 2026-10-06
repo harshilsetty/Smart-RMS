@@ -299,3 +299,51 @@ export async function fetchEvaluationSummary(): Promise<any> {
   if (!res.ok) throw new Error('Failed to fetch evaluation summary');
   return await res.json();
 }
+
+export async function fetchActiveLearningQueue(): Promise<any[]> {
+  const res = await fetch(`${API_BASE_URL}/api/v1/active-learning/queue`);
+  if (!res.ok) throw new Error('Failed to fetch active learning queue');
+  return await res.json();
+}
+
+export async function fetchActiveLearningMetrics(): Promise<any> {
+  const res = await fetch(`${API_BASE_URL}/api/v1/active-learning/metrics`);
+  if (!res.ok) throw new Error('Failed to fetch active learning metrics');
+  return await res.json();
+}
+
+export async function validateFeedback(feedbackId: string, action: 'APPROVE' | 'REJECT', actorId: string): Promise<any> {
+  const res = await fetch(`${API_BASE_URL}/api/v1/active-learning/${feedbackId}/validate?action=${action}&actor_id=${actorId}`, {
+    method: 'POST'
+  });
+  if (!res.ok) throw new Error('Failed to validate feedback');
+  return await res.json();
+}
+
+export async function fetchProductionModel(): Promise<any> {
+  const res = await fetch(`${API_BASE_URL}/api/v1/models/production`);
+  if (!res.ok) throw new Error('Failed to fetch production model');
+  return await res.json();
+}
+
+export async function fetchChallengerModels(): Promise<any[]> {
+  const res = await fetch(`${API_BASE_URL}/api/v1/models/challengers`);
+  if (!res.ok) throw new Error('Failed to fetch challenger models');
+  return await res.json();
+}
+
+export async function promoteModel(version: string, reviewer: string, reason: string): Promise<any> {
+  const res = await fetch(`${API_BASE_URL}/api/v1/models/${version}/promote?reviewer=${reviewer}&reason=${reason}`, {
+    method: 'POST'
+  });
+  if (!res.ok) throw new Error('Failed to promote model');
+  return await res.json();
+}
+
+export async function rollbackModel(version: string, reviewer: string, reason: string): Promise<any> {
+  const res = await fetch(`${API_BASE_URL}/api/v1/models/${version}/rollback?reviewer=${reviewer}&reason=${reason}`, {
+    method: 'POST'
+  });
+  if (!res.ok) throw new Error('Failed to rollback model');
+  return await res.json();
+}

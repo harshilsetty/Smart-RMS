@@ -2,8 +2,8 @@ import React from 'react';
 import { ShieldCheck, Bot, UserCheck, Bell, Activity } from 'lucide-react';
 
 interface HeaderProps {
-  activeTab: 'dashboard' | 'analytics' | 'evaluation' | 'settings';
-  setActiveTab: (tab: 'dashboard' | 'analytics' | 'evaluation' | 'settings') => void;
+  activeTab: 'dashboard' | 'analytics' | 'evaluation' | 'active-learning' | 'settings';
+  setActiveTab: (tab: 'dashboard' | 'analytics' | 'evaluation' | 'active-learning' | 'settings') => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
@@ -56,6 +56,16 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
           }`}
         >
           NLP Evaluation
+        </button>
+        <button
+          onClick={() => setActiveTab('active-learning')}
+          className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+            activeTab === 'active-learning'
+              ? 'bg-slate-800 text-white shadow'
+              : 'text-slate-400 hover:text-slate-200'
+          }`}
+        >
+          Active Learning
         </button>
       </nav>
 
