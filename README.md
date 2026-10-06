@@ -60,57 +60,45 @@ By leveraging NLP, RAG, and NLI verification, the system automates the heavy lif
 
 # 🖥️ Product Walkthrough
 
-*(Note: Manual screenshot capture required to populate these placeholders in `docs/images/`)*
+### 1. Staff Workstation & Copilot Demo
+![Smart RMS Demo](docs/images/smart_rms_copilot_demo.webp)  
+*Full Copilot Workflow Demo — AI Assists, Humans Decide.*
 
-### 1. Staff Dashboard
-![Staff Dashboard](docs/images/dashboard.jpg)
-*Staff Dashboard — Operational overview of university RMS workload.*  
-Provides staff with a high-level view of pending requests, priority queues, and SLA warnings.
+### 2. Staff Workstation Overview
+![Staff Workstation](docs/images/01_staff_workstation_overview.png)  
+*Comprehensive overview of the staff workspace and current ticket queues.*
 
-### 2. RMS Queue
-![RMS Queue](docs/images/rms-queue.jpg)
-*RMS Queue — Centralized request management and triage.*  
-Lists tickets alongside their AI-predicted priority, intent, and department.
+### 3. Triage & Hostel Maintenance
+![Hostel Triage](docs/images/02_triage_hostel_maintenance.png)  
+*AI-predicted routing and triage for a hostel maintenance request.*
 
-### 3. RMS Workspace & NLP Analysis
-![NLP Analysis](docs/images/nlp-analysis.jpg)
-*RMS Workspace — Deep NLP analysis of the request.*  
-Displays the detected **Intent** (what the request is about), **Department** (where it belongs), **Priority** (operational importance), **Entities**, and an overall **Confidence** score.
+### 4. Finance & Fee Refunds
+![Finance Request](docs/images/03_finance_duplicate_fee_refund.png)  
+*Deep NLP analysis processing a complex duplicate fee refund issue.*
 
-### 4. RAG Knowledge Sources
-![RAG Sources](docs/images/rag-sources.jpg)
-*Evidence Retrieval — Policy-grounded knowledge retrieval.*  
-Shows exactly which policy documents the system retrieved to formulate its response, providing complete transparency.
+### 5. RAG Policy Citations
+![RAG Citations](docs/images/04_finance_rag_citations.png)  
+*Retrieval-Augmented Generation (RAG) fetching grounded evidence from university finance policies.*
 
-### 5. Staff Copilot Response
-![Copilot Draft](docs/images/response-draft.jpg)
-*Staff Copilot — AI-generated response prepared for human review.*  
-The drafted response is presented strictly for review. The AI does NOT directly send the response.
+### 6. Critical Examination Issues
+![Critical Exam Issue](docs/images/05_examination_hall_ticket_critical.png)  
+*System prioritizing a critical urgency ticket regarding an examination hall ticket.*
 
-### 6. Claim Grounding & Verification
-![Claim Grounding](docs/images/claim-grounding.jpg)
-*Claim Grounding — Verification of AI claims against source texts.*  
-Displays whether individual sentences in the draft are `Supported`, `Contradicted`, or `Insufficient` based on NLI cross-referencing.
+### 7. Academic Discrepancies
+![Academics Issue](docs/images/06_academics_ca_marks_discrepancy.png)  
+*Handling specific entity extraction for academic continuous assessment marks.*
 
-### 7. Human Override
-![Human Override](docs/images/human-override.jpg)
-*Human Override — Safe and logged corrections.*  
-When staff edit the AI prediction or draft, the original prediction and the human correction are securely logged.
+### 8. Operations & Analytics Workload
+![Workload Analytics](docs/images/08_operations_analytics_workload.png)  
+*Dashboard tracking operational workload, SLA metrics, and staff performance.*
 
-### 8. Active Learning
-![Active Learning](docs/images/active-learning.jpg)
-*Active Learning — Turning corrections into training data.*  
-High-value staff corrections populate a review queue where ML Admins can validate them for future offline model tuning.
+### 9. Severity Distribution
+![Severity Distribution](docs/images/09_department_severity_distribution.png)  
+*Visual breakdown of ticket severity distributed across different university departments.*
 
-### 9. Model Registry
-![Model Registry](docs/images/model-registry.jpg)
-*Model Registry — Safe governance of AI deployment.*  
-Authorized administrators can review Challenger models, manually approve their promotion to Production, or trigger emergency rollbacks.
-
-### 10. Audit Trail
-![Audit Trail](docs/images/audit-trail.jpg)
-*Audit Trail — Unbreakable accountability.*  
-Logs all AI events, staff actions, assignments, and overrides for security and process compliance.
+### 10. API Documentation (FastAPI)
+![API Docs](docs/images/10_fastapi_swagger_docs.png)  
+*Comprehensive, interactive Swagger UI documenting the REST API endpoints.*
 
 ---
 
