@@ -1,6 +1,6 @@
 # Smart RMS
 
-**An AI-assisted university RMS resolution & operations platform designed to help staff understand, route, retrieve evidence for, draft, and manage large volumes of requests while keeping humans in control.**
+**An AI-assisted university RMS operations and resolution platform designed to help staff understand, route, retrieve evidence for, draft, and manage large volumes of requests while keeping humans in control.**
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115%2B-009688)
@@ -11,40 +11,42 @@
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Release](https://img.shields.io/badge/Release-v1.0.0-purple)
 
-**Current Status:** Production-Ready Architectural Prototype (Synthetic Data)  
+**Current Status:** Production-Ready Architectural Prototype / Academic Release (using synthetic/mock university data).  
 **Core Philosophy:** > *AI Assists. Humans Decide.*
 
 ---
 
 # 🧠 Smart RMS in 60 Seconds
 
-Smart RMS transforms how university staff handle student requests by serving as an intelligent Copilot.
+Smart RMS transforms how university staff handle student requests by serving as an intelligent operations platform and Copilot.
 
-**Example Flow:**
+**Example Scenario:**
 A student submits a request: *"I paid my semester fee but the portal still shows pending."*
 
-1. **Request** is received by the system.
-2. **PII Protection** masks any sensitive student IDs or payment references.
-3. **NLP Understanding** classifies the Intent (`Fee_Status_Issue`), Department (`Accounts & Finance`), Priority (`High`), and extracts relevant Entities.
-4. **Policy Retrieval (RAG)** automatically searches the university policy corpus for fee updating timelines.
-5. **Grounded Draft** is generated using the retrieved policy evidence.
-6. **Claim Verification** confirms the AI's claims don't contradict the policy using NLI (Natural Language Inference).
-7. **Staff Review** presents the draft and evidence to the human operator.
-8. **Human Approval / Override** allows the staff member to edit or dispatch the response.
-9. **Resolution** is logged in the system.
-10. **Feedback** is captured if the staff member corrected the AI, feeding the **Active Learning** queue for future offline evaluation.
+1. **Request arrives:** The student submits the ticket into the system.
+2. **Sensitive information is protected:** PII (Personally Identifiable Information) like student IDs are scrubbed automatically.
+3. **NLP understands the request:** The AI reads the text to understand the intent (`Fee_Status_Issue`).
+4. **Department and priority are predicted:** The system routes it to `Accounts & Finance` with `High` priority.
+5. **Relevant policy is retrieved:** RAG (Retrieval-Augmented Generation) searches the university knowledge base and pulls the exact fee update timeline policy.
+6. **AI prepares a draft:** The Copilot writes a personalized response based *only* on the retrieved policy.
+7. **Claims are checked against evidence:** NLI (Natural Language Inference) verifies that the draft doesn't contradict the official policy.
+8. **Staff reviews the draft:** A human operator reads the ticket, the retrieved policy, and the AI's draft.
+9. **Staff approves or overrides:** The human can edit the draft or change the routing. The AI never sends responses autonomously.
+10. **Resolution is recorded:** The ticket is closed and logged in the audit trail.
+11. **Feedback can enter the active-learning workflow:** If the human corrected the AI, that feedback is saved to evaluate and improve future models (Model Registry).
 
 ---
 
 # 🎯 The Problem
 
-University administrative staff manage hundreds of RMS requests daily. The cognitive and operational burden is immense:
-- **Routing Ambiguity:** Determining which specific department handles complex, overlapping student issues.
-- **Policy Complexity:** Staff must constantly look up frequently changing university regulations to ensure compliance.
-- **SLA Pressure:** High-volume repetitive queries risk breaching strict escalation timelines.
-- **Audit Requirements:** Every decision requires a paper trail and accountability.
+University administrative staff manage hundreds of RMS (Request Management System) requests daily. This creates severe operational bottlenecks:
+- **Routing Ambiguity:** Determining which department actually handles a complex request.
+- **Policy Complexity:** Staff must manually look up disparate and frequently updated university regulations to ensure compliance.
+- **Volume & SLA:** Handling high-volume repetitive queries while managing strict escalation deadlines (Service Level Agreements).
+- **Incomplete Context:** Students often provide ambiguous descriptions, making priority and urgency triage difficult.
+- **Audit Requirements:** Every decision requires a clear paper trail.
 
-Conventional systems force staff to manually triage, search, format, and dispatch responses—often leading to delays and burnout.
+The cognitive burden leads to fatigue, delayed resolutions, and occasional policy-inconsistent responses.
 
 ---
 
@@ -52,53 +54,131 @@ Conventional systems force staff to manually triage, search, format, and dispatc
 
 Smart RMS transforms **Manual RMS Processing** into an **AI-Assisted Resolution Workflow**.
 
-By leveraging NLP, RAG, and NLI verification, the system automates the heavy lifting of understanding the request and gathering evidence. It prepares a highly accurate, grounded draft so that staff can focus entirely on *reviewing and deciding*, dramatically reducing resolution times.
+By leveraging NLP (Natural Language Processing), RAG (Retrieval-Augmented Generation), and NLI (Natural Language Inference) verification, the system automates the heavy lifting of understanding the request and gathering evidence. It prepares a highly accurate, grounded draft so that staff can focus entirely on *reviewing and deciding*, dramatically reducing resolution times.
 
-**AI Assists. Humans Decide.**
+**AI assists. Humans decide.**
 
 ---
 
 # 🖥️ Product Walkthrough
 
-### 1. Staff Workstation & Copilot Demo
-![Smart RMS Demo](docs/images/smart_rms_copilot_demo.webp)  
-*Full Copilot Workflow Demo — AI Assists, Humans Decide.*
+### 1. Staff Dashboard
 
-### 2. Staff Workstation Overview
-![Staff Workstation](docs/images/01_staff_workstation_overview.png)  
-*Comprehensive overview of the staff workspace and current ticket queues.*
+![Smart RMS Staff Dashboard](docs/images/01_staff_workstation_overview.png)
 
-### 3. Triage & Hostel Maintenance
-![Hostel Triage](docs/images/02_triage_hostel_maintenance.png)  
-*AI-predicted routing and triage for a hostel maintenance request.*
+**What you're seeing**
+The main operational workspace used by staff to understand RMS workload, priority queues, and request statuses.
 
-### 4. Finance & Fee Refunds
-![Finance Request](docs/images/03_finance_duplicate_fee_refund.png)  
-*Deep NLP analysis processing a complex duplicate fee refund issue.*
+**Why it matters**
+Instead of manually scanning hundreds of requests, staff receive a structured operational view before opening individual tickets.
 
-### 5. RAG Policy Citations
-![RAG Citations](docs/images/04_finance_rag_citations.png)  
-*Retrieval-Augmented Generation (RAG) fetching grounded evidence from university finance policies.*
+---
 
-### 6. Critical Examination Issues
-![Critical Exam Issue](docs/images/05_examination_hall_ticket_critical.png)  
-*System prioritizing a critical urgency ticket regarding an examination hall ticket.*
+### 2. RMS Workspace + NLP
 
-### 7. Academic Discrepancies
-![Academics Issue](docs/images/06_academics_ca_marks_discrepancy.png)  
-*Handling specific entity extraction for academic continuous assessment marks.*
+![RMS NLP Workspace](docs/images/03_finance_duplicate_fee_refund.png)
 
-### 8. Operations & Analytics Workload
-![Workload Analytics](docs/images/08_operations_analytics_workload.png)  
-*Dashboard tracking operational workload, SLA metrics, and staff performance.*
+**What you're seeing**
+Deep NLP analysis of a ticket. It extracts the **Intent** (what the request is), **Department** (where it belongs), **Priority** (operational importance), **Urgency**, **Entities** (like dates or amounts), and the model's **Confidence**.
 
-### 9. Severity Distribution
-![Severity Distribution](docs/images/09_department_severity_distribution.png)  
-*Visual breakdown of ticket severity distributed across different university departments.*
+**Why it matters**
+Staff don't have to guess who should handle a ticket or how urgent it is; the AI triages it instantly.
 
-### 10. API Documentation (FastAPI)
-![API Docs](docs/images/10_fastapi_swagger_docs.png)  
-*Comprehensive, interactive Swagger UI documenting the REST API endpoints.*
+---
+
+### 3. RAG Policy Sources
+
+![RAG Policy Sources](docs/images/04_finance_rag_citations.png)
+
+**What you're seeing**
+RAG means the system retrieves relevant policy information before preparing an AI response. This shows the exact policy document snippets pulled from the university database.
+
+**Why it matters**
+Staff can instantly verify the AI's logic by reading the official rule, eliminating manual policy lookups.
+
+---
+
+### 4. Staff Copilot
+
+![Staff Copilot](docs/images/05_examination_hall_ticket_critical.png)
+
+**What you're seeing**
+An AI-generated draft response is presented in a text editor. The workflow is: **AI Draft → Staff Review → Edit / Override → Approve → Dispatch.**
+
+**Why it matters**
+It accelerates response times without sacrificing human accountability. It is impossible for the AI to autonomously send a response to a student.
+
+---
+
+### 5. Claim Grounding
+
+![Claim Grounding](docs/images/06_academics_ca_marks_discrepancy.png)
+
+**What you're seeing**
+Generated claims in the draft are checked against retrieved evidence. The system flags sentences as supported or contradicted.
+
+**Why it matters**
+This reduces the risk of the AI "hallucinating" or confidently stating incorrect information to students.
+
+---
+
+### 6. Human Override
+
+![Human Override](docs/images/07_attendance_medical_condonation.png)
+
+**What you're seeing**
+If the AI makes a mistake in classification, the staff member corrects it. The workflow is: **AI prediction → Human correction → Audit event → Future learning candidate.**
+
+**Why it matters**
+The system learns safely. Corrections don't pollute the live database but are securely stored for evaluation.
+
+---
+
+### 7. Active Learning
+
+*(Note: Screenshot currently unavailable in this release).*
+
+**What it does**
+Human feedback is converted into structured candidates for offline validation/evaluation by Machine Learning admins.
+
+**Why it matters**
+The production model does *not* automatically retrain itself (which is dangerous). Instead, feedback creates a curated dataset to evaluate future models.
+
+---
+
+### 8. Model Registry
+
+*(Note: Screenshot currently unavailable in this release).*
+
+**What it does**
+Tracks AI models through states: `Production`, `Challenger`, `Archived`, and `Rejected`. The workflow is: **Evaluation → Safety Gates → Human Approval → Promotion.**
+
+**Why it matters**
+Ensures that no new AI model ever reaches production without explicit, audited human administrative approval.
+
+---
+
+### 9. Operations Analytics
+
+![Operations Analytics](docs/images/08_operations_analytics_workload.png)
+
+**What you're seeing**
+A dashboard tracking operational workload and SLA metrics.
+
+**Why it matters**
+Provides administrators with birds-eye visibility into department performance and bottlenecks.
+
+---
+
+### 10. API
+
+![FastAPI Swagger](docs/images/10_fastapi_swagger_docs.png)
+
+**What you're seeing**
+The interactive Swagger documentation for the backend REST API (`/docs`).
+
+**Why it matters**
+Allows future integrations with institutional systems (like UMS) to seamlessly connect to the AI engine.
 
 ---
 
@@ -106,7 +186,7 @@ By leveraging NLP, RAG, and NLI verification, the system automates the heavy lif
 
 ```mermaid
 flowchart TD
-    A[University RMS / UMS] --> B[Integration Layer]
+    A[University RMS / UMS] --> B[Integration Adapter]
     B --> C[RMS Ingestion]
     C --> D[Privacy & PII Protection]
     D --> E[NLP Intelligence]
@@ -122,86 +202,106 @@ flowchart TD
     G --> H[Staff Copilot]
 
     H --> I[Human Review / Override]
-    I --> J[Resolution / Escalation / Audit]
+    I --> J[Workflow / Audit]
 
-    J --> K[Feedback / Active Learning]
+    J --> K[Active Learning]
     K --> L[Challenger Evaluation]
     L --> M[Model Registry]
-    M --> E
+    M -.-> E
+
+    classDef future fill:#f9f,stroke:#333,stroke-width:2px,stroke-dasharray: 5 5;
+    class A future;
 ```
 
-### Architecture Explained
+*Note: The system currently utilizes a `MockRMSAdapter` (CURRENT). An Institutional / LPU Adapter is required for real-world production (FUTURE).*
 
-- **Integration**: Standardized adapter linking the external RMS (currently mock) to our system.
-- **Privacy**: Redacts PII before it reaches any ML boundary.
-- **NLP**: Local ML models classify intent, route departments, and extract entities.
-- **RAG**: Retrieves highly relevant policy document chunks via vector embeddings.
-- **Grounding**: NLI verification checks the AI's claims against the retrieved text.
-- **Staff Copilot**: Drafts the response and presents all context cleanly in the UI.
-- **Workflow**: Manages the strict state machine of approvals, escalations, and resolution.
-- **Active Learning**: Collects staff overrides cleanly without polluting production data.
-- **Model Governance**: Allows ML Admins to safely evaluate and promote challenger models offline.
+### Beginner Architecture Explanation
+
+| Layer | What it does | Why it matters |
+|---|---|---|
+| **Integration** | Connects RMS systems | Provider independence |
+| **Privacy** | Removes sensitive information | Data protection |
+| **NLP** | Understands requests | Automated triage |
+| **RAG** | Retrieves policy evidence | Grounded answers |
+| **Grounding** | Verifies claims | Reduces unsupported answers |
+| **Copilot** | Presents draft/context | Staff productivity |
+| **Workflow** | Manages lifecycle | Operational consistency |
+| **Active Learning** | Captures feedback | Continuous evaluation |
+| **Model Registry**| Controls model lifecycle | Safe ML governance |
 
 ---
 
 # ⚙️ Technology Stack
 
-| Layer | Technology | Purpose |
-|-------|------------|---------|
-| **Backend** | FastAPI, Python 3.10+ | Core API, orchestrator, and ML integration |
-| **Frontend** | React, Vite, Tailwind CSS, TypeScript | Staff interface and operational dashboard |
-| **ML / NLP** | Scikit-Learn, SentenceTransformers | TF-IDF SVM classification, dense embeddings |
-| **RAG** | Vector similarity algorithms | Semantic policy retrieval |
-| **Infrastructure** | Docker, Uvicorn | Containerized deployment and application serving |
-| **Testing** | Pytest | Automated regression and evaluation suites |
+| Layer | Technology |
+|---|---|
+| **Backend** | FastAPI, Python 3.10+, Pydantic |
+| **Frontend** | React, Vite, Tailwind CSS, TypeScript |
+| **ML / NLP** | Scikit-Learn (TF-IDF, LinearSVC), SentenceTransformers |
+| **RAG** | Dense embeddings, Local vector similarity |
+| **Testing** | Pytest |
+| **Infrastructure** | Docker, Uvicorn |
 
 ---
 
 # 🧠 AI / ML Architecture
 
-- **Intent Classification & Routing**: Operates on a tiered provider system. The current production baseline is a `TF-IDF + Calibrated Linear SVM`, replacing the initial `TF-IDF + Logistic Regression` baseline. A `Sentence Transformer` architecture is also available for evaluation. If all fail, a deterministic fallback kicks in.
-- **Knowledge Retrieval (RAG)**: Uses dense embeddings to perform vector searches against policy documents. Strict relevance thresholds ensure that only accurate sources are returned.
-- **Claim Grounding (NLI)**: Employs a local Cross-Encoder model to evaluate if a generated claim is entailed by the retrieved evidence.
-- **Active Learning**: Uses a safe, offline dataset builder. Production models do *not* automatically retrain themselves.
+- **Intent Classification**: Operates on a tiered provider system. The current production candidate is a `TF-IDF + Calibrated Linear SVM`, replacing the initial `TF-IDF + Logistic Regression` baseline. A `Sentence Transformer` architecture is available for evaluation. If neural methods fail, a deterministic regex/token-pool fallback engages.
+- **Retrieval (RAG)**: Utilizes dense embeddings and semantic vector search to pull relevant chunks from the ingested policy corpus.
+- **Claim Grounding**: Performs heuristic/claim-to-evidence verification to assess if a generated claim is entailed by the retrieved evidence.
+- **Active Learning**: Collects validated human feedback (overrides) and queues them for offline candidate datasets.
+- **Model Governance**: Strictly isolates `PRODUCTION` models from `CHALLENGER` models. Models cannot be promoted without manual administrative override.
 
 ---
 
 # 📊 Evaluation & Evidence
 
-*Note: Evaluation results were obtained using synthetic/mock university data and controlled local benchmark environments. They demonstrate system behavior under the evaluated conditions and should not be interpreted as guarantees of real-world university performance.*
+> All reported benchmark results were obtained using synthetic/mock university data and controlled local environments. These results demonstrate behavior under the evaluated conditions and do not guarantee real-world institutional performance.
 
-| Component | Metric | Result | Dataset | Model/System | Meaning |
-|-----------|--------|--------|---------|--------------|---------|
-| **NLP** | Intent Accuracy | 94.00% | 500-ticket Mock | `tfidf_svm_v1` | Percentage of correct intent classifications. |
-| **NLP** | Department Accuracy | 96.00% | 500-ticket Mock | `tfidf_svm_v1` | Correct department routing precision. |
-| **NLP** | Priority Detection | 91.00% | 500-ticket Mock | `tfidf_svm_v1` | Accuracy of priority triage. |
-| **NLP** | NLP P95 Latency | < 50 ms | 500-ticket Mock | `tfidf_svm_v1` | 95% of inference requests complete under this time. |
+### NLP Evaluation (M4 / Phase 2)
+*Dataset: 60 diverse balanced synthetic tickets.*
+- **Intent Accuracy**: 95.0%
+- **Department Routing**: 100.0%
+- **Priority Accuracy**: 88.33%
+
+### RAG Evaluation (M3 / Phase 2)
+*Dataset: 60 diverse balanced synthetic tickets.*
+- **Precision@1**: 94.64%
+- **Recall@3**: 100.0% (Relevant policy found in top 3)
+- **MRR (Mean Reciprocal Rank)**: 0.9732
+
+### Claim Grounding Evaluation
+- **No-Source Adherence**: 100.0% (Strict fallback to human review when evidence is missing).
 
 ---
 
 # ⚖️ Model Comparison
 
-| Model | Role | Accuracy | Macro F1 | P95 Latency |
-|-------|------|----------|----------|-------------|
-| **Deterministic** | Fallback | 91.67% | ~0.89 | < 1 ms |
-| **TF-IDF + Logistic** | Baseline | 90.00% | 0.8117 | ~0.34 ms |
-| **TF-IDF + Calibrated SVM** | Production Candidate | 100% (Overfit test) | ~1.00 | ~1.81 ms |
-| **Sentence Transformer** | Challenger Eval | 100% (Overfit test) | ~1.00 | ~15-30 ms |
+*Evaluated on the frozen M5 stratified test split (36 samples).*
 
-*The TF-IDF Calibrated SVM was selected for production as it provides the optimal balance of classification accuracy, confidence calibration (ECE), and extreme low latency, avoiding the heavy compute cost of transformers for baseline triage.*
+| Model | Role | Accuracy | Macro F1 | P95 Latency | ECE |
+|-------|------|----------|----------|-------------|-----|
+| **Deterministic** | Fallback | 91.67% | 0.7769 | 0.10 ms | 0.1187 |
+| **TF-IDF + Logistic** | Baseline | 100.00%* | 1.0000 | 1.53 ms | 0.4194 |
+| **TF-IDF + Calibrated SVM** | Prod Candidate | 100.00%* | 1.0000 | 1.81 ms | 0.1634 |
+| **Sentence Transformer** | Challenger Eval| 100.00%* | 1.0000 | 14.25 ms| 0.2770 |
+
+*\*100% accuracy achieved on the evaluated held-out benchmark split. This is a development/benchmark result and is not representative of real-world production generalization.*
 
 ---
 
-# 🚀 System Benchmark Snapshot
+# 🚀 500-Ticket Benchmark Snapshot
 
-```text
-SMART RMS — SYNTHETIC BENCHMARK
-────────────────────────────────────
-Tickets evaluated       : 500
-Throughput              : ≈253 tickets/sec
-P95 latency             : < 50 ms
-Autonomous decisions    : 0 (Strict Human-in-the-Loop)
-```
+**SMART RMS — 500-TICKET SYNTHETIC BENCHMARK (M6)**
+
+| Metric | Result |
+|--------|--------|
+| **Total Tickets** | 500 |
+| **Throughput** | 180.18 tickets/sec |
+| **P95 Latency** | 9.648 ms |
+| **Human Review Required** | 100.0% |
+| **Fully Grounded Drafts** | 0.0% (Strict verification blocked auto-approval) |
+| **Autonomous Decisions** | 0 (Strict Human-in-the-Loop) |
 
 ---
 
@@ -211,36 +311,47 @@ Autonomous decisions    : 0 (Strict Human-in-the-Loop)
 - **M2 RMS Operations**: SLA, assignments, escalation, resolution tracking.
 - **M3 Grounded RAG**: Policy ingestion, chunking, and semantic retrieval.
 - **M4 NLP Intelligence**: Intent, routing, and entity extraction.
-- **M5 ML Benchmark**: Calibrated SVM baseline and Copilot drafting.
-- **M6 Claim Grounding**: NLI verification to detect contradictions.
+- **M5 ML Benchmark + Copilot**: SVM baseline and UI drafting.
+- **M6 Claim Grounding**: Verification to detect contradictions.
 - **M7 Active Learning**: Safe human feedback ingestion.
 - **M7.1 Model Governance**: UI for offline challenger evaluation and promotion.
-- **M8 Production Hardening**: Security, Docker, environments, testing finalized.
+- **M8 Production Hardening**: Security, environments, testing finalized.
 - **v1.0.0 Academic Release**: Current release.
 
 ---
 
 # 🛡️ Safety & Governance
 
-**Human-in-the-loop**: AI generates recommendations and drafts. Authorized staff retain final authority on all dispatch and escalation actions.
+**AI assists. Humans decide.**
 
-**High-impact decisions**: The system strictly does NOT autonomously decide grades, attendance, financial refunds, disciplinary actions, or sensitive record disclosures.
+**High-impact decisions:** 
+The system strictly does NOT autonomously decide:
+- grades
+- attendance changes
+- financial approvals/refunds
+- disciplinary actions
+- sensitive record disclosures
 
-**Grounding & Privacy**: 
-- **No-source → No-policy-answer:** The LLM refuses to answer if evidence is missing.
-- **Synthetic Data:** The system relies entirely on mock data.
-- **PII Redaction:** Native obfuscation before LLM processing.
+**Grounding:** 
+No-source → No-policy-answer. If the RAG system cannot find an authoritative policy, the AI will refuse to draft a policy-based answer.
 
-**Model Governance**: The deployment environment utilizes strict promotion gates, requiring human ML Admin approval to move a Challenger model to Production.
+**Privacy:** 
+Operates purely on synthetic data with aggressive PII redaction prior to NLP ingestion.
+
+**Model Governance:** 
+New models undergo offline challenger evaluation and require explicit human-approved promotion to reach production.
 
 ---
 
 # 🔒 Security
 
-For detailed security guidelines, refer to [SECURITY.md](SECURITY.md). 
-- **Synthetic Data Policy**: No real PII should ever enter this repository.
-- **Secret Management**: API keys are isolated in `.env`.
-- **RBAC**: Operations like Model Promotion are restricted to Admin roles.
+For detailed security policies, refer to [SECURITY.md](SECURITY.md). 
+- **Synthetic Data**: The repository uses strictly mock data.
+- **Secrets Management**: Handled via local `.env`.
+- **RBAC**: Administrative actions (like model promotion) require specific roles.
+- **Responsible Disclosure**: Standard reporting guidelines apply.
+
+*Never expose actual credentials, API keys, or real student PII in this repository.*
 
 ---
 
@@ -255,14 +366,13 @@ cd Smart-RMS
 **2. Setup Environment**
 ```bash
 cp .env.example .env
-# Edit .env to add your Gemini API Key if testing RAG, and ensure INTEGRATION_MODE=mock
 ```
 
 **3. Run Backend**
 ```bash
 cd backend
 python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
 ```
@@ -274,32 +384,34 @@ npm install
 npm run dev
 ```
 
+*(Docker Compose is also available for containerized deployment via `docker-compose up --build`)*
+
 ---
 
 # 🔌 API Documentation
 
-*The API is fully documented via FastAPI Swagger UI at `http://localhost:8000/docs`.*
+Verified active REST API routes. Interactive Swagger documentation available at `http://localhost:8000/docs` when the backend is running.
 
 | Area | Endpoint Prefix | Purpose |
 |------|-----------------|---------|
-| **Health/Ready** | `/ready` | Validates environment and adapter health |
-| **RMS** | `/api/v1/rms` | Ticket lifecycle, triage, and updates |
-| **Departments** | `/api/v1/departments` | Department routing and SLA logic |
-| **Analytics** | `/api/v1/analytics` | Telemetry and operational workload |
-| **Active Learning** | `/api/v1/active-learning` | Feedback validation and queue |
+| **Health** | `/ready` | Production startup validation check |
+| **RMS** | `/api/v1/rms` | Ticket lifecycle, retrieval, and updates |
+| **Departments**| `/api/v1/departments` | Department definitions and SLAs |
+| **Analytics** | `/api/v1/analytics` | Workload telemetry |
+| **Active Learning**|`/api/v1/active-learning`| Feedback validation |
 | **Models** | `/api/v1/models` | Registry, promotion, and rollback |
 
 ---
 
 # 📁 Project Structure
 
-```
+```text
 Smart-RMS/
-├── backend/          # FastAPI application, ML, tests, mock data
+├── backend/          # FastAPI application, ML algorithms, mock data, tests
 ├── frontend/         # React staff UI application
-├── docs/             # Research, implementation reports, and assets
-├── evaluation/       # Benchmark logs and scorecard reports
-├── feedback/         # Active Learning local datastore
+├── docs/             # Documentation and real application screenshots
+├── evaluation/       # Extensive benchmarking scripts and verifiable reports
+├── feedback/         # Local datastore for Active Learning overrides
 ├── docker-compose.yml
 ├── README.md
 ├── SECURITY.md
@@ -312,53 +424,58 @@ Smart-RMS/
 
 # 🧪 Testing
 
-The system currently maintains a robust, passing regression test suite.
-
-- **Backend**: `109 / 109` passing tests. Run via `pytest` in the `/backend` directory.
-- **Frontend**: Production build verified via `npm run build`.
+The repository maintains a strict regression suite to ensure safety gates remain intact.
+- **Backend**: `109 / 109` tests passing (verified via `pytest`).
+- **Frontend**: `npm run build` passing.
 
 ---
 
 # 🐳 Deployment
 
-For a containerized academic/research deployment, you can use Docker Compose. This starts both the frontend and backend with production-mimicking configurations.
+For a containerized academic/research deployment, you can use Docker Compose to spin up both the frontend and backend in isolated environments:
 
 ```bash
 docker-compose up --build
 ```
-*(Note: This is intended for academic evaluation, not real university production deployment.)*
+*(This is an academic deployment strategy and is not intended for live institutional production without severe network hardening).*
 
 ---
 
 # ⚠️ Limitations
 
-- **Synthetic Data**: The prototype relies on synthetic student data and policies. Real-world domain shifts and nuanced compound requests may impact classifier confidence.
-- **Model Registry**: Currently implemented as a local file-based registry rather than a full relational DB suitable for clustered instances.
-- **Future Institutional Adapter**: The system currently runs on `MockRMSAdapter`. A real university integration must implement the documented `UniversitySystemAdapter` securely.
+- **Synthetic Data**: The system relies on synthetic student data and policies.
+- **Domain Shift**: Real-world ticket variance (slang, deep ambiguity) may degrade the evaluated classifier confidence.
+- **Mock RMS Adapter**: Currently deployed with `MockRMSAdapter`.
+- **Institutional Integration**: Future integration requires authorized UMS API access which does not currently exist.
+- **No Real-World Pilot**: The system has not yet been stress-tested in a live university Helpdesk environment.
 
 ---
 
 # 🗺️ Roadmap
 
-- [x] RMS Operations & Lifecycle
-- [x] NLP Inference & Staff Copilot
-- [x] Grounded RAG & Claim NLI Verification
-- [x] Active Learning & Model Governance
-- [x] Production Architecture Hardening
+- [x] RMS Operations Lifecycle
+- [x] RAG Policy Ingestion
+- [x] NLP Intelligence Triage
+- [x] Staff Copilot Drafts
+- [x] Claim Grounding
+- [x] Active Learning
+- [x] Challenger Model Registry
+- [x] Production Hardening
 - [ ] Future: Institutional Adapter implementation
-- [ ] Future: Real-world pilot and extended dataset calibration
+- [ ] Future: Real policy corpus ingestion
+- [ ] Future: Real-world pilot
 
 ---
 
 # 🤝 Contributing
 
-Contributions are welcome! Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on code style, testing requirements, and the strict requirement to adhere to the *AI Assists, Humans Decide* philosophy.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, security policies, and the process for submitting pull requests.
 
 ---
 
 # 📄 License
 
-This project is open-source and available under the terms of the MIT License.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
