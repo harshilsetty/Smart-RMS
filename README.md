@@ -63,52 +63,52 @@ By leveraging NLP, RAG, and NLI verification, the system automates the heavy lif
 *(Note: Manual screenshot capture required to populate these placeholders in `docs/images/`)*
 
 ### 1. Staff Dashboard
-<!-- ![Staff Dashboard](docs/images/dashboard.png) -->
+![Staff Dashboard](docs/images/dashboard.jpg)
 *Staff Dashboard — Operational overview of university RMS workload.*  
 Provides staff with a high-level view of pending requests, priority queues, and SLA warnings.
 
 ### 2. RMS Queue
-<!-- ![RMS Queue](docs/images/rms-queue.png) -->
+![RMS Queue](docs/images/rms-queue.jpg)
 *RMS Queue — Centralized request management and triage.*  
 Lists tickets alongside their AI-predicted priority, intent, and department.
 
 ### 3. RMS Workspace & NLP Analysis
-<!-- ![NLP Analysis](docs/images/nlp-analysis.png) -->
+![NLP Analysis](docs/images/nlp-analysis.jpg)
 *RMS Workspace — Deep NLP analysis of the request.*  
 Displays the detected **Intent** (what the request is about), **Department** (where it belongs), **Priority** (operational importance), **Entities**, and an overall **Confidence** score.
 
 ### 4. RAG Knowledge Sources
-<!-- ![RAG Sources](docs/images/rag-sources.png) -->
+![RAG Sources](docs/images/rag-sources.jpg)
 *Evidence Retrieval — Policy-grounded knowledge retrieval.*  
 Shows exactly which policy documents the system retrieved to formulate its response, providing complete transparency.
 
 ### 5. Staff Copilot Response
-<!-- ![Copilot Draft](docs/images/response-draft.png) -->
+![Copilot Draft](docs/images/response-draft.jpg)
 *Staff Copilot — AI-generated response prepared for human review.*  
 The drafted response is presented strictly for review. The AI does NOT directly send the response.
 
 ### 6. Claim Grounding & Verification
-<!-- ![Claim Grounding](docs/images/claim-grounding.png) -->
+![Claim Grounding](docs/images/claim-grounding.jpg)
 *Claim Grounding — Verification of AI claims against source texts.*  
 Displays whether individual sentences in the draft are `Supported`, `Contradicted`, or `Insufficient` based on NLI cross-referencing.
 
 ### 7. Human Override
-<!-- ![Human Override](docs/images/human-override.png) -->
+![Human Override](docs/images/human-override.jpg)
 *Human Override — Safe and logged corrections.*  
 When staff edit the AI prediction or draft, the original prediction and the human correction are securely logged.
 
 ### 8. Active Learning
-<!-- ![Active Learning](docs/images/active-learning.png) -->
+![Active Learning](docs/images/active-learning.jpg)
 *Active Learning — Turning corrections into training data.*  
 High-value staff corrections populate a review queue where ML Admins can validate them for future offline model tuning.
 
 ### 9. Model Registry
-<!-- ![Model Registry](docs/images/model-registry.png) -->
+![Model Registry](docs/images/model-registry.jpg)
 *Model Registry — Safe governance of AI deployment.*  
 Authorized administrators can review Challenger models, manually approve their promotion to Production, or trigger emergency rollbacks.
 
 ### 10. Audit Trail
-<!-- ![Audit Trail](docs/images/audit-trail.png) -->
+![Audit Trail](docs/images/audit-trail.jpg)
 *Audit Trail — Unbreakable accountability.*  
 Logs all AI events, staff actions, assignments, and overrides for security and process compliance.
 
