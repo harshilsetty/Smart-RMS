@@ -118,6 +118,29 @@ export const Dashboard: React.FC = () => {
     }
   };
 
+  const handleRegenerateDraft = async () => {
+    if (!selectedTicket) return;
+    try {
+      const draftData = await regenerateDraftResponse(selectedTicket.ticket_id);
+      setDraft(draftData);
+      showToast('Draft regenerated and verified.');
+    } catch (err) {
+      showToast('Failed to regenerate draft.');
+    }
+  };
+
+  const handleOverrideGrounding = async (reason: string, action: string) => {
+    if (!selectedTicket) return;
+    try {
+      await overrideGroundingStatus(selectedTicket.ticket_id, 'STAFF-OP-01', reason, action);
+      showToast('Grounding override logged successfully.');
+      const draftData = await fetchDraftResponse(selectedTicket.ticket_id);
+      setDraft(draftData);
+    } catch (err) {
+      showToast('Failed to override grounding.');
+    }
+  };
+
   const handleEscalate = async () => {
     if (!selectedTicket) return;
     const reason = prompt('Enter escalation note for Department HOD:', 'Requires administrative exception approval.');
@@ -208,6 +231,8 @@ export const Dashboard: React.FC = () => {
                 draft={draft}
                 isLoading={isLoadingDraft}
                 onApprove={handleApprove}
+                onRegenerate={handleRegenerateDraft}
+                onOverrideGrounding={handleOverrideGrounding}
                 isApproved={isApproved}
               />
             </>

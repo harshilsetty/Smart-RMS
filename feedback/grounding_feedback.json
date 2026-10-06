@@ -1,0 +1,11 @@
+[
+  {
+    "ticket_id": "TKT-RMS-1001",
+    "original_grounding_status": "REQUIRES_HUMAN_REVIEW",
+    "human_action": "ACCEPT_DRAFT",
+    "failed_claims": [],
+    "actor_id": "STAFF-OP-01",
+    "reason": "Test override reason from automated script",
+    "timestamp": "2026-10-06T06:39:52.476268+00:00"
+  }
+]
